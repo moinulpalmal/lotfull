@@ -29,9 +29,10 @@ class StockLController extends Controller
         $report_data = StockVM::stockReport($request, true);
         //return $report_data;
         $total_received_quantity = StockVM::returnTotalReceived($report_data);
+        $total_stock_received_quantity = StockVM::returnTotalStockReceived($report_data);
         $total_issued_quantity = StockVM::returnTotalIssued($report_data);
 
         return view('report.stock.location.report', compact('request', 'report_data',
-            'total_received_quantity', 'total_issued_quantity'));
+            'total_received_quantity', 'total_issued_quantity', 'total_stock_received_quantity'));
     }
 }

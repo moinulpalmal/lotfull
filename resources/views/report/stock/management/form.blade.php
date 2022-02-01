@@ -69,7 +69,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 no-padding">
+                                                <div class="col-md-3 no-padding">
                                                     <div class="form-group">
                                                         <label for="Buyer" class="text-bold-700">Buyer</label>
                                                         <select id="Buyer" class="select2 form-control" multiple="multiple" name="buyer[]">
@@ -78,6 +78,16 @@
                                                                         <option value="{{$media->id}}" >{{$media->name}}</option>
                                                                 @endforeach
                                                             @endif
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 no-padding">
+                                                    <div class="form-group">
+                                                        <label for="QCStatus" class="text-bold-700">Receive Status</label>
+                                                        <select id="QCStatus" class="select2 form-control" multiple="multiple" name="receive_detail_status[]">
+                                                            <option value="I" >Inserted</option>
+                                                            <option value="QCI">QC Inserted</option>
+                                                            <option value="QCF">QC Finished</option>
                                                         </select>
                                                     </div>
                                                 </div>

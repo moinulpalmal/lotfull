@@ -21,8 +21,16 @@
   <component name="ChangeListManager">
     <list default="true" id="24f263a9-50b2-4056-9843-880ae094c5fb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DB_View/views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/DB_View/views.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/ReceiveMaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/ReceiveMaster.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Report/StockLController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Report/StockLController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Report/StockMController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Report/StockMController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Report/StockTMController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Report/StockTMController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/View_Model/StockVM.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View_Model/StockVM.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/location/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/location/form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/location/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/location/report.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/management/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/management/form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/management/report.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/top-management/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/top-management/form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/top-management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/top-management/report.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -657,7 +665,7 @@
       <workItem from="1641466399154" duration="4302000" />
       <workItem from="1643602201662" duration="1603000" />
       <workItem from="1643605850423" duration="4007000" />
-      <workItem from="1643703101642" duration="4490000" />
+      <workItem from="1643703101642" duration="9042000" />
     </task>
     <servers />
   </component>
@@ -720,9 +728,9 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="716" y="361" key="SymfonyComponentCompositeDataDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1643703161026" />
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1643704223238">
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1643713754019">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1643704223238" />
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1643713754019" />
   </component>
 </project>

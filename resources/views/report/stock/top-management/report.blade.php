@@ -140,136 +140,187 @@
                                 <div class="product-details-table py-2 {{--table-responsive--}}">
                                     <table id="customers" {{--class="table table-striped table-bordered table-condensed table-info table-responsive"--}}>
                                         <thead>
-                                            <tr style="background-color: #08a6e8 !important;">
-                                                <th scope="col" colspan="5">COMMON</th>
-                                                <th scope="col" colspan="8">RECEIVE INFO</th>
-                                                <th scope="col" colspan="3">STORE INFO</th>
-                                                <th scope="col" colspan="5">ISSUE SUMMARY</th>
-                                                <th scope="col" colspan="5">BALANCE SUMMARY</th>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">Sl#</th>
-                                                <th scope="col">BUYER</th>
-                                                <th scope="col">STYLE</th>
-                                                <th scope="col">GARMENTS TYPE</th>
-                                                <th scope="col">UNIT</th>
-                                                <th scope="col">FROM</th>
-                                                <th scope="col">CHALLAN No</th>
-                                                <th scope="col">RC. DATE</th>
-                                                <th scope="col">TOTAL</th>
-                                                <th scope="col">GRADE-A</th>
-                                                <th scope="col">GRADE-B</th>
-                                                <th scope="col">GRADE-C</th>
-                                                <th scope="col">GRADE-D</th>
-                                                <th scope="col">LOCATION</th>
-                                                <th scope="col">AGE</th>
-                                                <th scope="col">REMARKS</th>
-                                                <th scope="col">GRADE-A</th>
-                                                <th scope="col">GRADE-B</th>
-                                                <th scope="col">GRADE-C</th>
-                                                <th scope="col">GRADE-D</th>
-                                                <th scope="col">TOTAL</th>
-                                                <th scope="col">GRADE-A</th>
-                                                <th scope="col">GRADE-B</th>
-                                                <th scope="col">GRADE-C</th>
-                                                <th scope="col">GRADE-D</th>
-                                                <th scope="col">TOTAL</th>
-                                            </tr>
+                                        <tr style="background-color: #08a6e8 !important;">
+                                            <th scope="col" colspan="5">COMMON</th>
+                                            <th scope="col" colspan="7">RECEIVE INFO</th>
+                                            <th scope="col" colspan="7">QC INFO</th>
+                                            <th scope="col" colspan="5">STOCK RECEIVE INFO</th>
+                                            <th scope="col" colspan="5">ISSUE SUMMARY</th>
+                                            <th scope="col" colspan="6">ISSUE-ABLE BALANCE SUMMARY</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Sl#</th>
+                                            <th scope="col">BUYER</th>
+                                            <th scope="col">STYLE</th>
+                                            <th scope="col">GARMENTS TYPE</th>
+                                            <th scope="col">UNIT</th>
+                                            <th scope="col">FROM</th>
+                                            <th scope="col">CHALLAN No</th>
+                                            <th scope="col">RC. DATE</th>
+                                            <th scope="col">QUANTITY</th>
+                                            <th scope="col">LOCATION</th>
+                                            <th scope="col">AGE</th>
+                                            <th scope="col">REMARKS</th>
+                                            <th scope="col">STATUS</th>
+                                            <th scope="col">GRADE-A</th>
+                                            <th scope="col">GRADE-B</th>
+                                            <th scope="col">GRADE-C</th>
+                                            <th scope="col">GRADE-D</th>
+                                            <th scope="col">T. QC</th>
+                                            <th scope="col">V. QC</th>
+                                            <th scope="col">GRADE-A</th>
+                                            <th scope="col">GRADE-B</th>
+                                            <th scope="col">GRADE-C</th>
+                                            <th scope="col">GRADE-D</th>
+                                            <th scope="col">TOTAL</th>
+                                            <th scope="col">GRADE-A</th>
+                                            <th scope="col">GRADE-B</th>
+                                            <th scope="col">GRADE-C</th>
+                                            <th scope="col">GRADE-D</th>
+                                            <th scope="col">TOTAL</th>
+                                            <th scope="col">STATUS</th>
+                                            <th scope="col">GRADE-A</th>
+                                            <th scope="col">GRADE-B</th>
+                                            <th scope="col">GRADE-C</th>
+                                            <th scope="col">GRADE-D</th>
+                                            <th scope="col">TOTAL</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            @if(!empty($report_data))
-                                                @php($i=1)
-                                                @foreach($report_data as $media)
-                                                    <tr>
-                                                        <td class="text-center">{{$i++}}</td>
-                                                        <td class="text-center">
-                                                            {{$media->buyer_name}}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{$media->style_no}}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{$media->garments_type}}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{$media->short_unit}}
-                                                        </td>
-                                                        <td class="text-left">
-                                                            {{$media->receive_from_short_name}}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{$media->reference_no}}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{\Carbon\Carbon::parse($media->receive_date)->format('d-m-Y')}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->received_total_quantity}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_a}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_b}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_c}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_d}}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{$media->location_name}}
-                                                        </td>
-                                                        <td class="text-center text-bold-700">
-                                                            {{$media->age}}
-                                                        </td>
-                                                        <td class="text-right text-bold-700" style="background-color: {{\App\Model\StockThreshold::returnColorCode($media->age)}}; color: black;">
-                                                            {{\App\Model\StockThreshold::returnStatus($media->age)}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->issued_grade_a}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->issued_grade_b}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->issued_grade_c}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->issued_grade_d}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->issued_total_quantity}}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_a - $media->issued_grade_a }}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_b - $media->issued_grade_b }}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_c - $media->issued_grade_c }}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->grade_d - $media->issued_grade_d }}
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{$media->received_total_quantity - $media->issued_total_quantity}}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
+                                        @if(!empty($report_data))
+                                            @php($i=1)
+                                            @foreach($report_data as $media)
+                                                <tr>
+                                                    <td class="text-center">{{$i++}}</td>
+                                                    <td class="text-center">
+                                                        {{$media->buyer_name}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{$media->style_no}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{$media->garments_type}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{$media->short_unit}}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{$media->receive_from_short_name}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{$media->reference_no}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{\Carbon\Carbon::parse($media->receive_date)->format('d-m-Y')}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{$media->received_quantity}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{$media->location_name}}
+                                                    </td>
+                                                    <td class="text-center text-bold-700">
+                                                        {{$media->age}}
+                                                    </td>
+                                                    <td class="text-right text-bold-700" style="background-color: {{\App\Model\StockThreshold::returnColorCode($media->age)}}; color: black;">
+                                                        {{\App\Model\StockThreshold::returnStatus($media->age)}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        @if($media->receive_detail_status == 'I')
+                                                            Inserted
+                                                        @elseif($media->receive_detail_status == 'QCI')
+                                                            QC Inserted
+                                                        @elseif($media->receive_detail_status == 'QCF')
+                                                            QC Completed
+                                                        @else
+
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->receive_grade_a}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->receive_grade_b}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->receive_grade_c}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->receive_grade_d}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->receive_grade_a + $media->receive_grade_b + $media->receive_grade_c + $media->receive_grade_d}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->received_quantity - ($media->receive_grade_a + $media->receive_grade_b + $media->receive_grade_c + $media->receive_grade_d)}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_a}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_b}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_c}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_d}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->received_total_quantity}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->issued_grade_a}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->issued_grade_b}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->issued_grade_c}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->issued_grade_d}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->issued_total_quantity}}
+                                                    </td>
+                                                    <td class="text-right" {{-- @if($media->status == 'C') style="color: darkred; font-weight: bold;" @elseif($media->status == 'A')  @endif--}}>
+                                                        @if($media->status == 'C')
+                                                            Closed
+                                                        @elseif($media->status == 'A')
+                                                            Active
+                                                        @else
+                                                            Not Ready
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_a - $media->issued_grade_a }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_b - $media->issued_grade_b }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_c - $media->issued_grade_c }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_d - $media->issued_grade_d }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->received_total_quantity - $media->issued_total_quantity}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>
                                 <hr>
                                 <div class="product-details-table py-2 {{--table-responsive--}}">
                                     <div class="row">
-                                        <div class="col-8">
+                                        <div class="col-6">
 
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <table id="summary" {{--class="table table-striped table-bordered table-condensed table-info table-responsive"--}}>
                                                 <tbody>
                                                 <tr>
@@ -277,12 +328,20 @@
                                                     <td class="text-right text-bold-700">{{$total_received_quantity}}</td>
                                                 </tr>
                                                 <tr>
+                                                    <td class="text-right text-bold-700">Total QC Complete:</td>
+                                                    <td class="text-right text-bold-700">{{$total_stock_received_quantity}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right text-bold-700">Total Variation (QC Incomplete + Extra/Less Receive) Quantity:</td>
+                                                    <td class="text-right text-bold-700">{{$total_received_quantity - $total_stock_received_quantity}}</td>
+                                                </tr>
+                                                <tr>
                                                     <td class="text-right text-bold-700">Total Issue:</td>
                                                     <td class="text-right text-bold-700">{{$total_issued_quantity}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-right text-bold-700">Current Balance:</td>
-                                                    <td class="text-right text-bold-700">{{$total_received_quantity - $total_issued_quantity}}</td>
+                                                    <td class="text-right text-bold-700">Current Issue-able Balance:</td>
+                                                    <td class="text-right text-bold-700">{{$total_stock_received_quantity - $total_issued_quantity}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
