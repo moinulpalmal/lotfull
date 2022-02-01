@@ -101,6 +101,10 @@ class ReceiveVM extends Model
             $result = $result->where('reference_no', '=',trim($request->get('reference_no')));
         }
 
+        if (!empty($request->get('receive_detail_status'))) {
+            $result = $result->whereIn('receive_detail_status', $request->get('receive_detail_status'));
+        }
+
         return $result;
     }
 

@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="24f263a9-50b2-4056-9843-880ae094c5fb" name="Default Changelist" comment="" />
+    <list default="true" id="24f263a9-50b2-4056-9843-880ae094c5fb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/commandlinetools/Tool_based_on_Symfony_Console_1_31_22__10_10_AM_artisan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/commandlinetools/Tool_based_on_Symfony_Console_2_1_22__2_12_PM_artisan.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/View_Model/ReceiveVM.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View_Model/ReceiveVM.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/receive/location/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/receive/location/form.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +41,9 @@
         <option value="JavaScript File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -134,6 +161,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1k83xQKr7mfofwR967deO3dNkk9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -141,8 +169,9 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/upload" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/DB_View" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -153,19 +182,19 @@
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.zend.framework.tool" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\app\DB_View" />
+      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\public\upload" />
+      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\issue\stock" />
+      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\receive\transfer" />
+      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\receive" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\receive" />
       <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\receive\master" />
       <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\admin" />
       <recent name="D:\PlaMal Web Apps\Laravel\7_X\itcrafty\resources\views\purchase" />
       <recent name="D:\PlaMal Web Apps\Laravel\7_X\itcrafty\resources\views\services\warranty" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\public\upload" />
-      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\issue\stock" />
-      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\receive\transfer" />
-      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\receive" />
-      <recent name="D:\PlaMal Web Apps\Laravel\7_X\lotfull\resources\views\report\stock\location" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -630,11 +659,23 @@
       <workItem from="1641466399154" duration="4302000" />
       <workItem from="1643602201662" duration="1603000" />
       <workItem from="1643605850423" duration="4007000" />
+      <workItem from="1643703101642" duration="2371000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="725" y="117" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1636177794779">
@@ -645,41 +686,41 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="690" y="271" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1643609228424" />
-    <state x="739" y="258" key="FileChooserDialogImpl" timestamp="1643602246908">
+    <state x="739" y="258" key="FileChooserDialogImpl" timestamp="1643703160198">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="739" y="258" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1643602246908" />
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1643610111888">
+    <state x="739" y="258" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1643703160198" />
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1643704227177">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1643610111888" />
-    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1643610111888">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1643704227177" />
+    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1643704227177">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1643610111888" />
-    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1643610111888">
+    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1643704227177" />
+    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1643704227177">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1643610111888" />
-    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1643610111888">
+    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1643704227177" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1643704227177">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1643610111888" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1643704227177" />
     <state x="676" y="239" key="NewPhpClassDialog" timestamp="1637742983987">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="676" y="239" key="NewPhpClassDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1637742983987" />
-    <state x="461" y="161" key="SettingsEditor" timestamp="1643602252392">
+    <state x="461" y="161" key="SettingsEditor" timestamp="1643703174323">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="461" y="161" key="SettingsEditor/0.0.1920.1032@0.0.1920.1032" timestamp="1643602252392" />
-    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog" timestamp="1643602247580">
+    <state x="461" y="161" key="SettingsEditor/0.0.1920.1032@0.0.1920.1032" timestamp="1643703174323" />
+    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog" timestamp="1643703161026">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1643602247580" />
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1643609740288">
+    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1643703161026" />
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1643704223238">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1643609740288" />
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1643704223238" />
   </component>
 </project>
