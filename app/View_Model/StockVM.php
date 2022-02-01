@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\DB;
 class StockVM extends Model
 {
     public static function stockReport($request, $location_active){
-        $result = DB::table('view_current_stock_summary')
+        $result = DB::table('view_total_stock_summary')
             ->select('*')
-            ->where('status', 'A')
             ->orderBy('receive_date', 'ASC')
             ->get();
 
@@ -53,13 +52,26 @@ class StockVM extends Model
             $result = $result->where('reference_no', '=',trim($request->get('reference_no')));
         }
 
+        if (!empty($request->get('receive_detail_status'))) {
+            $result = $result->whereIn('receive_detail_status', $request->get('receive_detail_status'));
+        }
+
         return $result;
+    }
+
+    public static function returnTotalStockReceived($data){
+        $sum = 0;
+        foreach ($data AS $item){
+            $sum = $sum + (integer)$item->received_total_quantity;
+        }
+
+        return $sum;
     }
 
     public static function returnTotalReceived($data){
         $sum = 0;
         foreach ($data AS $item){
-            $sum = $sum + (integer)$item->received_total_quantity;
+            $sum = $sum + (integer)$item->received_quantity;
         }
 
         return $sum;
