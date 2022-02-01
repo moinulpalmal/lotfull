@@ -284,9 +284,9 @@
                                                         {{$media->issued_total_quantity}}
                                                     </td>
                                                     <td class="text-right" {{-- @if($media->status == 'C') style="color: darkred; font-weight: bold;" @elseif($media->status == 'A')  @endif--}}>
-                                                        @if($media->status == 'C')
+                                                        @if($media->s_status == 'C')
                                                             Closed
-                                                        @elseif($media->status == 'A')
+                                                        @elseif($media->s_status == 'A')
                                                             Active
                                                         @else
                                                             Not Ready
