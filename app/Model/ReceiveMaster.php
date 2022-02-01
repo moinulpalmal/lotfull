@@ -130,6 +130,13 @@ class ReceiveMaster extends Model
                 'last_updated_by' => Auth::id(),
             ]);
 
+        $delete_details =  DB::table('receive_details')
+            ->where('receive_master_id', $request->id)
+            ->update([
+                'status' => 'D',
+                'last_updated_by' => Auth::id(),
+            ]);
+
         return $data;
     }
 
