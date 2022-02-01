@@ -229,7 +229,7 @@ IFNULL(stocks.issued_grade_c, 0) AS issued_grade_c,
 IFNULL(stocks.issued_grade_d, 0) AS issued_grade_d,
 IFNULL(stocks.issued_total_quantity, 0) AS issued_total_quantity,
 DATEDIFF(CURRENT_DATE, receive_masters.receive_date) AS age,
-IFNULL(stocks.status, 'NQCA') AS status, receive_details.status AS receive_detail_status
+IFNULL(stocks.status, 'NQCA') AS s_status, receive_details.status AS receive_detail_status
 FROM receive_details
 INNER JOIN receive_masters ON receive_masters.id = receive_details.receive_master_id
 LEFT JOIN stocks ON
