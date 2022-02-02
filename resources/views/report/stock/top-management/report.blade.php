@@ -323,26 +323,30 @@
                                         <div class="col-6">
                                             <table id="summary" {{--class="table table-striped table-bordered table-condensed table-info table-responsive"--}}>
                                                 <tbody>
-                                                <tr>
-                                                    <td class="text-right text-bold-700">Total Receive:</td>
-                                                    <td class="text-right text-bold-700">{{$total_received_quantity}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right text-bold-700">Total QC Complete:</td>
-                                                    <td class="text-right text-bold-700">{{$total_stock_received_quantity}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right text-bold-700">Total Variation (QC Incomplete + Extra/Less Receive) Quantity:</td>
-                                                    <td class="text-right text-bold-700">{{$total_received_quantity - $total_stock_received_quantity}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right text-bold-700">Total Issue:</td>
-                                                    <td class="text-right text-bold-700">{{$total_issued_quantity}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right text-bold-700">Current Issue-able Balance:</td>
-                                                    <td class="text-right text-bold-700">{{$total_stock_received_quantity - $total_issued_quantity}}</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td class="text-right text-bold-700">Total Receive:</td>
+                                                        <td class="text-right text-bold-700">{{$total_received_quantity}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right text-bold-700">Total QC Complete:</td>
+                                                        <td class="text-right text-bold-700">{{$total_stock_received_quantity}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right text-bold-700">Total Variation (QC Incomplete + Extra/Less Receive) Quantity:</td>
+                                                        <td class="text-right text-bold-700">{{$total_received_quantity - $total_stock_received_quantity}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right text-bold-700">Total Issue:</td>
+                                                        <td class="text-right text-bold-700">{{$total_issued_quantity}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right text-bold-700">Current Issue-able Balance:</td>
+                                                        <td class="text-right text-bold-700">{{$total_stock_received_quantity - $total_issued_quantity}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right text-bold-700">Current Balance (QC Incomplete + Extra/Less Receive + Issue-able Stock):</td>
+                                                        <td class="text-right text-bold-700">{{ ($total_received_quantity - $total_stock_received_quantity) + $total_stock_received_quantity - $total_issued_quantity }}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
