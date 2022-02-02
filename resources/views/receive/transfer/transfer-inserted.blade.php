@@ -129,10 +129,20 @@
                                                     <td class="text-center">
                                                         @if($media->is_issue_accepted == 0)
                                                             @if(Auth::user()->hasTaskPermission('receive_insert', Auth::user()->id))
-                                                            <a class="btn btn-success btn-sm btn-round fa fa-eye " href="{{route('receive.image-upload-form', ['master_id' => $media->id, 'detail_id' => $media->counter])}}" title="Go to Image Upload Form"></a>
+                                                                <a class="btn btn-success btn-sm btn-round fa fa-eye " href="{{route('receive.image-upload-form', ['master_id' => $media->id, 'detail_id' => $media->counter])}}" title="Go to Image Upload Form"></a>
                                                             @endif
-                                                                <a class="btn btn-warning btn-sm btn-round fa fa-check ApproveWorkExp" data-id="{{$media->id}}" title="Approve"></a>
-                                                            <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                @if(Auth::user()->hasTaskPermission('qc_approve', Auth::user()->id))
+                                                                    <a class="btn btn-warning btn-sm btn-round fa fa-check ApproveWorkExp" data-id="{{$media->id}}" title="Approve"></a>
+                                                                @endif
+                                                                @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
+                                                                    @if((\App\Helpers\Helper::ageInDays($media->issue_date)) < 46)
+                                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                    @else
+                                                                        @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
+                                                                            <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                        @endif
+                                                                    @endif
+                                                                @endif
                                                         @endif
                                                     </td>
                                                 </tr>

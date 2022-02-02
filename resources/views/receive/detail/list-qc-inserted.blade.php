@@ -167,8 +167,14 @@
                                                                 <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#QCInsert{{$media->receive_master_id."-".$media->counter}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal" {{--data-target="#NewFactory"--}} title="Insert QC Data"></a>
                                                             @endif
                                                             @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
-                                                                <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Delete"></a>
+                                                                @if((\App\Helpers\Helper::ageInDays($media->receive_date)) < 46)
+                                                                    <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Delete"></a>
+                                                                @else
+                                                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
+                                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Delete"></a>
+                                                                    @endif
                                                                 @endif
+                                                            @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
