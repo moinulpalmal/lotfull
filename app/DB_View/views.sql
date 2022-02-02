@@ -204,6 +204,16 @@ FROM receive_images
 GROUP BY receive_master_id, receive_detail_id
 /*end view_max_counter_rc_image*/
 
+/* view_total_issue_summary */
+CREATE VIEW view_total_issue_summary AS
+SELECT receive_master_id, receive_detail_id,
+SUM(grade_a) AS grade_a, SUM(grade_b) AS grade_b, SUM(grade_c) AS grade_c, SUM(grade_d) AS grade_d,
+SUM(issued_total_quantity) AS issued_total_quantity
+FROM issue_details
+WHERE STATUS <> 'D'
+GROUP BY receive_master_id, receive_detail_id
+/* end view_total_issue_summary */
+
 /* view_total_stock_summary */
 CREATE VIEW view_total_stock_summary AS
 SELECT receive_masters.id, receive_details.counter,
@@ -223,11 +233,11 @@ IFNULL(stocks.grade_a, 0) AS grade_a,
 IFNULL(stocks.grade_b, 0) AS grade_b,
 IFNULL(stocks.grade_c, 0) AS grade_c,
 IFNULL(stocks.grade_d, 0) AS grade_d,
-IFNULL(stocks.issued_grade_a, 0) AS issued_grade_a,
-IFNULL(stocks.issued_grade_b, 0) AS issued_grade_b,
-IFNULL(stocks.issued_grade_c, 0) AS issued_grade_c,
-IFNULL(stocks.issued_grade_d, 0) AS issued_grade_d,
-IFNULL(stocks.issued_total_quantity, 0) AS issued_total_quantity,
+IFNULL(view_total_issue_summary.grade_a, 0) AS issued_grade_a,
+IFNULL(view_total_issue_summary.grade_b, 0) AS issued_grade_b,
+IFNULL(view_total_issue_summary.grade_c, 0) AS issued_grade_c,
+IFNULL(view_total_issue_summary.grade_d, 0) AS issued_grade_d,
+IFNULL(view_total_issue_summary.issued_total_quantity, 0) AS issued_total_quantity,
 DATEDIFF(CURRENT_DATE, receive_masters.receive_date) AS age,
 IFNULL(stocks.status, 'NQCA') AS s_status, receive_details.status AS receive_detail_status
 FROM receive_details
@@ -237,6 +247,10 @@ LEFT JOIN stocks ON
 		AND receive_details.receive_master_id = stocks.receive_master_id
 		AND receive_details.status = 'QCF'
 		AND stocks.status <> 'D'
+LEFT JOIN view_total_issue_summary ON
+		receive_details.counter = view_total_issue_summary.receive_detail_id
+		AND receive_details.receive_master_id = view_total_issue_summary.receive_master_id
+		AND receive_details.status = 'QCF'
 INNER JOIN buyers ON buyers.id = receive_details.buyer_id
 INNER JOIN buyer_styles ON buyer_styles.id = receive_details.buyer_style_id
 INNER JOIN units ON units.id = receive_details.unit_id
@@ -246,5 +260,7 @@ INNER JOIN receive_froms ON receive_froms.id = IF(receive_masters.receive_type =
 WHERE  receive_details.status <> 'D' AND receive_masters.status <> 'D'
 ORDER BY receive_masters.receive_date, receive_masters.id
 /* view_total_stock_summary */
+
+
 
 
