@@ -38,11 +38,13 @@ class IssueController extends Controller
     public function deleteIssue(Request $request){
         //delete issue detail
         $issue_detail = IssueDetail::find($request->id);
+        //return Stock::updateStockWhenIssueDetailDeleted($issue_detail);
         if($issue_detail){
             if(IssueDetail::returnDelete($request)){
-                if(Stock::updateStockWhenIssueDetailDeleted($issue_detail)){
+                if(Stock::updateStockWhenIssueDetailDeleted($issue_detail) == '1'){
                     return '1';
                 }else{
+                    $issue_detail = IssueDetail::find($request->id);
                     $issue_detail->status = 'A';
                     $issue_detail->last_updated_by = Auth::id();
                     $issue_detail->save();

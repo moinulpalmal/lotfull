@@ -181,7 +181,6 @@ class Stock extends Model
 
         return $data;
     }
-
     public static function singleIssue($request){
         $data = DB::table('stocks')
                 ->select('issued_grade_a', 'issued_grade_b', 'issued_grade_c', 'issued_grade_d',
@@ -233,24 +232,26 @@ class Stock extends Model
     public static function updateStockWhenIssueDetailDeleted($request){
         $data = DB::table('stocks')
             ->select('issued_grade_a', 'issued_grade_b', 'issued_grade_c', 'issued_grade_d',
-                'issued_total_quantity', 'received_total_quantity')
+                'issued_total_quantity', 'received_total_quantity','status')
             ->where('receive_master_id', $request->receive_master_id)
             ->where('receive_detail_id', $request->receive_detail_id)
-            ->where('status', 'A')
-            ->first();
+            ->where('status'  ,'!=', 'D')
+            ->get();
 
-        if($data){
+        //return $data;
+
+        if($data[0]->status == 'A'){
             $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d;
-            $updated_total_issued = (integer)$data->issued_total_quantity - $current_total_issued;
-            if($updated_total_issued >= ((integer)$data->received_total_quantity)){
+            $updated_total_issued = (integer)$data[0]->issued_total_quantity - $current_total_issued;
+            if($updated_total_issued >= ((integer)$data[0]->received_total_quantity)){
                 $result = DB::table('stocks')
                     ->where('receive_master_id', $request->receive_master_id)
                     ->where('receive_detail_id', $request->receive_detail_id)
                     ->update([
-                        'issued_grade_a' => ((integer)$data->issued_grade_a - (integer)$request->grade_a),
-                        'issued_grade_b' => ((integer)$data->issued_grade_b - (integer)$request->grade_b),
-                        'issued_grade_c' => ((integer)$data->issued_grade_c - (integer)$request->grade_c),
-                        'issued_grade_d' => ((integer)$data->issued_grade_d - (integer)$request->grade_d),
+                        'issued_grade_a' => ((integer)$data[0]->issued_grade_a - (integer)$request->grade_a),
+                        'issued_grade_b' => ((integer)$data[0]->issued_grade_b - (integer)$request->grade_b),
+                        'issued_grade_c' => ((integer)$data[0]->issued_grade_c - (integer)$request->grade_c),
+                        'issued_grade_d' => ((integer)$data[0]->issued_grade_d - (integer)$request->grade_d),
                         'issued_total_quantity' => $updated_total_issued,
                         'status' => 'C',
                         'last_updated_by' => Auth::id(),
@@ -263,19 +264,39 @@ class Stock extends Model
                     ->where('receive_master_id', $request->receive_master_id)
                     ->where('receive_detail_id', $request->receive_detail_id)
                     ->update([
-                        'issued_grade_a' => ((integer)$data->issued_grade_a - (integer)$request->grade_a),
-                        'issued_grade_b' => ((integer)$data->issued_grade_b - (integer)$request->grade_b),
-                        'issued_grade_c' => ((integer)$data->issued_grade_c - (integer)$request->grade_c),
-                        'issued_grade_d' => ((integer)$data->issued_grade_d - (integer)$request->grade_d),
+                        'issued_grade_a' => ((integer)$data[0]->issued_grade_a - (integer)$request->grade_a),
+                        'issued_grade_b' => ((integer)$data[0]->issued_grade_b - (integer)$request->grade_b),
+                        'issued_grade_c' => ((integer)$data[0]->issued_grade_c - (integer)$request->grade_c),
+                        'issued_grade_d' => ((integer)$data[0]->issued_grade_d - (integer)$request->grade_d),
                         'issued_total_quantity' => $updated_total_issued,
                         'status' => 'A',
                         'last_updated_by' => Auth::id(),
                     ]);
-
                 return $result;
             }
         }
-        return false;
+        else if($data[0]->status == 'C'){
+            $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d;
+            $updated_total_issued = (integer)$data[0]->issued_total_quantity - $current_total_issued;
+
+            $result = DB::table('stocks')
+                ->where('receive_master_id', $request->receive_master_id)
+                ->where('receive_detail_id', $request->receive_detail_id)
+                ->update([
+                    'issued_grade_a' => ((integer)$data[0]->issued_grade_a - (integer)$request->grade_a),
+                    'issued_grade_b' => ((integer)$data[0]->issued_grade_b - (integer)$request->grade_b),
+                    'issued_grade_c' => ((integer)$data[0]->issued_grade_c - (integer)$request->grade_c),
+                    'issued_grade_d' => ((integer)$data[0]->issued_grade_d - (integer)$request->grade_d),
+                    'issued_total_quantity' => $updated_total_issued,
+                    'status' => 'A',
+                    'last_updated_by' => Auth::id(),
+                ]);
+
+            return $result;
+        }
+        else{
+            return '0';
+        }
     }
 
     public static function getStockUnit($receive_master_id, $receive_detail_id){

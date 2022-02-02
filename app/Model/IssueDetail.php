@@ -45,6 +45,7 @@ class IssueDetail extends Model
             $issue_detail->status = 'D';
             $issue_detail->last_updated_by = Auth::id();
             if($issue_detail->save()){
+
                 return '1';
             }
 
@@ -159,7 +160,7 @@ class IssueDetail extends Model
             ->join('units', 'units.id', '=', 'receive_details.unit_id')
             ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
             ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
-            ->select('receive_masters.id AS receive_master_id',
+            ->select('receive_masters.id AS receive_master_id', 'receive_details.counter',
                 'locations.short_name AS location_short_name',
                 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',

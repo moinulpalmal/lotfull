@@ -284,8 +284,8 @@
                         url: url,
                         data:{id: id, _token: '{{csrf_token()}}'},
                         success:function(data){
-                           // console.log(data);
-                           // return;
+                           //console.log(data);
+                           //return;
                             if(data === '1'){
                                 //console.log(data);
                                 swalSuccessFullWithRefresh();
