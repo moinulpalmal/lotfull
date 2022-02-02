@@ -129,7 +129,13 @@
                                                     <td class="text-center">
                                                         @if(Auth::user()->hasTaskPermission('issue_delete', Auth::user()->id))
                                                             @if($media->is_issue_accepted == 0)
-                                                                <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                @if((\App\Helpers\Helper::ageInDays($media->issue_date)) < 16)
+                                                                    <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                @else
+                                                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
+                                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                    @endif
+                                                                @endif
                                                             @endif
                                                         @endif
                                                     </td>

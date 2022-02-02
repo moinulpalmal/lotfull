@@ -84,10 +84,16 @@
                                                     <td class="text-center">
                                                         @if(\App\Model\ReceiveMaster::checkUpdateAccess($media->id) == true)
                                                             @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
-                                                                <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete Factory"></a>
+                                                                @if((\App\Helpers\Helper::ageInDays($media->receive_date)) < 46)
+                                                                    <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                @else
+                                                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
+                                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
+                                                                    @endif
+                                                                @endif
                                                             @endif
                                                             @if(Auth::user()->hasTaskPermission('receive_update', Auth::user()->id))
-                                                                <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#UpdateMaster{{$media->id}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal" {{-- data-target="#NewFactory"--}} title="Issue Entry"></a>
+                                                                <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#UpdateMaster{{$media->id}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal" {{-- data-target="#NewFactory"--}} title="Update Master"></a>
                                                                 @endif
                                                                     {{-- @if($media->status == 'A')
                                                                 <a class="btn btn-warning btn-sm btn-round fa fa-times DeActivateWorkExp" data-id="{{$media->id}}" title="De-Activate Factory"></a>
