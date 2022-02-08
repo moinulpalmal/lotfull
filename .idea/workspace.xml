@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="24f263a9-50b2-4056-9843-880ae094c5fb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DB_View/views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/DB_View/views.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Model/ReceiveDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/ReceiveDetail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/receive/detail/list-inserted.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/receive/detail/list-inserted.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -474,11 +475,11 @@
       <command value="artisan make:middleware CheckImageAccess" />
       <command value="artisan migrate:rollback" />
       <command value="artisan serve" />
-      <command value="artisan config:cache" />
       <command value="artisan make:migration  add_grade_t_to_receive_details_table --table = receive_details " />
       <command value="artisan make:migration  add_grade_t_to_receive_details_table --table=receive_details " />
       <command value="artisan make:migration  add_grade_t_to_stocks_table --table=stocks " />
       <command value="artisan make:migration  add_grade_t_to_issue_details_table --table=issue_details " />
+      <command value="artisan config:cache" />
       <command value="artisan migrate" />
     </option>
   </component>
@@ -698,22 +699,22 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="739" y="258" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1644308070194" />
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1644308939967">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1644312365304">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1644308939967" />
-    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1644308939967">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1644312365304" />
+    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1644312365304">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1644308939967" />
-    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1644308939967">
+    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1644312365304" />
+    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1644312365304">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1644308939967" />
-    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1644308939967">
+    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1644312365304" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1644312365304">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1644308939967" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1644312365304" />
     <state x="676" y="239" key="NewPhpClassDialog" timestamp="1637742983987">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
@@ -726,9 +727,9 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="716" y="361" key="SymfonyComponentCompositeDataDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1644308071007" />
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1644308935717">
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1644312363023">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1644308935717" />
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1644312363023" />
   </component>
 </project>

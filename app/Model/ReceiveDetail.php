@@ -136,6 +136,7 @@ class ReceiveDetail extends Model
                 'grade_b' => $request->grade_b,
                 'grade_c' => $request->grade_c,
                 'grade_d' => $request->grade_d,
+                'grade_t' => $request->grade_t,
                 'last_updated_by' => Auth::id()
             ]);
 
@@ -229,7 +230,7 @@ class ReceiveDetail extends Model
                 'locations.short_name AS location_short_name', 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
-                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.qc_date',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
                 'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
                 'receive_details.status AS receive_detail_status', 'receive_details.remarks')
             ->where('receive_details.status', '=', 'I')
@@ -254,7 +255,7 @@ class ReceiveDetail extends Model
                 'locations.short_name AS location_short_name', 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
-                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.qc_date',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
                 'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
                 'receive_details.status AS receive_detail_status', 'receive_details.remarks')
             ->where('receive_details.status', '=', 'QCI')
@@ -280,7 +281,7 @@ class ReceiveDetail extends Model
                 'locations.short_name AS location_short_name', 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
-                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.qc_date',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
                 'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
                 'receive_details.status AS receive_detail_status', 'receive_details.remarks')
             ->where('receive_details.status', '=', 'QCF')
