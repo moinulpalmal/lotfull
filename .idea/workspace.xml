@@ -21,9 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="24f263a9-50b2-4056-9843-880ae094c5fb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/ReceiveDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/ReceiveDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/receive/detail/list-inserted.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/receive/detail/list-inserted.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/receive/detail/list-qc-inserted.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/receive/detail/list-qc-inserted.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/receive/detail/list-qc-finished.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/receive/detail/list-qc-finished.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
