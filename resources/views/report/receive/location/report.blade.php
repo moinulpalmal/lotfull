@@ -165,6 +165,7 @@
                                                 <th scope="col">GRADE-B</th>
                                                 <th scope="col">GRADE-C</th>
                                                 <th scope="col">GRADE-D</th>
+                                                <th scope="col">GRADE-T</th>
                                                 <th scope="col">STATUS</th>
                                                 <th scope="col">QC DATE</th>
                                                 <th scope="col">QC QTY.</th>
@@ -221,6 +222,9 @@
                                                             {{$media->grade_d}}
                                                         </td>
                                                         <td class="text-right">
+                                                            {{$media->grade_t}}
+                                                        </td>
+                                                        <td class="text-right">
                                                             @if($media->receive_detail_status == 'I')
                                                                 Inserted
                                                             @elseif($media->receive_detail_status == 'QCI')
@@ -237,10 +241,10 @@
                                                             @endif
                                                         </td>
                                                         <td class="text-right">
-                                                            {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d}}
+                                                            {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t}}
                                                         </td>
                                                         <td class="text-right">
-                                                            {{$media->received_total_quantity - ($media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d)}}
+                                                            {{$media->received_total_quantity - ($media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t)}}
                                                         </td>
                                                         <td class="text-center">
                                                             {{$media->location_name}}

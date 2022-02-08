@@ -166,6 +166,7 @@
                                                 <th scope="col">GRADE-B</th>
                                                 <th scope="col">GRADE-C</th>
                                                 <th scope="col">GRADE-D</th>
+                                                <th scope="col">GRADE-T</th>
                                                 <th scope="col">LOCATION</th>
                                             </tr>
                                         </thead>
@@ -215,7 +216,9 @@
                                                         <td class="text-right">
                                                             {{$media->grade_d}}
                                                         </td>
-
+                                                        <td class="text-right">
+                                                            {{$media->grade_t}}
+                                                        </td>
                                                         <td class="text-center">
                                                             {{$media->location_name}}
                                                         </td>
@@ -234,10 +237,10 @@
                                         <div class="col-4">
                                             <table id="summary" {{--class="table table-striped table-bordered table-condensed table-info table-responsive"--}}>
                                                 <tbody>
-                                                <tr>
-                                                    <td class="text-right text-bold-700">Total Issue:</td>
-                                                    <td class="text-right text-bold-700">{{$total_issued_quantity}}</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td class="text-right text-bold-700">Total Issue:</td>
+                                                        <td class="text-right text-bold-700">{{$total_issued_quantity}}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
