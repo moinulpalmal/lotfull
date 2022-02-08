@@ -64,6 +64,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">Location</th>
                                                 <th class="text-center">Remarks</th>
                                             </tr>
@@ -119,6 +120,9 @@
                                                     <td class="text-right">
                                                         {{$media->grade_d}}
                                                     </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_t}}
+                                                    </td>
                                                     <td class="text-left">
                                                         {{\App\Helpers\Helper::IDwiseData('locations', 'id', $media->issued_to)->name}}
                                                     </td>
@@ -144,6 +148,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">Location</th>
                                                 <th class="text-center">Remarks</th>
                                             </tr>

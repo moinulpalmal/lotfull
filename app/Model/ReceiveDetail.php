@@ -52,14 +52,19 @@ class ReceiveDetail extends Model
         $receiveDetail->grade_b = $request->grade_b;
         $receiveDetail->grade_c = $request->grade_c;
         $receiveDetail->grade_d = $request->grade_d;
+        $receiveDetail->grade_t = 0;
         $receiveDetail->qc_date = Carbon::now()->toDate();
         $receiveDetail->remarks = $request->remarks;
         $receiveDetail->inserted_by = Auth::id();
 
         if($receiveDetail->save()){
-            return true;
+            if(((integer)$request->grade_t) > 0){
+               return 'I';
+            }else{
+                return 'A';
+            }
         }
-        return false;
+        return '0';
     }
 
     public static function returnBuyerId($receive_master_id, $receive_detail_id){
@@ -178,7 +183,7 @@ class ReceiveDetail extends Model
         $detail = DB::table('receive_details')
             ->join('receive_masters', 'receive_masters.id', '=', 'receive_details.receive_master_id')
             ->select('receive_masters.id AS receive_master_id', 'receive_details.counter', 'receive_masters.receive_date',
-                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b', 'receive_masters.location_id',
+                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b', 'receive_details.grade_t','receive_masters.location_id',
                 'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.unit_id')
             ->orderBy('receive_masters.receive_date', 'ASC')
             ->where('receive_details.receive_master_id', $receive_master_id)
@@ -206,7 +211,6 @@ class ReceiveDetail extends Model
             $stock->grade_t = $request->grade_t;
             $stock->location_id = $request->location_id;
             $stock->inserted_by = Auth::id();
-
             if($stock->save()){
                 $data = DB::table('receive_details')
                     ->where('receive_master_id', $request->receive_master_id)

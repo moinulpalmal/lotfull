@@ -33,8 +33,18 @@ class TransferController extends Controller
                 $master_id = ReceiveMaster::insertTransferMaster($issue_detail);
                 if($master_id > 0){
                    // return ReceiveDetail::insertSingleForTransfer($master_id, $issue_detail);
-                   if(ReceiveDetail::insertSingleForTransfer($master_id, $issue_detail)){
-                        return ReceiveDetail::approveSingleQCInserted($master_id, 1);
+                    $result = ReceiveDetail::insertSingleForTransfer($master_id, $issue_detail);
+                   if( $result == 'A'){
+                       return ReceiveDetail::approveSingleQCInserted($master_id, 1);
+                   }
+                   else if($result == 'I'){
+                       return true;
+                   }
+                   else if($result == '0'){
+                       return '0';
+                   }
+                   else{
+                       return '0';
                    }
                 }
             }

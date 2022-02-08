@@ -290,6 +290,7 @@
                                     <div class="form-group">
                                         <label for="GradeDI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Grade D - [Stock: {{$media->grade_d - $media->issued_grade_d}}]</label>
                                         <input type="number" id="GradeDI{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_d - $media->issued_grade_d}}" value="0" name="grade_d" required>
+                                        <input type="hidden" id="GradeTT{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_t - $media->issued_grade_t}}" value="0" name="grade_t" required>
                                     </div>
                                 </div>
                             </div>
