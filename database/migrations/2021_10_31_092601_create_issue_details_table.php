@@ -19,7 +19,6 @@ class CreateIssueDetailsTable extends Migration
             $table->bigInteger('receive_master_id')->unsigned();
             $table->bigInteger('receive_detail_id')->unsigned();
 
-
             $table->string('reference_no', 150)->nullable();
             $table->date('issue_date')->nullable();
 
