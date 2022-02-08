@@ -296,7 +296,7 @@
                                         <input type="number" id="ReceiveQuantity" class="form-control" name="received_total_quantity" value="{{old('received_total_quantity', $media->received_total_quantity)}}" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4 no-padding">
+                                <div class="col-md-4 no-padding" style="padding-right: 10px !important;">
                                     <div class="form-group">
                                         <label for="QCDate" class="text-bold-700">QC Date</label>
                                         <input type="date" id="QCDate" class="form-control" name="qc_date" @if(!empty($media->qc_date)) value="{{old('qc_date', $media->qc_date)}}" @endif required>
