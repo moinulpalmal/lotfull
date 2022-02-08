@@ -181,6 +181,7 @@ SELECT *FROM view_receive_summary
 /*start view_current_stock_summary*/
 CREATE VIEW view_current_stock_summary AS
 SELECT
+receive_masters.id AS receive_master_id, stocks.receive_detail_id,
 receive_masters.receive_from, receive_froms.receive_from_short_name,
 IF(receive_masters.receive_type = 'r', CONCAT("f","-",receive_masters.receive_from), CONCAT("l","-",receive_masters.receive_from)) AS receive_from_id,
 receive_masters.receive_type, receive_masters.reference_no,

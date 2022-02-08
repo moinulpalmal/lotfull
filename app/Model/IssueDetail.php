@@ -25,10 +25,11 @@ class IssueDetail extends Model
         $issue_detail->grade_b = $request->grade_b;
         $issue_detail->grade_c = $request->grade_c;
         $issue_detail->grade_d = $request->grade_d;
+        $issue_detail->grade_t = $request->grade_t;
 
 
 
-        $issue_detail->issued_total_quantity = (integer)$issue_detail->grade_a + (integer)$issue_detail->grade_b + (integer)$issue_detail->grade_c + (integer)$issue_detail->grade_d;
+        $issue_detail->issued_total_quantity = (integer)$issue_detail->grade_a + (integer)$issue_detail->grade_b + (integer)$issue_detail->grade_c + (integer)$issue_detail->grade_d + (integer)$issue_detail->grade_t;
         $issue_detail->remarks = $request->remarks;
         $issue_detail->inserted_by = Auth::id();
 
@@ -99,7 +100,7 @@ class IssueDetail extends Model
                 'issue_details.reference_no',  'issue_details.issue_date', 'issue_details.issue_type',
                 'issue_details.issued_to', 'issue_details.remarks', 'issue_details.is_issue_accepted',
                 'issue_details.grade_a', 'issue_details.grade_b',
-                'issue_details.grade_c', 'issue_details.grade_d', 'issue_details.id',
+                'issue_details.grade_c', 'issue_details.grade_d', 'issue_details.grade_t', 'issue_details.id',
                 'issue_details.issued_total_quantity', 'issue_details.status AS issue_status', 'issue_details.location_id')
             ->where('issue_details.status', '!=', 'D')
             ->where('issue_details.issue_type', '=', 'v')
@@ -133,7 +134,7 @@ class IssueDetail extends Model
                 'issue_details.reference_no',  'issue_details.issue_date', 'issue_details.issue_type',
                 'issue_details.issued_to', 'issue_details.remarks',
                 'issue_details.grade_a', 'issue_details.grade_b', 'issue_details.id',
-                'issue_details.grade_c', 'issue_details.grade_d', 'issue_details.is_issue_accepted',
+                'issue_details.grade_c', 'issue_details.grade_d', 'issue_details.grade_t','issue_details.is_issue_accepted',
                 'issue_details.issued_total_quantity', 'issue_details.status AS issue_status', 'issue_details.location_id')
             ->where('issue_details.status', '!=', 'D')
             ->where('issue_details.issue_type', '=', 't')
@@ -167,7 +168,7 @@ class IssueDetail extends Model
                 'issue_details.reference_no',  'issue_details.issue_date', 'issue_details.issue_type',
                 'issue_details.issued_to', 'issue_details.remarks',
                 'issue_details.grade_a', 'issue_details.grade_b', 'issue_details.id',
-                'issue_details.grade_c', 'issue_details.grade_d', 'issue_details.is_issue_accepted',
+                'issue_details.grade_c', 'issue_details.grade_d','issue_details.grade_t', 'issue_details.is_issue_accepted',
                 'issue_details.issued_total_quantity', 'issue_details.status AS issue_status', 'issue_details.location_id')
             ->where('issue_details.status', '!=', 'D')
             ->where('issue_details.issue_type', '=', 't')
@@ -202,7 +203,7 @@ class IssueDetail extends Model
                 'issue_details.reference_no',  'issue_details.issue_date', 'issue_details.issue_type',
                 'issue_details.issued_to', 'issue_details.remarks',
                 'issue_details.grade_a', 'issue_details.grade_b', 'issue_details.id',
-                'issue_details.grade_c', 'issue_details.grade_d', 'issue_details.is_issue_accepted',
+                'issue_details.grade_c', 'issue_details.grade_d', 'issue_details.grade_t', 'issue_details.is_issue_accepted',
                 'issue_details.issued_total_quantity', 'issue_details.status AS issue_status', 'issue_details.location_id')
             ->where('issue_details.status', '!=', 'D')
             ->where('issue_details.issue_type', '=', 't')

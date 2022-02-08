@@ -60,6 +60,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">Total Qty</th>
                                                 <th class="text-center">Location</th>
                                                 <th class="text-center">Day Passed</th>
@@ -99,7 +100,11 @@
                                                         {{$media->grade_d - $media->issued_grade_d}}
                                                     </td>
                                                     <td class="text-right">
-                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d - ($media->issued_grade_a + $media->issued_grade_b + $media->issued_grade_c + $media->issued_grade_d)}}
+                                                        {{$media->grade_t - $media->issued_grade_t}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t -
+                                                            ($media->issued_grade_a + $media->issued_grade_b + $media->issued_grade_c + $media->issued_grade_d +  $media->issued_grade_t)}}
                                                     </td>
                                                     <td class="text-left">
                                                         {{$media->location_short_name}}
@@ -144,6 +149,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">Total Qty</th>
                                                 <th class="text-center">Location</th>
                                                 <th class="text-center">Day Passed</th>
@@ -284,6 +290,7 @@
                                     <div class="form-group">
                                         <label for="GradeDI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Grade D - [Stock: {{$media->grade_d - $media->issued_grade_d}}]</label>
                                         <input type="number" id="GradeDI{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_d - $media->issued_grade_d}}" value="0" name="grade_d" required>
+                                        <input type="hidden" id="GradeTT{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_t - $media->issued_grade_t}}" value="0" name="grade_t" required>
                                     </div>
                                 </div>
                             </div>
@@ -428,6 +435,12 @@
                                            <div class="form-group">
                                                <label for="GradeDT{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Grade D - [Stock: {{$media->grade_d - $media->issued_grade_d}}]</label>
                                                <input type="number" id="GradeDT{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_d - $media->issued_grade_d}}" value="0" name="grade_d" required>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
+                                           <div class="form-group">
+                                               <label for="GradeTT{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Grade T - [Stock: {{$media->grade_t - $media->issued_grade_t}}]</label>
+                                               <input type="number" id="GradeTT{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_t - $media->issued_grade_t}}" value="0" name="grade_t" required>
                                            </div>
                                        </div>
                                    </div>

@@ -60,6 +60,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">Total Qty</th>
                                                 <th class="text-center">Location</th>
                                                 {{--<th class="text-center">Day Passed</th>
@@ -98,7 +99,10 @@
                                                         {{$media->grade_d - $media->issued_grade_d}}
                                                     </td>
                                                     <td class="text-right">
-                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d - ($media->issued_grade_a + $media->issued_grade_b + $media->issued_grade_c + $media->issued_grade_d)}}
+                                                        {{$media->grade_t - $media->issued_grade_t}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t - ($media->issued_grade_a + $media->issued_grade_b + $media->issued_grade_c + $media->issued_grade_d + $media->issued_grade_t )}}
                                                     </td>
                                                     <td class="text-left">
                                                         {{$media->location_short_name}}
@@ -124,6 +128,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">Total Qty</th>
                                                 <th class="text-center">Location</th>
                                                {{-- <th class="text-center">Day Passed</th>

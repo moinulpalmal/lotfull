@@ -26,8 +26,8 @@ class Stock extends Model
                 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'stocks.received_total_quantity', 'stocks.grade_a', 'stocks.grade_b',
-                'stocks.grade_c', 'stocks.grade_d',
-                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d',
+                'stocks.grade_c', 'stocks.grade_d', 'stocks.grade_t',
+                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d', 'stocks.issued_grade_t',
                 'stocks.issued_total_quantity', 'stocks.status AS stock_status', 'stocks.location_id')
             ->where('stocks.status', '=', 'A')
             ->whereIn('stocks.location_id', $locations)
@@ -95,8 +95,8 @@ class Stock extends Model
                 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'stocks.received_total_quantity', 'stocks.grade_a', 'stocks.grade_b',
-                'stocks.grade_c', 'stocks.grade_d',
-                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d',
+                'stocks.grade_c', 'stocks.grade_d', 'stocks.grade_t',
+                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d', 'stocks.issued_grade_t',
                 'stocks.issued_total_quantity', 'stocks.status AS stock_status', 'stocks.location_id')
             ->where('stocks.status', '=', 'I')
             ->whereIn('stocks.location_id', $locations)
@@ -125,8 +125,8 @@ class Stock extends Model
                 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'stocks.received_total_quantity', 'stocks.grade_a', 'stocks.grade_b',
-                'stocks.grade_c', 'stocks.grade_d',
-                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d',
+                'stocks.grade_c', 'stocks.grade_d', 'stocks.grade_t',
+                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d', 'stocks.issued_grade_t',
                 'stocks.issued_total_quantity', 'stocks.status AS stock_status', 'stocks.location_id')
             ->where('stocks.status', '=', 'C')
             ->whereIn('stocks.location_id', $locations)
@@ -183,7 +183,7 @@ class Stock extends Model
     }
     public static function singleIssue($request){
         $data = DB::table('stocks')
-                ->select('issued_grade_a', 'issued_grade_b', 'issued_grade_c', 'issued_grade_d',
+                ->select('issued_grade_a', 'issued_grade_b', 'issued_grade_c', 'issued_grade_d', 'issued_grade_t',
                     'issued_total_quantity', 'received_total_quantity')
                 ->where('receive_master_id', $request->receive_master_id)
                 ->where('receive_detail_id', $request->receive_detail_id)
@@ -191,7 +191,7 @@ class Stock extends Model
                 ->first();
 
         if($data){
-            $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d;
+            $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d + (integer)$request->grade_t;
             $updated_total_issued = (integer)$data->issued_total_quantity + $current_total_issued;
             if($updated_total_issued >= ((integer)$data->received_total_quantity)){
                 $result = DB::table('stocks')
@@ -202,6 +202,7 @@ class Stock extends Model
                         'issued_grade_b' => ((integer)$data->issued_grade_b + (integer)$request->grade_b),
                         'issued_grade_c' => ((integer)$data->issued_grade_c + (integer)$request->grade_c),
                         'issued_grade_d' => ((integer)$data->issued_grade_d + (integer)$request->grade_d),
+                        'issued_grade_t' => ((integer)$data->issued_grade_t + (integer)$request->grade_t),
                         'issued_total_quantity' => $updated_total_issued,
                         'status' => 'C',
                         'last_updated_by' => Auth::id(),
@@ -218,6 +219,7 @@ class Stock extends Model
                         'issued_grade_b' => ((integer)$data->issued_grade_b + (integer)$request->grade_b),
                         'issued_grade_c' => ((integer)$data->issued_grade_c + (integer)$request->grade_c),
                         'issued_grade_d' => ((integer)$data->issued_grade_d + (integer)$request->grade_d),
+                        'issued_grade_t' => ((integer)$data->issued_grade_t + (integer)$request->grade_t),
                         'issued_total_quantity' => $updated_total_issued,
                         'status' => 'A',
                         'last_updated_by' => Auth::id(),
@@ -231,7 +233,7 @@ class Stock extends Model
 
     public static function updateStockWhenIssueDetailDeleted($request){
         $data = DB::table('stocks')
-            ->select('issued_grade_a', 'issued_grade_b', 'issued_grade_c', 'issued_grade_d',
+            ->select('issued_grade_a', 'issued_grade_b', 'issued_grade_c', 'issued_grade_d', 'issued_grade_t',
                 'issued_total_quantity', 'received_total_quantity','status')
             ->where('receive_master_id', $request->receive_master_id)
             ->where('receive_detail_id', $request->receive_detail_id)
@@ -241,7 +243,7 @@ class Stock extends Model
         //return $data;
 
         if($data[0]->status == 'A'){
-            $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d;
+            $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d + (integer)$request->grade_t;
             $updated_total_issued = (integer)$data[0]->issued_total_quantity - $current_total_issued;
             if($updated_total_issued >= ((integer)$data[0]->received_total_quantity)){
                 $result = DB::table('stocks')
@@ -252,6 +254,7 @@ class Stock extends Model
                         'issued_grade_b' => ((integer)$data[0]->issued_grade_b - (integer)$request->grade_b),
                         'issued_grade_c' => ((integer)$data[0]->issued_grade_c - (integer)$request->grade_c),
                         'issued_grade_d' => ((integer)$data[0]->issued_grade_d - (integer)$request->grade_d),
+                        'issued_grade_t' => ((integer)$data[0]->issued_grade_t - (integer)$request->grade_t),
                         'issued_total_quantity' => $updated_total_issued,
                         'status' => 'C',
                         'last_updated_by' => Auth::id(),
@@ -268,6 +271,7 @@ class Stock extends Model
                         'issued_grade_b' => ((integer)$data[0]->issued_grade_b - (integer)$request->grade_b),
                         'issued_grade_c' => ((integer)$data[0]->issued_grade_c - (integer)$request->grade_c),
                         'issued_grade_d' => ((integer)$data[0]->issued_grade_d - (integer)$request->grade_d),
+                        'issued_grade_t' => ((integer)$data[0]->issued_grade_t - (integer)$request->grade_t),
                         'issued_total_quantity' => $updated_total_issued,
                         'status' => 'A',
                         'last_updated_by' => Auth::id(),
@@ -276,7 +280,7 @@ class Stock extends Model
             }
         }
         else if($data[0]->status == 'C'){
-            $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d;
+            $current_total_issued = (integer)$request->grade_a + (integer)$request->grade_b + (integer)$request->grade_c + (integer)$request->grade_d + (integer)$request->grade_t;
             $updated_total_issued = (integer)$data[0]->issued_total_quantity - $current_total_issued;
 
             $result = DB::table('stocks')
@@ -287,6 +291,7 @@ class Stock extends Model
                     'issued_grade_b' => ((integer)$data[0]->issued_grade_b - (integer)$request->grade_b),
                     'issued_grade_c' => ((integer)$data[0]->issued_grade_c - (integer)$request->grade_c),
                     'issued_grade_d' => ((integer)$data[0]->issued_grade_d - (integer)$request->grade_d),
+                    'issued_grade_t' => ((integer)$data[0]->issued_grade_t - (integer)$request->grade_t),
                     'issued_total_quantity' => $updated_total_issued,
                     'status' => 'A',
                     'last_updated_by' => Auth::id(),

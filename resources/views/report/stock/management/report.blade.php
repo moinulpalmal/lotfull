@@ -141,11 +141,11 @@
                                         <thead>
                                         <tr style="background-color: #08a6e8 !important;">
                                             <th scope="col" colspan="5">COMMON</th>
-                                            <th scope="col" colspan="7">RECEIVE INFO</th>
+                                            <th scope="col" colspan="8">RECEIVE INFO</th>
                                             <th scope="col" colspan="7">QC INFO</th>
-                                            <th scope="col" colspan="5">STOCK RECEIVE INFO</th>
-                                            <th scope="col" colspan="5">ISSUE SUMMARY</th>
-                                            <th scope="col" colspan="6">ISSUE-ABLE BALANCE SUMMARY</th>
+                                            <th scope="col" colspan="6">STOCK RECEIVE INFO</th>
+                                            <th scope="col" colspan="6">ISSUE SUMMARY</th>
+                                            <th scope="col" colspan="7">ISSUE-ABLE BALANCE SUMMARY</th>
                                         </tr>
                                         <tr>
                                             <th scope="col">Sl#</th>
@@ -165,23 +165,27 @@
                                             <th scope="col">GRADE-B</th>
                                             <th scope="col">GRADE-C</th>
                                             <th scope="col">GRADE-D</th>
+                                            <th scope="col">GRADE-T</th>
                                             <th scope="col">T. QC</th>
                                             <th scope="col">V. QC</th>
                                             <th scope="col">GRADE-A</th>
                                             <th scope="col">GRADE-B</th>
                                             <th scope="col">GRADE-C</th>
                                             <th scope="col">GRADE-D</th>
+                                            <th scope="col">GRADE-T</th>
                                             <th scope="col">TOTAL</th>
                                             <th scope="col">GRADE-A</th>
                                             <th scope="col">GRADE-B</th>
                                             <th scope="col">GRADE-C</th>
                                             <th scope="col">GRADE-D</th>
+                                            <th scope="col">GRADE-T</th>
                                             <th scope="col">TOTAL</th>
                                             <th scope="col">STATUS</th>
                                             <th scope="col">GRADE-A</th>
                                             <th scope="col">GRADE-B</th>
                                             <th scope="col">GRADE-C</th>
                                             <th scope="col">GRADE-D</th>
+                                            <th scope="col">GRADE-T</th>
                                             <th scope="col">TOTAL</th>
                                         </tr>
                                         </thead>
@@ -248,10 +252,13 @@
                                                         {{$media->receive_grade_d}}
                                                     </td>
                                                     <td class="text-right">
-                                                        {{$media->receive_grade_a + $media->receive_grade_b + $media->receive_grade_c + $media->receive_grade_d}}
+                                                        {{$media->receive_grade_t}}
                                                     </td>
                                                     <td class="text-right">
-                                                        {{$media->received_quantity - ($media->receive_grade_a + $media->receive_grade_b + $media->receive_grade_c + $media->receive_grade_d)}}
+                                                        {{$media->receive_grade_a + $media->receive_grade_b + $media->receive_grade_c + $media->receive_grade_d + $media->receive_grade_t}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->received_quantity - ($media->receive_grade_a + $media->receive_grade_b + $media->receive_grade_c + $media->receive_grade_d + $media->receive_grade_t)}}
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->grade_a}}
@@ -264,6 +271,9 @@
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->grade_d}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_t}}
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->received_total_quantity}}
@@ -279,6 +289,9 @@
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->issued_grade_d}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->issued_grade_t}}
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->issued_total_quantity}}
@@ -303,6 +316,9 @@
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->grade_d - $media->issued_grade_d }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_t - $media->issued_grade_t }}
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->received_total_quantity - $media->issued_total_quantity}}

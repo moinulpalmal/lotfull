@@ -65,6 +65,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">QC Qty</th>
                                                 <th class="text-center">QC Short/Access</th>
                                                 <th class="text-center">Status</th>
@@ -131,7 +132,10 @@
                                                         {{$media->grade_d}}
                                                     </td>
                                                     <td class="text-right">
-                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d}}
+                                                        {{$media->grade_t}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t}}
                                                     </td>
                                                     <td class="text-right">
                                                         {{$media->received_total_quantity - ($media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d)}}
@@ -193,6 +197,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">QC Qty</th>
                                                 <th class="text-center">QC Short/Access</th>
                                                 <th class="text-center">Status</th>
@@ -285,19 +290,19 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-2 no-padding" style="padding-left: 10px !important;">
+                                <div class="col-md-8 no-padding" style="padding-left: 10px !important;">
                                     <div class="form-group">
                                         <label for="ReceiveQuantity" class="text-bold-700">Receive Quantity</label>
                                         <input type="number" id="ReceiveQuantity" class="form-control" name="received_total_quantity" value="{{old('received_total_quantity', $media->received_total_quantity)}}" required>
                                     </div>
                                 </div>
-                                <div class="col-md-2 no-padding">
+                                <div class="col-md-4 no-padding" style="padding-right: 10px !important;">
                                     <div class="form-group">
                                         <label for="QCDate" class="text-bold-700">QC Date</label>
                                         <input type="date" id="QCDate" class="form-control" name="qc_date" @if(!empty($media->qc_date)) value="{{old('qc_date', $media->qc_date)}}" @endif required>
                                     </div>
                                 </div>
-                                <div class="col-md-2 no-padding">
+                                <div class="col-md-2 no-padding" style="padding-left: 10px !important;">
                                     <div class="form-group">
                                         <label for="GradeA" class="text-bold-700">Grade A</label>
                                         <input type="number" id="GradeA" min="0" class="form-control" name="grade_a" value="{{old('grade_a', $media->grade_a)}}" required>
@@ -315,10 +320,16 @@
                                         <input type="number" id="GradeC" min="0" class="form-control" name="grade_c" value="{{old('grade_c', $media->grade_c)}}" required>
                                     </div>
                                 </div>
-                                <div class="col-md-2 no-padding" style="padding-right: 10px !important;">
+                                <div class="col-md-2 no-padding">
                                     <div class="form-group">
                                         <label for="GradeD" class="text-bold-700">Grade D</label>
                                         <input type="number" id="GradeD" min="0" class="form-control" name="grade_d" value="{{old('grade_d', $media->grade_d)}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 no-padding" style="padding-right: 10px !important;">
+                                    <div class="form-group">
+                                        <label for="GradeT" class="text-bold-700">Grade T</label>
+                                        <input type="number" id="GradeD" min="0" class="form-control" name="grade_t" value="{{old('grade_t', $media->grade_t)}}" required>
                                     </div>
                                 </div>
                             </div>

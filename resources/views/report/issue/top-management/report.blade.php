@@ -166,6 +166,7 @@
                                                 <th scope="col">GRADE-B</th>
                                                 <th scope="col">GRADE-C</th>
                                                 <th scope="col">GRADE-D</th>
+                                                <th scope="col">GRADE-T</th>
                                                 <th scope="col">LOCATION</th>
                                             </tr>
                                         </thead>
@@ -215,7 +216,9 @@
                                                         <td class="text-right">
                                                             {{$media->grade_d}}
                                                         </td>
-
+                                                        <td class="text-right">
+                                                            {{$media->grade_t}}
+                                                        </td>
                                                         <td class="text-center">
                                                             {{$media->location_name}}
                                                         </td>

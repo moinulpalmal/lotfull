@@ -52,14 +52,19 @@ class ReceiveDetail extends Model
         $receiveDetail->grade_b = $request->grade_b;
         $receiveDetail->grade_c = $request->grade_c;
         $receiveDetail->grade_d = $request->grade_d;
+        $receiveDetail->grade_t = 0;
         $receiveDetail->qc_date = Carbon::now()->toDate();
         $receiveDetail->remarks = $request->remarks;
         $receiveDetail->inserted_by = Auth::id();
 
         if($receiveDetail->save()){
-            return true;
+            if(((integer)$request->grade_t) > 0){
+               return 'I';
+            }else{
+                return 'A';
+            }
         }
-        return false;
+        return '0';
     }
 
     public static function returnBuyerId($receive_master_id, $receive_detail_id){
@@ -136,6 +141,7 @@ class ReceiveDetail extends Model
                 'grade_b' => $request->grade_b,
                 'grade_c' => $request->grade_c,
                 'grade_d' => $request->grade_d,
+                'grade_t' => $request->grade_t,
                 'last_updated_by' => Auth::id()
             ]);
 
@@ -154,13 +160,16 @@ class ReceiveDetail extends Model
 
     public static function approveAllQCInserted(){
         //get all qci
+        // based on location id
+        $locations = Location::getUserLocationIdArray(Auth::id());
         $details = DB::table('receive_details')
                 ->join('receive_masters', 'receive_masters.id', '=', 'receive_details.receive_master_id')
                 ->select('receive_masters.id AS receive_master_id', 'receive_details.counter', 'receive_masters.receive_date',
                     'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b', 'receive_masters.location_id',
-                    'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.unit_id')
+                    'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.unit_id')
                 ->orderBy('receive_masters.receive_date', 'ASC')
-            ->where('receive_details.status', 'QCI')
+                ->whereIn('receive_masters.location_id', $locations)
+                ->where('receive_details.status', 'QCI')
                 ->get();
 
         foreach ($details AS $detail){
@@ -174,8 +183,8 @@ class ReceiveDetail extends Model
         $detail = DB::table('receive_details')
             ->join('receive_masters', 'receive_masters.id', '=', 'receive_details.receive_master_id')
             ->select('receive_masters.id AS receive_master_id', 'receive_details.counter', 'receive_masters.receive_date',
-                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b', 'receive_masters.location_id',
-                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.unit_id')
+                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b', 'receive_details.grade_t','receive_masters.location_id',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.unit_id')
             ->orderBy('receive_masters.receive_date', 'ASC')
             ->where('receive_details.receive_master_id', $receive_master_id)
             ->where('receive_details.counter', $receive_detail_id)
@@ -187,29 +196,32 @@ class ReceiveDetail extends Model
     }
 
     public static function approveSingleInserted($request){
-        $stock = new Stock();
-        $stock->receive_master_id = $request->receive_master_id;
-        $stock->receive_detail_id = $request->counter;
-        $stock->receive_date = $request->receive_date;
-        $stock->stock_entry_date = Carbon::now();
-        $stock->unit_id = $request->unit_id;
-        $stock->received_total_quantity = $request->grade_a + $request->grade_b + $request->grade_c + $request->grade_d;
-        $stock->grade_a = $request->grade_a;
-        $stock->grade_b = $request->grade_b;
-        $stock->grade_c = $request->grade_c;
-        $stock->grade_d = $request->grade_d;
-        $stock->location_id = $request->location_id;
-        $stock->inserted_by = Auth::id();
-
-        if($stock->save()){
-            $data = DB::table('receive_details')
-                ->where('receive_master_id', $request->receive_master_id)
-                ->where('counter', $request->counter)
-                ->update([
-                    'status' => 'QCF',
-                    'last_updated_by' => Auth::id(),
-                ]);
-            return $data;
+        if(Location::hasAccess(Auth::id(),$request->location_id )){
+            $stock = new Stock();
+            $stock->receive_master_id = $request->receive_master_id;
+            $stock->receive_detail_id = $request->counter;
+            $stock->receive_date = $request->receive_date;
+            $stock->stock_entry_date = Carbon::now();
+            $stock->unit_id = $request->unit_id;
+            $stock->received_total_quantity = $request->grade_a + $request->grade_b + $request->grade_c + $request->grade_d + $request->grade_t;
+            $stock->grade_a = $request->grade_a;
+            $stock->grade_b = $request->grade_b;
+            $stock->grade_c = $request->grade_c;
+            $stock->grade_d = $request->grade_d;
+            $stock->grade_t = $request->grade_t;
+            $stock->location_id = $request->location_id;
+            $stock->inserted_by = Auth::id();
+            if($stock->save()){
+                $data = DB::table('receive_details')
+                    ->where('receive_master_id', $request->receive_master_id)
+                    ->where('counter', $request->counter)
+                    ->update([
+                        'status' => 'QCF',
+                        'last_updated_by' => Auth::id(),
+                    ]);
+                return $data;
+            }
+            return '0';
         }
 
         return '0';
@@ -229,7 +241,7 @@ class ReceiveDetail extends Model
                 'locations.short_name AS location_short_name', 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
-                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.qc_date',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
                 'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
                 'receive_details.status AS receive_detail_status', 'receive_details.remarks')
             ->where('receive_details.status', '=', 'I')
@@ -254,7 +266,7 @@ class ReceiveDetail extends Model
                 'locations.short_name AS location_short_name', 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
-                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.qc_date',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
                 'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
                 'receive_details.status AS receive_detail_status', 'receive_details.remarks')
             ->where('receive_details.status', '=', 'QCI')
@@ -280,7 +292,7 @@ class ReceiveDetail extends Model
                 'locations.short_name AS location_short_name', 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
-                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.qc_date',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
                 'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
                 'receive_details.status AS receive_detail_status', 'receive_details.remarks')
             ->where('receive_details.status', '=', 'QCF')

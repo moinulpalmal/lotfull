@@ -65,6 +65,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">QC Qty</th>
                                                 <th class="text-center">QC Short/Access</th>
                                                 <th class="text-center">Status</th>
@@ -131,10 +132,13 @@
                                                         {{$media->grade_d}}
                                                     </td>
                                                     <td class="text-right">
-                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d}}
+                                                        {{$media->grade_t}}
                                                     </td>
                                                     <td class="text-right">
-                                                        {{$media->received_total_quantity - ($media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d)}}
+                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t}}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{$media->received_total_quantity - ($media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t)}}
                                                     </td>
                                                     <td class="text-right">
                                                         @if($media->receive_detail_status == 'I')
@@ -189,6 +193,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">QC Qty</th>
                                                 <th class="text-center">QC Short/Access</th>
                                                 <th class="text-center">Status</th>
