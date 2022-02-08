@@ -193,6 +193,7 @@
                                                 <th class="text-center">Grade-B</th>
                                                 <th class="text-center">Grade-C</th>
                                                 <th class="text-center">Grade-D</th>
+                                                <th class="text-center">Grade-T</th>
                                                 <th class="text-center">QC Qty</th>
                                                 <th class="text-center">QC Short/Access</th>
                                                 <th class="text-center">Status</th>

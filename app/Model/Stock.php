@@ -26,8 +26,8 @@ class Stock extends Model
                 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'stocks.received_total_quantity', 'stocks.grade_a', 'stocks.grade_b',
-                'stocks.grade_c', 'stocks.grade_d',
-                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d',
+                'stocks.grade_c', 'stocks.grade_d', 'stocks.grade_t',
+                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d', 'stocks.issued_grade_t',
                 'stocks.issued_total_quantity', 'stocks.status AS stock_status', 'stocks.location_id')
             ->where('stocks.status', '=', 'A')
             ->whereIn('stocks.location_id', $locations)
@@ -95,8 +95,8 @@ class Stock extends Model
                 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'stocks.received_total_quantity', 'stocks.grade_a', 'stocks.grade_b',
-                'stocks.grade_c', 'stocks.grade_d',
-                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d',
+                'stocks.grade_c', 'stocks.grade_d', 'stocks.grade_t',
+                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d', 'stocks.issued_grade_t',
                 'stocks.issued_total_quantity', 'stocks.status AS stock_status', 'stocks.location_id')
             ->where('stocks.status', '=', 'I')
             ->whereIn('stocks.location_id', $locations)
@@ -125,8 +125,8 @@ class Stock extends Model
                 'buyers.name AS buyer_name', 'buyer_styles.style_no',
                 'garments_types.name AS garments_type', 'units.short_unit',
                 'stocks.received_total_quantity', 'stocks.grade_a', 'stocks.grade_b',
-                'stocks.grade_c', 'stocks.grade_d',
-                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d',
+                'stocks.grade_c', 'stocks.grade_d', 'stocks.grade_t',
+                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d', 'stocks.issued_grade_t',
                 'stocks.issued_total_quantity', 'stocks.status AS stock_status', 'stocks.location_id')
             ->where('stocks.status', '=', 'C')
             ->whereIn('stocks.location_id', $locations)
