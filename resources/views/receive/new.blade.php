@@ -133,7 +133,6 @@
                     </div>
                 </div>
             </section>
-
         </div>
     </div>
 @endsection
@@ -145,7 +144,6 @@
     {{--<script src="{{ asset('/stack-admin/app-assets/js/scripts/modal/components-modal.js') }}"></script>--}}
     <script src="{{ asset('/js/custom/common.js') }}"></script>
     <script>
-
         $(document).ready(function () {
            /* CKEDITOR.replace( 'description',{
                 uiColor: '#CCEAEE'
@@ -159,6 +157,7 @@
 
         $('.addRow').on('click',function(){
             addRow();
+            moveToBottom();
         });
 
         function addRow()
@@ -225,13 +224,13 @@
                 dropdownAutoWidth: true,
                 width: '100%'
             });
-        };
+        }
 
         $('body').delegate('.remove','click',function(){
-
             var l = $('#myTable >tbody >tr').length;
             if(l == 1)
             {
+
                 $(".select2").select2({
                     dropdownAutoWidth: true,
                     width: '100%'
@@ -250,7 +249,6 @@
                     dropdownAutoWidth: true,
                     width: '100%'
                 });
-
             }
         });
 
