@@ -27,6 +27,11 @@ function moveToTop() {
     });
 }
 
+function moveToBottom() {
+    var myDiv = document.getElementById("submit_button");
+    window.scrollTo({ left: 0, top: myDiv.clientTop, behavior: "smooth" });
+}
+
 
 function isNumberKey(event){
     return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57));

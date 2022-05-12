@@ -20,7 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24f263a9-50b2-4056-9843-880ae094c5fb" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/resources/views/issue/issued.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/issue/issued.blade.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/commandlinetools/Tool_based_on_Symfony_Console_2_9_22__4_26_PM_artisan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/commandlinetools/Tool_based_on_Symfony_Console_2_14_22__4_04_PM_artisan.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> d64d72961ce08c880d334d8d4f6b34194a48fdd2
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -472,13 +477,13 @@
       <command value="artisan make:model Model/ReceiveImage -m" />
       <command value="artisan make:middleware CheckImageAccess" />
       <command value="artisan migrate:rollback" />
-      <command value="artisan serve" />
       <command value="artisan make:migration  add_grade_t_to_receive_details_table --table = receive_details " />
       <command value="artisan make:migration  add_grade_t_to_receive_details_table --table=receive_details " />
       <command value="artisan make:migration  add_grade_t_to_stocks_table --table=stocks " />
       <command value="artisan make:migration  add_grade_t_to_issue_details_table --table=issue_details " />
       <command value="artisan migrate" />
       <command value="artisan config:cache" />
+      <command value="artisan serve" />
     </option>
   </component>
   <component name="RunManager" selected="PHP Script.ServiceHistory.php">
@@ -662,7 +667,13 @@
       <workItem from="1643703101642" duration="10301000" />
       <workItem from="1643773265022" duration="12509000" />
       <workItem from="1644307919533" duration="3356000" />
+<<<<<<< HEAD
       <workItem from="1652349317644" duration="431000" />
+=======
+      <workItem from="1644402259083" duration="4828000" />
+      <workItem from="1644662481092" duration="720000" />
+      <workItem from="1644833034865" duration="257000" />
+>>>>>>> d64d72961ce08c880d334d8d4f6b34194a48fdd2
     </task>
     <servers />
   </component>
@@ -686,49 +697,45 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="336" y="357" key="#SQL_Dialects/0.0.1920.1032@0.0.1920.1032" timestamp="1643710892203" />
-    <state x="725" y="117" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1636177794779">
-      <screen x="0" y="0" width="1920" height="1032" />
-    </state>
-    <state x="725" y="117" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1636177794779" />
     <state x="690" y="271" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1643609228424">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="690" y="271" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1643609228424" />
-    <state x="739" y="258" key="FileChooserDialogImpl" timestamp="1644308070194">
+    <state x="739" y="258" key="FileChooserDialogImpl" timestamp="1644833059199">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="739" y="258" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1644308070194" />
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1644319922986">
+    <state x="739" y="258" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1644833059199" />
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1644666956306">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1644319922986" />
-    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1644319922986">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1032@0.0.1920.1032" timestamp="1644666956306" />
+    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1644666956306">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1644319922986" />
-    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1644319922986">
+    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1032@0.0.1920.1032" timestamp="1644666956306" />
+    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1644666956306">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1644319922986" />
-    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1644319922986">
+    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1032@0.0.1920.1032" timestamp="1644666956306" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1644666956306">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1644319922986" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1032@0.0.1920.1032" timestamp="1644666956306" />
     <state x="676" y="239" key="NewPhpClassDialog" timestamp="1637742983987">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="676" y="239" key="NewPhpClassDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1637742983987" />
-    <state x="461" y="161" key="SettingsEditor" timestamp="1644308097572">
+    <state x="461" y="161" key="SettingsEditor" timestamp="1644833075339">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="461" y="161" key="SettingsEditor/0.0.1920.1032@0.0.1920.1032" timestamp="1644308097572" />
-    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog" timestamp="1644308071007">
+    <state x="461" y="161" key="SettingsEditor/0.0.1920.1032@0.0.1920.1032" timestamp="1644833075339" />
+    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog" timestamp="1644833062402">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1644308071007" />
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1644319921048">
+    <state x="716" y="361" key="SymfonyComponentCompositeDataDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1644833062402" />
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup" timestamp="1644662605435">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1644319921048" />
+    <state x="616" y="238" width="672" height="672" key="run.anything.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1644662605435" />
   </component>
 </project>
