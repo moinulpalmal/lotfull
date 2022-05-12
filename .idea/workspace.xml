@@ -20,16 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24f263a9-50b2-4056-9843-880ae094c5fb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/issue/location/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/issue/location/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/issue/management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/issue/management/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/issue/top-management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/issue/top-management/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/receive/location/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/receive/location/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/receive/management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/receive/management/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/receive/top-management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/receive/top-management/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/location/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/location/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/management/report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/stock/top-management/report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/stock/top-management/report.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/issue/issued.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/issue/issued.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -671,6 +662,7 @@
       <workItem from="1643703101642" duration="10301000" />
       <workItem from="1643773265022" duration="12509000" />
       <workItem from="1644307919533" duration="3356000" />
+      <workItem from="1652349317644" duration="431000" />
     </task>
     <servers />
   </component>
