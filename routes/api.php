@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('settings/buyer/setup/not-deleted-list', 'Settings\Api\BuyerController@allNotDeletedBuyers');
 Route::get('settings/buyer/style/not-deleted-list', 'Settings\Api\BuyerStyleController@allNotDeletedBuyerStyles');
+Route::get('settings/vendor/setup/not-deleted-list', 'Settings\Api\VendorController@allNotDeletedVendors');

@@ -17,7 +17,7 @@ class VendorController extends Controller
         return view('settings.vendor', compact('departments'));
     }
 
-    private function oldData(){
+   /* private function oldData(){
 // for old data
         //return $req->all();
         $collection = Excel::toArray(new BuyerImports(), 'upload/Vendor.xlsx');
@@ -53,7 +53,7 @@ class VendorController extends Controller
             return true;
         }
         return false;
-    }
+    }*/
 
     public function save(Request $request){
         //return $request->all();
