@@ -16,7 +16,7 @@ class BuyerController extends Controller
         return view('settings.buyer', compact('departments'));
     }
 
-    private function oldData(){
+   /* private function oldData(){
 // for old data
         //return $req->all();
         $collection = Excel::toArray(new BuyerImports(), 'upload/Buyer.xlsx');
@@ -40,9 +40,9 @@ class BuyerController extends Controller
         };
 
         // $this->mapOldData();
-    }
+    }*/
 
-    private function isExist($value){
+   /* private function isExist($value){
         $data = DB::table('buyers')
             ->select('id')
             ->where('name', (string)$value)
@@ -52,7 +52,7 @@ class BuyerController extends Controller
             return true;
         }
         return false;
-    }
+    }*/
 
     public function save(Request $request){
         //return $request->all();
