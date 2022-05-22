@@ -100,28 +100,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                       {{-- @if(!empty($departments))
-                                            @foreach($departments as $media)
-                                                <tr @if($media->status == 'I') class="bg-warning" @endif>
-                                                    <td class="text-left">
-                                                        {{$media->buyer_name}}
-                                                    </td>
-                                                    <td class="text-left">
-                                                        {{$media->style_no}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete Factory"></a>
-                                                        <a class="btn btn-info btn-sm btn-round fa fa-edit EditWorkExp" data-id="{{$media->id}}" title="Edit Factory"></a>
-                                                        @if($media->status == 'A')
-                                                            <a class="btn btn-warning btn-sm btn-round fa fa-times DeActivateWorkExp" data-id="{{$media->id}}" title="De-Activate Factory"></a>
-                                                        @elseif($media->status == 'I')
-                                                            <a class="btn btn-cyan btn-sm btn-round fa fa-check ActivateWorkExp" data-id="{{$media->id}}" title="Activate Factory"></a>
-                                                        @else
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif--}}
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -217,14 +196,7 @@
             ]
         });
         $(document).ready(function () {
-           /* CKEDITOR.replace( 'description',{
-                uiColor: '#CCEAEE'
-            });*/
             loadDataTable();
-            /*$(".select2").select2({
-                dropdownAutoWidth: true,
-                width: '100%'
-            });*/
         });
 
         function hitTableRefresh() {
