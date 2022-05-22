@@ -12,9 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class GarmentsTypeController extends Controller
 {
     public function index(){
-        //$this->oldData();
-        $departments = GarmentsType::allNotDeleteGarmentsTypes();
-        return view('settings.garments-type', compact('departments'));
+       return view('settings.garments-type');
     }
 
   private function oldData(){

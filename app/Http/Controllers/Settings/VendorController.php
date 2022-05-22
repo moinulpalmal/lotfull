@@ -12,9 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class VendorController extends Controller
 {
     public function index(){
-       // $this->oldData();
-        $departments = Vendor::allNotDeleteVendors();
-        return view('settings.vendor', compact('departments'));
+        return view('settings.vendor');
     }
 
    /* private function oldData(){
