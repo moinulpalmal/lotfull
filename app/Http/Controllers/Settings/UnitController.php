@@ -11,9 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class UnitController extends Controller
 {
     public function index(){
-        //$this->oldData();
-        $departments = Unit::allNotDeleteUnits();
-        return view('settings.unit', compact('departments'));
+        return view('settings.unit');
     }
 /*
     private function oldData(){
