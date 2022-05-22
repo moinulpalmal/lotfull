@@ -15,7 +15,7 @@ class GarmentsTypeController extends Controller
        return view('settings.garments-type');
     }
 
-  private function oldData(){
+  /*private function oldData(){
 // for old data
         //return $req->all();
         $collection = Excel::toArray(new BuyerImports(), 'upload/GarmentsType.xlsx');
@@ -51,7 +51,7 @@ class GarmentsTypeController extends Controller
             return true;
         }
         return false;
-    }
+    }*/
 
     public function save(Request $request){
         //return $request->all();
