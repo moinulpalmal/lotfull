@@ -11,9 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class BuyerController extends Controller
 {
     public function index(){
-       // $this->oldData();
-        $departments = Buyer::allNotDeleteBuyers();
-        return view('settings.buyer', compact('departments'));
+        return view('settings.buyer');
     }
 
    /* private function oldData(){

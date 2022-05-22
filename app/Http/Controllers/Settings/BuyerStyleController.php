@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 class BuyerStyleController extends Controller
 {
     public function index(){
-        //$this->oldData();
-        $departments = BuyerStyle::allNotDeleteBuyerStyles();
-        return view('settings.buyer-style', compact('departments'));
+        return view('settings.buyer-style');
     }
 
     public function save(Request $request){
