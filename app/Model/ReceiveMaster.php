@@ -91,6 +91,18 @@ class ReceiveMaster extends Model
             ->get();
     }
 
+    public static function  getAllNReceiveMasterListInsertedApi($user_id, $count){
+        $locations = Location::getUserLocationIdArray($user_id);
+
+        return DB::table('view_receive_masters')
+            ->select('view_receive_masters.*')
+            ->where('view_receive_masters.status', '=', 'I')
+            ->whereIn('view_receive_masters.location_id', $locations)
+            ->orderBy('view_receive_masters.age', 'ASC')
+            ->get()
+            ->take($count);
+    }
+
     public static function checkUpdateAccess($id){
         $receive_details = DB::table('receive_details')
             ->select('receive_master_id', 'status')

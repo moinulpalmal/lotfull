@@ -31,7 +31,7 @@
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
                                         <li><a data-action="collapse" title="minimize"><i class="feather icon-minus"></i></a></li>
-                                        {{--<li><a data-action="reload"><i class="feather icon-rotate-cw"></i></a></li>--}}
+                                        <li><a data-action="reload" onclick="loadDataTable()" id="DataTableButton"><i class="feather icon-rotate-cw"></i></a></li>
                                         <li><a data-action="expand" title="maximize"><i class="feather icon-maximize"></i></a></li>
                                         {{--<li><a data-action="close"><i class="feather icon-x"></i></a></li>--}}
                                     </ul>
@@ -42,8 +42,8 @@
                                     <table id="social-media-table" class="table table-striped table-bordered table-condensed social-media table-info">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Receive Date</th>
                                                 <th class="text-center">Age</th>
+                                                <th class="text-center">Receive Date</th>
                                                 <th class="text-center">Challan No</th>
                                                 <th class="text-center">Receive From</th>
                                                 <th class="text-center">Receive Type</th>
@@ -52,7 +52,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @if(!empty($departments))
+                                        {{--@if(!empty($departments))
                                             @foreach($departments as $media)
                                                 <tr>
                                                     <td class="text-center">
@@ -93,19 +93,19 @@
                                                                 @endif
                                                             @endif
                                                             @if(Auth::user()->hasTaskPermission('receive_update', Auth::user()->id))
-                                                                <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#UpdateMaster{{$media->id}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal" {{-- data-target="#NewFactory"--}} title="Update Master"></a>
+                                                                <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#UpdateMaster{{$media->id}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal"  data-target="#NewFactory" title="Update Master"></a>
                                                                 @endif
-                                                                    {{-- @if($media->status == 'A')
+                                                                     @if($media->status == 'A')
                                                                 <a class="btn btn-warning btn-sm btn-round fa fa-times DeActivateWorkExp" data-id="{{$media->id}}" title="De-Activate Factory"></a>
                                                                 @elseif($media->status == 'I')
                                                                 <a class="btn btn-cyan btn-sm btn-round fa fa-check ActivateWorkExp" data-id="{{$media->id}}" title="Activate Factory"></a>
                                                                 @else
-                                                            @endif--}}
+                                                            @endif
                                                         @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        @endif
+                                        @endif--}}
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -288,22 +288,6 @@
                 'pageLength'
             ]
         });
-        $('.social-media tfoot th').each( function () {
-            var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-        } );
-
-        dataTable.columns().every( function () {
-            var that = this;
-
-            $( 'input', this.footer() ).on( 'keyup change', function () {
-                if ( that.search() !== this.value ) {
-                    that
-                        .search( this.value )
-                        .draw();
-                }
-            } );
-        } );
 
         $(document).ready(function () {
             sessionStorage.clear();
@@ -311,7 +295,241 @@
                 dropdownAutoWidth: true,
                 width: '100%'
             });
+            loadDataTable();
+            //makeTableSearchAble();
         });
+
+        function hitTableRefresh() {
+            document.getElementById("DataTableButton").click();
+        }
+
+        function makeTableSearchAble(){
+            $('.social-media tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
+
+            dataTable.columns().every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        }
+
+        function returnStringFormatDate(_date) {
+            let targetDate = Date.parse(_date);
+            let currentDate = new Date(targetDate);
+            return currentDate.toDateString();
+            //return targetDate.('en')
+        }
+
+        function returnBDStringFormatDate(_date) {
+            let targetDate = Date.parse(_date);
+            let currentDate = new Date(targetDate);
+            let date = currentDate.getDate();
+            if(date < 10){
+                date = '0' + date;
+            }
+            let month = currentDate.getMonth() + 1;
+            if(month < 10){
+                month = '0'+month;
+            }
+            let year = currentDate.getFullYear();
+            return date + '/' + month + '/' + year;
+        }
+
+        function loadDataTable() {
+            dataTable.destroy();
+            var free_table = '<tr><td class="text-center" colspan="8">--- Please Wait... Loading Data  ----</td></tr>';
+
+            $('.social-media').find('tbody').append(free_table);
+
+            dataTable = $('.social-media').DataTable({
+                ajax: {
+                    url: "/lotfull/public/api/receive/list/master/inserted/{{ Auth::user()->id}}",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.age === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left text-bold' style='color: "+ api_item.color_code +"; font-weight: bold '>"+ api_item.age +"</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.receive_date === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ returnBDStringFormatDate(api_item.receive_date) +"</p>";
+                            }
+                        }
+                    },
+                   {
+                        render: function(data, type, api_item){
+                            if(api_item.reference_no === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ api_item.reference_no +"</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.receive_from_name === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ api_item.receive_from_name + " - " + api_item.receive_from_short_name + "</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.receive_type === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                if(api_item.receive_type === 'r'){
+                                    return "<p class = 'text-left'>New Receive</p>";
+                                }
+                                else{
+                                    return "<p class = 'text-left'>Transfer Receive</p>";
+                                }
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.stock_location === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ api_item.stock_location + "</p>";
+                            }
+                        }
+                    },
+                    {
+                        /*data: "id",*/
+                        render: function(data, type, api_item) {
+                            if(parseInt(api_item.update_access) === 1){
+                                if(parseInt(api_item.age)  < 46){
+                                    return "<p class='text-center'>" +
+                                        @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
+
+                                            @else
+
+                                            @endif
+                                            +"</p>";
+                                }
+                            }
+
+
+                                @if(Auth::user()->hasTaskPermission('setting-approval', Auth::user()->id))
+                                    "<a title= 'De-Activate Factory' class= 'btn btn-warning btn-sm btn-round fa fa-times DeActivateWorkExp' data-id = "+ api_item.id +"></a>" +
+                                " &nbsp;" +
+                                @endif
+                                    @if(Auth::user()->hasTaskPermission('setting-delete', Auth::user()->id))
+                                    "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.id +"></a>" +
+                                " &nbsp;" +
+                                @endif
+                                    @if(Auth::user()->hasTaskPermission('setting-update', Auth::user()->id))
+                                    "<a title= 'Edit' class= 'EditWorkExp btn btn-warning btn-sm btn-round fa fa-edit' data-id = "+ api_item.id +"></a>" +
+                                " &nbsp;" +
+                                @endif
+                                    "</p>";
+
+                            if(api_item.status === "A"){
+                                return "<p class='text-center'>" +
+                                    "<a title= 'De-Activate Factory' class= 'btn btn-warning btn-sm btn-round fa fa-times DeActivateWorkExp' data-id = "+ api_item.id +"></a>&nbsp;" +
+                                    "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.id +"></a>&nbsp;" +
+                                    "<a title= 'Edit' class= 'EditWorkExp btn btn-warning btn-sm btn-round fa fa-edit' data-id = "+ api_item.id +"></a>&nbsp;</p>";
+                            }
+                            else if(api_item.status === "I"){
+                                return "<p class='text-center'>" +
+                                    "<a title= 'Activate Factory' class= 'btn btn-cyan btn-sm btn-round fa fa-check ActivateWorkExp' data-id = "+ api_item.id +"></a>&nbsp;" +
+                                    "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.id +"></a>&nbsp;</p>";
+                            }
+                            else{
+                                return "<p class='text-center'></p>";
+                            }
+                        }
+                    }
+                ],
+                dom: 'Bfrtip',
+                pagingType: 'full_numbers',
+                className: 'my-1',
+                lengthMenu: [
+                    [ 10, 25, 50, 100, -1 ],
+                    [ '10 rows', '25 rows', '50 rows', '100 rows', 'Show all' ]
+                ],
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        fieldSeparator: '\t',
+                        extension: '.tsv',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'portrait',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        },
+                        customize: function(win)
+                        {
+                            var css = '@page { size: landscape; }',
+                                head = win.document.head || win.document.getElementsByTagName('head')[0],
+                                style = win.document.createElement('style');
+
+                            style.type = 'text/css';
+                            style.media = 'print';
+
+                            if (style.styleSheet)
+                            {
+                                style.styleSheet.cssText = css;
+                            }
+                            else
+                            {
+                                style.appendChild(win.document.createTextNode(css));
+                            }
+
+                            head.appendChild(style);
+                        }
+                    },
+                    'colvis',
+                    'pageLength'
+                ]
+            });
+            makeTableSearchAble();
+        }
 
         @if(!empty($departments))
         @foreach($departments AS $media)

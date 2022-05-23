@@ -20,6 +20,7 @@ class MasterController extends Controller
         $factories = Factory::allFactoriesForSelectField();
         $locations = Location::allLocationsForSelectFieldByUser(Auth::id());
         $departments = ReceiveMaster::getAllNotDeletedReceiveMasterListInserted();
+        //return ReceiveMaster::getAllNotDeletedReceiveMasterListInsertedApi(Auth::id(), 5000);
         //return $locations;
 
         return view('receive.master.list-inserted', compact('departments', 'factories',
