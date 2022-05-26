@@ -35,4 +35,8 @@ class MasterController extends Controller
     public function deleteMaster(Request $request){
         return ReceiveMaster::returnDelete($request);
     }
+
+    public function editMaster(Request $request){
+        return ReceiveMaster::returnMasterForUpdate($request->id);
+    }
 }

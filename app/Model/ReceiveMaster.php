@@ -33,6 +33,22 @@ class ReceiveMaster extends Model
         return 0;
     }
 
+    public static function returnMasterForUpdate($id){
+        $model = ReceiveMaster::find($id);
+        if($model != null){
+            $data = array(
+                'receive_from' => $model->receive_from,
+                'location' => $model->location_id,
+                'reference_no' => $model->reference_no,
+                'receive_date' => $model->receive_date,
+                'remarks' => $model->remarks,
+                'id' => $model->id
+            );
+            return $data;
+        }
+        return '0';
+    }
+
     public static function returnUpdate($request){
         //return $request->all();
         $receiveMaster = ReceiveMaster::find($request->id);

@@ -245,6 +245,7 @@ Auth::routes();
 Route::group(['as' => 'receive.','prefix' => 'receive','namespace' => 'Receive','middleware' => ['auth','receive']] , function(){
     Route::get('new', 'InsertController@new')->name('new');
     Route::post('save', 'InsertController@save')->name('save');
+    Route::post('master/edit', 'MasterController@editMaster')->name('master.edit');
     Route::post('master/update', 'MasterController@updateMaster')->name('master.update');
     Route::delete('master/delete', 'MasterController@deleteMaster')->name('master.delete');
 
