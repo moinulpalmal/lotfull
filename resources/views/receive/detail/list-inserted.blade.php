@@ -76,110 +76,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                       {{-- @if(!empty($departments))
-                                            @foreach($departments as $media)
-                                                <tr>
-                                                    <td class="text-center">
-                                                        {{\Carbon\Carbon::parse($media->receive_date)->format('d-m-Y')}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->reference_no}}
-                                                    </td>
-                                                    <td class="text-left">
-                                                        @if($media->receive_type == 'r')
-                                                            {{\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->factory_short_name." "."-"." ".\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->unit_short_name}}
-                                                        @else
-                                                            {{\App\Helpers\Helper::IDwiseData('locations', 'id', $media->receive_from)->name}}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if($media->receive_type == 'r')
-                                                            New Receive
-                                                        @else
-                                                            Transfer Receive
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->buyer_name}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->garments_type}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->style_no}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->short_unit}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->received_total_quantity}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if($media->qc_date != null)
-                                                        {{\Carbon\Carbon::parse($media->qc_date)->format('d-M-Y')}}
-                                                            @endif
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_a}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_b}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_c}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_d}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_t}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->received_total_quantity - ($media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d)}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        @if($media->receive_detail_status == 'I')
-                                                            Inserted
-                                                            @elseif($media->receive_detail_status == 'QCI')
-                                                            QC Inserted
-                                                            @elseif($media->receive_detail_status == 'QCF')
-                                                            QC Completed
-                                                        @else
 
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-left">
-                                                        {{$media->location_short_name}}
-                                                    </td>
-                                                    <td class="text-center text-bold-700">
-                                                        {{\App\Helpers\Helper::ageInDays($media->receive_date)}}
-                                                    </td>
-                                                    <td class="text-left text-bold-700" style="background-color: {{\App\Model\StockThreshold::returnColorCode(\App\Helpers\Helper::ageInDays($media->receive_date))}}">
-                                                        {{\App\Model\StockThreshold::returnStatus(\App\Helpers\Helper::ageInDays($media->receive_date))}}{{\App\Helpers\Helper::ageInDays($media->receive_date)}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if(Auth::user()->hasTaskPermission('receive_insert', Auth::user()->id))
-                                                        <a class="btn btn-success btn-sm btn-round fa fa-eye " href="{{route('receive.image-upload-form', ['master_id' => $media->receive_master_id, 'detail_id' => $media->counter])}}" title="Go to Image Upload Form"></a>
-                                                        @endif
-                                                    @if(Auth::user()->hasTaskPermission('qc_insert', Auth::user()->id))
-                                                        <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#QCInsert{{$media->receive_master_id."-".$media->counter}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal" data-target="#NewFactory" title="Insert QC Data"></a>
-                                                        @endif
-                                                        @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
-                                                                @if((\App\Helpers\Helper::ageInDays($media->receive_date)) < 46)
-                                                                    <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Delete"></a>
-                                                                @else
-                                                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
-                                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Delete"></a>
-                                                                    @endif
-                                                                @endif
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif--}}
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -326,7 +223,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        <div {{--class="form-actions right"--}}>
+                        <div>
                             <button type="submit" id="submit_button_new_buyer" class="btn btn-outline-primary">
                                 <i class="fa fa-check"></i> Insert QC Info
                             </button>
@@ -448,14 +345,8 @@
             });
             $('#QCInsertForm').submit(function(e){
                 e.preventDefault();
-                /* for ( instance in CKEDITOR.instances ) {
-                     CKEDITOR.instances[instance].updateElement();
-                 }*/
                 var data = $(this).serialize();
-                // var id = $('#HiddenFactoryID').val();
                 var url = '{{ route('receive.list.detail.insert-qc') }}';
-                //console.log(data);
-                //return;
                 $.ajax({
                     url: url,
                     method:'POST',
@@ -904,8 +795,6 @@
                 buttons: ["Cancel", "Yes!"],
             }).then(function(value) {
                 if (value) {
-                    //window.location.href = url;
-                    //console.log(id);
                     $.ajax({
                         method:'DELETE',
                         url: url,
@@ -927,7 +816,6 @@
                             }
                         },
                         error:function(error){
-                            //console.log(error);
                             swalError(error);
                         }
                     })
