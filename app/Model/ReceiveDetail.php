@@ -309,7 +309,6 @@ class ReceiveDetail extends Model
 
     public static function getQCFinishedList(){
         $locations = Location::getUserLocationIdArray(Auth::id());
-
         return DB::table('receive_details')
             ->join('receive_masters', 'receive_masters.id', '=', 'receive_details.receive_master_id')
             ->join('locations', 'locations.id', '=', 'receive_masters.location_id')
