@@ -44,6 +44,11 @@ class DetailController extends Controller
 
     }
 
+    public function editQC(Request $request){
+       // return json_encode($request->all());
+        return ReceiveDetail::editQC($request);
+    }
+
     public function approveSingleQCInserted(Request $request){
         return ReceiveDetail::approveSingleQCInserted(ReceiveDetail::returnMasterIdFromComplexStr($request->id),
             ReceiveDetail::returnDetailIdFromComplexStr($request->id));

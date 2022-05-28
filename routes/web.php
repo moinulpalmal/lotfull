@@ -276,6 +276,7 @@ Route::group(['as' => 'receive.','prefix' => 'receive','namespace' => 'Receive',
     Route::delete('list/detail/approve-qc-single', 'DetailController@approveSingleQCInserted')->name('list.detail.approve-qc-single');
     Route::delete('list/detail/approve-all-qc-inserted', 'DetailController@approveAllQCInserted')->name('list.detail.approve-all-qc-inserted');
     Route::post('list/detail/insert-qc', 'DetailController@insertQC')->name('list.detail.insert-qc');
+    Route::post('list/detail/edit-qc', 'DetailController@editQC')->name('list.detail.edit-qc');
 
     Route::delete('approve', 'InsertController@approve')->name('approve');
     Route::delete('delete', 'InsertController@delete')->name('delete');

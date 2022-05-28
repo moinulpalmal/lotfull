@@ -372,7 +372,7 @@
                                 else{
 
                                     return "<p class='text-center'>" +
-                                    @if(Auth::user()->hasTaskPermission('administrator', Auth::user()->id))
+                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
                                         "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.id +"></a>" +
                                     " &nbsp;" +
                                     @endif
