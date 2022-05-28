@@ -25,3 +25,5 @@ Route::get('settings/garments-type/setup/not-deleted-list', 'Settings\Api\Garmen
 Route::get('settings/unit/setup/not-deleted-list', 'Settings\Api\UnitController@allNotDeletedUnits');
 
 Route::get('receive/list/master/inserted/{user_id}', 'Receive\API\MasterController@listInserted');
+
+Route::get('receive/list/detail/inserted/{user_id}', 'Receive\API\DetailController@listInserted');

@@ -9,7 +9,7 @@ CREATE VIEW view_receive_masters AS
 SELECT receive_masters.id, receive_masters.receive_type, receive_masters.receive_date, receive_masters.reference_no,
 receive_masters.receive_from, receive_masters.location_id, receive_masters.status, receive_masters.remarks,
 receive_froms.receive_from_name, receive_froms.receive_from_short_name,
-locations.name AS stock_location, stock_thresholds.color_code,
+locations.name AS stock_location, stock_thresholds.color_code, stock_thresholds.stock_threshold_status,
 receive_masters.created_at, receive_masters.updated_at, DATEDIFF(CURDATE(), receive_masters.receive_date) AS age
 FROM receive_masters
 JOIN view_receive_masters_from ON view_receive_masters_from.id = receive_masters.id
