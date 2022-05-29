@@ -107,13 +107,9 @@
                                     </table>
                                 </div>
                             </div>
-                            @if(!empty($departments))
-                                @if($departments->count() > 0)
-                                    <div class="card-footer">
-                                        <a class="btn btn-success ApproveAllWorkExp text-bold-700" data-id="A" title="Approve All">Approve All QC Inserted</a>
-                                    </div>
-                                @endif
-                            @endif
+                            <div class="card-footer">
+                                <a class="btn btn-success ApproveAllWorkExp text-bold-700" data-id="A" title="Approve All">Approve All QC Inserted</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,138 +118,6 @@
     </div>
 @endsection
 @section('page-modals')
-    {{--new department modal--}}
-   {{-- @if(!empty($departments))
-        @foreach($departments AS $media)
-            <div class="modal fade text-left" id="QCInsert{{$media->receive_master_id."-".$media->counter}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-warning white">
-                            <h4 class="modal-title text-bold-700" id="myModalLabel16">QC Info Insert Form</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form class="form" id="QCInsertForm{{$media->receive_master_id."-".$media->counter}}" method="post" action="#">
-                            <div class="modal-body">
-                                @csrf
-                                <input type="hidden" id="MasterID" class="form-control" name="receive_master_id" value="{{old('receive_master_id', $media->receive_master_id)}}">
-                                <input type="hidden" id="DetailsID" class="form-control" name="counter" value="{{old('counter', $media->counter)}}">
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4 class="card-title">Invoice Detail Info</h4>
-                                            <table style="float: left" class="table table-borderless table-info table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center">RC Date</th>
-                                                        <th class="text-center">Challan No</th>
-                                                        <th class="text-center">RC. From</th>
-                                                        <th class="text-center">RC. Type</th>
-                                                        <th class="text-center">Buyer</th>
-                                                        <th class="text-center">Garments Type</th>
-                                                        <th class="text-center">Style No</th>
-                                                        <th class="text-center">Unit</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td class="text-center">
-                                                        {{\Carbon\Carbon::parse($media->receive_date)->format('d-m-Y')}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->reference_no}}
-                                                    </td>
-                                                    <td class="text-left">
-                                                        @if($media->receive_type == 'r')
-                                                            {{\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->factory_short_name." "."-"." ".\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->unit_short_name}}
-                                                        @else
-                                                            {{\App\Helpers\Helper::IDwiseData('locations', 'id', $media->receive_from)->name}}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if($media->receive_type == 'r')
-                                                            New Receive
-                                                        @else
-                                                            Transfer Receive
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->buyer_name}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->garments_type}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->style_no}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->short_unit}}
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-8 no-padding" style="padding-left: 10px !important;">
-                                            <div class="form-group">
-                                                <label for="ReceiveQuantity" class="text-bold-700">Receive Quantity</label>
-                                                <input type="number" id="ReceiveQuantity" class="form-control" name="received_total_quantity" value="{{old('received_total_quantity', $media->received_total_quantity)}}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 no-padding" style="padding-right: 10px !important;">
-                                            <div class="form-group">
-                                                <label for="QCDate" class="text-bold-700">QC Date</label>
-                                                <input type="date" id="QCDate" class="form-control" name="qc_date" @if(!empty($media->qc_date)) value="{{old('qc_date', $media->qc_date)}}" @endif required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 no-padding" style="padding-left: 10px !important;">
-                                            <div class="form-group">
-                                                <label for="GradeA" class="text-bold-700">Grade A</label>
-                                                <input type="number" id="GradeA" min="0" class="form-control" name="grade_a" value="{{old('grade_a', $media->grade_a)}}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 no-padding">
-                                            <div class="form-group">
-                                                <label for="GradeB" class="text-bold-700">Grade B</label>
-                                                <input type="number" id="GradeB" min="0" class="form-control" name="grade_b" value="{{old('grade_b', $media->grade_b)}}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 no-padding">
-                                            <div class="form-group">
-                                                <label for="GradeC" class="text-bold-700">Grade C</label>
-                                                <input type="number" id="GradeC" min="0" class="form-control" name="grade_c" value="{{old('grade_c', $media->grade_c)}}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 no-padding">
-                                            <div class="form-group">
-                                                <label for="GradeD" class="text-bold-700">Grade D</label>
-                                                <input type="number" id="GradeD" min="0" class="form-control" name="grade_d" value="{{old('grade_d', $media->grade_d)}}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 no-padding" style="padding-right: 10px !important;">
-                                            <div class="form-group">
-                                                <label for="GradeT" class="text-bold-700">Grade T</label>
-                                                <input type="number" id="GradeD" min="0" class="form-control" name="grade_t" value="{{old('grade_d', $media->grade_t)}}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                <div --}}{{--class="form-actions right"--}}{{-->
-                                    <button type="submit" id="submit_button_new_buyer" class="btn btn-outline-primary">
-                                        <i class="fa fa-check"></i> Insert QC Info
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    @endif--}}
-    {{-- end new department modal--}}
     <div class="modal fade text-left" id="QCInsertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -755,7 +619,7 @@
                             if(api_item.grade_a === null){
                                 return "<p class = 'text-right'></p>";
                             }else{
-                                return "<p class = 'text-right'>"+ returnTotalQCQty(api_item.grade_a, api_item.grade_b, api_item.grade_b, api_item.grade_d, api_item.grade_t) + "</p>";
+                                return "<p class = 'text-right'>"+ returnTotalQCQty(api_item.grade_a, api_item.grade_b, api_item.grade_c, api_item.grade_d, api_item.grade_t) + "</p>";
                             }
                         }
                     },
@@ -764,7 +628,7 @@
                             if(api_item.received_total_quantity === null){
                                 return "<p class = 'text-right'></p>";
                             }else{
-                                return "<p class = 'text-right'>"+ returnTotalQCVariation(api_item.received_total_quantity, api_item.grade_a, api_item.grade_b, api_item.grade_b, api_item.grade_d, api_item.grade_t) + "</p>";
+                                return "<p class = 'text-right'>"+ returnTotalQCVariation(api_item.received_total_quantity, api_item.grade_a, api_item.grade_b, api_item.grade_c, api_item.grade_d, api_item.grade_t) + "</p>";
                             }
                         }
                     },

@@ -28,3 +28,4 @@ Route::get('receive/list/master/inserted/{user_id}', 'Receive\API\MasterControll
 
 Route::get('receive/list/detail/inserted/{user_id}', 'Receive\API\DetailController@listInserted');
 Route::get('receive/list/detail/qc-inserted/{user_id}', 'Receive\API\DetailController@listQCInserted');
+Route::get('receive/list/detail/qc-finished/{user_id}', 'Receive\API\DetailController@listQCFinished');

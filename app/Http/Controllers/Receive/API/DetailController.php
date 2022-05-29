@@ -15,4 +15,8 @@ class DetailController extends Controller
     public function listQCInserted($user_id){
         return ReceiveDetail::getQCInsertedListAPI($user_id);
     }
+
+    public function listQCFinished($user_id){
+        return ReceiveDetail::getQCFinishedListAPI($user_id);
+    }
 }

@@ -664,7 +664,7 @@
                             if(api_item.grade_a === null){
                                 return "<p class = 'text-right'></p>";
                             }else{
-                                return "<p class = 'text-right'>"+ returnTotalQCQty(api_item.grade_a, api_item.grade_b, api_item.grade_b, api_item.grade_d, api_item.grade_t) + "</p>";
+                                return "<p class = 'text-right'>"+ returnTotalQCQty(api_item.grade_a, api_item.grade_b, api_item.grade_c, api_item.grade_d, api_item.grade_t) + "</p>";
                             }
                         }
                     },
@@ -673,7 +673,7 @@
                             if(api_item.received_total_quantity === null){
                                 return "<p class = 'text-right'></p>";
                             }else{
-                                return "<p class = 'text-right'>"+ returnTotalQCVariation(api_item.received_total_quantity, api_item.grade_a, api_item.grade_b, api_item.grade_b, api_item.grade_d, api_item.grade_t) + "</p>";
+                                return "<p class = 'text-right'>"+ returnTotalQCVariation(api_item.received_total_quantity, api_item.grade_a, api_item.grade_b, api_item.grade_c, api_item.grade_d, api_item.grade_t) + "</p>";
                             }
                         }
                     },
