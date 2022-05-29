@@ -76,113 +76,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {{--@if(!empty($departments))
-                                            @foreach($departments as $media)
-                                                <tr>
-                                                    <td class="text-center">
-                                                        {{\Carbon\Carbon::parse($media->receive_date)->format('d-m-Y')}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->reference_no}}
-                                                    </td>
-                                                    <td class="text-left">
-                                                        @if($media->receive_type == 'r')
-                                                            {{\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->factory_short_name." "."-"." ".\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->unit_short_name}}
-                                                        @else
-                                                            {{\App\Helpers\Helper::IDwiseData('locations', 'id', $media->receive_from)->name}}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if($media->receive_type == 'r')
-                                                            New Receive
-                                                        @else
-                                                            Transfer Receive
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->buyer_name}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->garments_type}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->style_no}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->short_unit}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->received_total_quantity}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if($media->qc_date != null)
-                                                        {{\Carbon\Carbon::parse($media->qc_date)->format('d-M-Y')}}
-                                                            @endif
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_a}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_b}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_c}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_d}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_t}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        {{$media->received_total_quantity - ($media->grade_a + $media->grade_b + $media->grade_c + $media->grade_d + $media->grade_t)}}
-                                                    </td>
-                                                    <td class="text-right">
-                                                        @if($media->receive_detail_status == 'I')
-                                                            Inserted
-                                                            @elseif($media->receive_detail_status == 'QCI')
-                                                            QC Inserted
-                                                            @elseif($media->receive_detail_status == 'QCF')
-                                                            QC Completed
-                                                        @else
 
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-left">
-                                                        {{$media->location_short_name}}
-                                                    </td>
-                                                    <td class="text-center text-bold-700">
-                                                        {{\App\Helpers\Helper::ageInDays($media->receive_date)}}
-                                                    </td>
-                                                    <td class="text-left text-bold-700" style="background-color: {{\App\Model\StockThreshold::returnColorCode(\App\Helpers\Helper::ageInDays($media->receive_date))}}">
-                                                        {{\App\Model\StockThreshold::returnStatus(\App\Helpers\Helper::ageInDays($media->receive_date))}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if(Auth::user()->hasTaskPermission('receive_insert', Auth::user()->id))
-                                                        <a class="btn btn-success btn-sm btn-round fa fa-eye " href="{{route('receive.image-upload-form', ['master_id' => $media->receive_master_id, 'detail_id' => $media->counter])}}" title="Go to Image Upload Form"></a>
-                                                        @endif
-                                                    @if(Auth::user()->hasTaskPermission('qc_approve', Auth::user()->id))
-                                                            <a class="btn btn-success btn-sm btn-round fa fa-check ApproveWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Approve"></a>
-                                                        @endif
-                                                            @if(Auth::user()->hasTaskPermission('qc_update', Auth::user()->id))
-                                                                <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#QCInsert{{$media->receive_master_id."-".$media->counter}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal" --}}{{--data-target="#NewFactory"--}}{{-- title="Insert QC Data"></a>
-                                                            @endif
-                                                            @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
-                                                                @if((\App\Helpers\Helper::ageInDays($media->receive_date)) < 46)
-                                                                    <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Delete"></a>
-                                                                @else
-                                                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
-                                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->receive_master_id."-".$media->counter}}" title="Delete"></a>
-                                                                    @endif
-                                                                @endif
-                                                            @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif--}}
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -360,6 +254,125 @@
         @endforeach
     @endif--}}
     {{-- end new department modal--}}
+    <div class="modal fade text-left" id="QCInsertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-warning white">
+                    <h4 class="modal-title text-bold-700" id="myModalLabel16">QC Info Insert</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form" id="QCInsertForm" method="post" action="#">
+                    <div class="modal-body">
+                        @csrf
+                        <input type="hidden" id="MasterID" class="form-control" name="receive_master_id">
+                        <input type="hidden" id="DetailsID" class="form-control" name="counter">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4 class="card-title">Invoice Detail Info</h4>
+                                    <table style="float: left" class="table table-borderless table-info table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">RC Date</th>
+                                            <th class="text-center">Challan No</th>
+                                            <th class="text-center">RC. From</th>
+                                            <th class="text-center">RC. Type</th>
+                                            <th class="text-center">Buyer</th>
+                                            <th class="text-center">Garments Type</th>
+                                            <th class="text-center">Style No</th>
+                                            <th class="text-center">Unit</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center" id="ModalTableRCDate">
+
+                                            </td>
+                                            <td class="text-center" id="ModalTableChallanNo">
+
+                                            </td>
+                                            <td class="text-left" id="ModalTableRCFrom">
+
+                                            </td>
+                                            <td class="text-center" id="ModalTableRType">
+
+                                            </td>
+                                            <td class="text-center" id="ModalTableBuyer">
+
+                                            </td>
+                                            <td class="text-center" id="ModalTableGarmentsType">
+
+                                            </td>
+                                            <td class="text-center" id="ModalTableStyleNo">
+
+                                            </td>
+                                            <td class="text-center" id="ModalTableShortUnit">
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-8 no-padding" style="padding-left: 10px !important;">
+                                    <div class="form-group">
+                                        <label for="ReceiveQuantity" class="text-bold-700">Receive Quantity</label>
+                                        <input type="number" id="ReceiveQuantity" class="form-control" name="received_total_quantity" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 no-padding" style="padding-right: 10px !important;">
+                                    <div class="form-group">
+                                        <label for="QCDate" class="text-bold-700">QC Date</label>
+                                        <input type="date" id="QCDate" class="form-control" name="qc_date" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 no-padding" style="padding-left: 10px !important;">
+                                    <div class="form-group">
+                                        <label for="GradeA" class="text-bold-700">Grade A</label>
+                                        <input type="number" id="GradeA" min="0" class="form-control" name="grade_a" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 no-padding">
+                                    <div class="form-group">
+                                        <label for="GradeB" class="text-bold-700">Grade B</label>
+                                        <input type="number" id="GradeB" min="0" class="form-control" name="grade_b" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 no-padding">
+                                    <div class="form-group">
+                                        <label for="GradeC" class="text-bold-700">Grade C</label>
+                                        <input type="number" id="GradeC" min="0" class="form-control" name="grade_c" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 no-padding">
+                                    <div class="form-group">
+                                        <label for="GradeD" class="text-bold-700">Grade D</label>
+                                        <input type="number" id="GradeD" min="0" class="form-control" name="grade_d" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 no-padding" style="padding-right: 10px !important;">
+                                    <div class="form-group">
+                                        <label for="GradeT" class="text-bold-700">Grade T</label>
+                                        <input type="number" id="GradeD" min="0" class="form-control" name="grade_t" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        <div>
+                            <button type="submit" id="submit_button_new_buyer" class="btn btn-outline-primary">
+                                <i class="fa fa-check"></i> Insert QC Info
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('pageScripts')
@@ -459,6 +472,10 @@
             window.open(url, "_blank");
         });
 
+        function hitTableRefresh() {
+            document.getElementById("DataTableButton").click();
+        }
+
         function makeTableSearchAble(){
             $('.social-media tfoot th').each( function () {
                 var title = $(this).text();
@@ -550,6 +567,10 @@
                                         "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.receive_master_id + "-" + api_item.counter + "></a>" +
                                     " &nbsp;" +
                                     @endif
+                                    @if(Auth::user()->hasTaskPermission('qc_approve', Auth::user()->id))
+                                        "<a title= 'Approve' class= 'btn btn-success btn-sm btn-round fa fa-check ApproveWorkExp' data-id = "+ api_item.receive_master_id + "-" + api_item.counter + "></a>" +
+                                    " &nbsp;" +
+                                    @endif
                                         @if(Auth::user()->hasTaskPermission('qc_insert', Auth::user()->id))
                                         "<a title= 'Insert QC Data' class= 'btn btn-warning btn-sm btn-round fa fa-edit QCInsert' data-toggle='modal' onclick='openQCInsertModal();'  data-id = "+ api_item.receive_master_id +" data-detail-id = "+ api_item.counter +"></a>" +
                                     " &nbsp;" +
@@ -565,6 +586,10 @@
                                     @endif
                                         @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
                                         "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.receive_master_id + "-" + api_item.counter + "></a>" +
+                                    " &nbsp;" +
+                                    @endif
+                                        @if(Auth::user()->hasTaskPermission('qc_approve', Auth::user()->id))
+                                        "<a title= 'Approve' class= 'btn btn-success btn-sm btn-round fa fa-check ApproveWorkExp' data-id = "+ api_item.receive_master_id + "-" + api_item.counter + "></a>" +
                                     " &nbsp;" +
                                     @endif
                                         @if(Auth::user()->hasTaskPermission('qc_insert', Auth::user()->id))
@@ -834,53 +859,59 @@
             makeTableSearchAble();
         }
 
-       /* @if(!empty($departments))
-            @foreach($departments AS $media)
-            $(function(){
-                $.ajaxSetup({
-                    headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
-                });
-                $('#QCInsertForm{{$media->receive_master_id."-".$media->counter}}').submit(function(e){
-                    e.preventDefault();
-                    /!* for ( instance in CKEDITOR.instances ) {
-                         CKEDITOR.instances[instance].updateElement();
-                     }*!/
-                    var data = $(this).serialize();
-                    // var id = $('#HiddenFactoryID').val();
-                    var url = '{{ route('receive.list.detail.insert-qc') }}';
-                   // console.log(data);
-                    //return;
-                    $.ajax({
-                        url: url,
-                        method:'POST',
-                        data:data,
-                        success:function(data){
-                           // console.log(data);
-                            // return;
-                            if(data === '2')
-                            {
-                                swalUpdateSuccessfulWithRefresh();
-                            }
-                            else if(data === '1')
-                            {
-                                swalInsertSuccessfulWithRefresh();
-                            }
-                            else if(data === '0'){
-                                swalDataNotSaved();
-                            }
-                            else{
-                                swalDataNotSaved();
-                            }
-                        },
-                        error:function(error){
-                            swalError(error);
-                        }
-                    })
-
-                })
+        $(function(){
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
             });
-            @endforeach
-        @endif*/
+            $('#QCInsertForm').submit(function(e){
+                e.preventDefault();
+                var data = $(this).serialize();
+                var url = '{{ route('receive.list.detail.insert-qc') }}';
+                $.ajax({
+                    url: url,
+                    method:'POST',
+                    data:data,
+                    success:function(data){
+                        if(data === '2')
+                        {
+                            swal({
+                                title: "Data Updated Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    $("#QCInsertModal").modal('hide');
+                                }
+                            });
+                        }
+                        else if(data === '1')
+                        {
+                            swal({
+                                title: "Data Inserted Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    $("#QCInsertModal").modal('hide');
+                                }
+                            });
+                        }
+                        else if(data === '0'){
+                            swalDataNotSaved();
+                        }
+                        else{
+                            swalDataNotSaved();
+                        }
+                    },
+                    error:function(error){
+                        swalError(error);
+                    }
+                })
+
+            })
+        });
 
 
 
@@ -1006,6 +1037,103 @@
                 }
             });
         });
+
+        $('#social-media-table').on('click',".QCInsert", function(){
+            var button = $(this);
+            var id = button.attr("data-id");
+            var detail_id = button.attr("data-detail-id");
+            var url = '{{ route('receive.list.detail.edit-qc') }}';
+            $.ajax({
+                url: url,
+                method:'POST',
+                data:{id: id, detail_id: detail_id, _token: '{{csrf_token()}}'},
+                success:function(data){
+                    if(data === '0' ){
+                        swalError(error);
+                    }
+                    else{
+                        $('input[name=qc_date]').val(data.qc_date);
+                        $('input[name=received_total_quantity]').val(data.received_total_quantity);
+                        $('input[name=grade_a]').val(data.grade_a);
+                        $('input[name=grade_b]').val(data.grade_b);
+                        $('input[name=grade_c]').val(data.grade_c);
+                        $('input[name=grade_d]').val(data.grade_d);
+                        $('input[name=grade_t]').val(data.grade_t);
+                        $('input[name=receive_master_id]').val(data.id);
+                        $('input[name=counter]').val(data.counter);
+
+                        if(data.receive_date === null){
+                            document.getElementById("ModalTableRCDate").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableRCDate").innerHTML  = returnBDStringFormatDate(data.receive_date);
+                        }
+
+                        if(data.receive_type === null){
+                            document.getElementById("ModalTableRType").innerHTML  = '';
+                        }
+                        else{
+                            if(data.receive_type === 'r'){
+                                document.getElementById("ModalTableRType").innerHTML  = 'New Receive';
+                            }
+                            else{
+                                document.getElementById("ModalTableRType").innerHTML  = 'Transfer Receive';
+                            }
+
+                        }
+
+                        if(data.reference_no === null){
+                            document.getElementById("ModalTableChallanNo").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableChallanNo").innerHTML  = data.reference_no;
+                        }
+
+                        if(data.receive_from_name === null){
+                            document.getElementById("ModalTableRCFrom").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableRCFrom").innerHTML  = data.receive_from_name + "-" + data.receive_from_short_name;
+                        }
+
+                        if(data.buyer_name === null){
+                            document.getElementById("ModalTableBuyer").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableBuyer").innerHTML  = data.buyer_name;
+                        }
+
+                        if(data.style_no === null){
+                            document.getElementById("ModalTableStyleNo").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableStyleNo").innerHTML  = data.style_no;
+                        }
+
+                        if(data.garments_type === null){
+                            document.getElementById("ModalTableGarmentsType").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableGarmentsType").innerHTML  = data.garments_type;
+                        }
+
+                        if(data.short_unit === null){
+                            document.getElementById("ModalTableShortUnit").innerHTML  = '';
+                        }else{
+                            document.getElementById("ModalTableShortUnit").innerHTML  = data.short_unit;
+                        }
+                    }
+
+                },
+                error:function(error){
+                    swalError(error);
+                }
+            })
+        });
+
+        function openQCInsertModal() {
+            $('#QCInsertModal').modal({backdrop: 'static', keyboard: false});
+        }
 
     </script>
 @endsection
