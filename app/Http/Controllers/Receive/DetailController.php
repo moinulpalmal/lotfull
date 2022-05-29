@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 class DetailController extends Controller
 {
     public function listInserted(){
-        $departments = ReceiveDetail::getInsertedList();
-        //return $departments;
-        return view('receive.detail.list-inserted', compact('departments'));
+        return view('receive.detail.list-inserted');
     }
     public function listQCFinished(){
         $departments = ReceiveDetail::getQCFinishedList();

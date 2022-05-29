@@ -27,3 +27,4 @@ Route::get('settings/unit/setup/not-deleted-list', 'Settings\Api\UnitController@
 Route::get('receive/list/master/inserted/{user_id}', 'Receive\API\MasterController@listInserted');
 
 Route::get('receive/list/detail/inserted/{user_id}', 'Receive\API\DetailController@listInserted');
+Route::get('receive/list/detail/qc-inserted/{user_id}', 'Receive\API\DetailController@listQCInserted');
