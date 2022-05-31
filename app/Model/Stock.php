@@ -68,6 +68,38 @@ class Stock extends Model
             ->take($count);
     }
 
+    public static function issueValue($request){
+
+        $model =  DB::table('view_current_stock')
+            ->select('*')
+            ->orderBy('age', 'DESC')
+            ->where('receive_master_id', $request->id)
+            ->where('receive_detail_id', $request->detail_id)
+            ->get();
+
+        if($model->count() > 0){
+            $data = array(
+                'receive_master_id' => $model[0]->receive_master_id,
+                'receive_detail_id' => $model[0]->receive_detail_id,
+                'receive_date' => $model[0]->receive_date,
+                'style_no' => $model[0]->style_no,
+                'garments_type' => $model[0]->garments_type,
+                'buyer_name' => $model[0]->buyer_name,
+                'short_unit' => $model[0]->short_unit,
+                'current_grade_a' => $model[0]->current_grade_a,
+                'current_grade_b' => $model[0]->current_grade_b,
+                'current_grade_c' => $model[0]->current_grade_c,
+                'current_grade_d' => $model[0]->current_grade_d,
+                'current_grade_t' => $model[0]->current_grade_t,
+                'location_id' => $model[0]->location_id,
+                'grade_t' => $model[0]->grade_t,
+            );
+            return $data;
+        }
+
+        return '0';
+    }
+
     public static function stockDetail($master_id, $detail_id){
         $locations = Location::getUserLocationIdArray(Auth::id());
 
@@ -79,32 +111,6 @@ class Stock extends Model
             ->whereIn('location_id', $locations)
             ->orderBy('receive_date', 'ASC')
             ->get();
-/*
-        return DB::table('stocks')
-            ->join('receive_details', function ($join) {
-                $join->on('receive_details.counter', '=', 'stocks.receive_detail_id');
-                $join->on('receive_details.receive_master_id', '=', 'stocks.receive_master_id');
-            })
-            ->join('receive_masters', 'receive_masters.id', '=', 'stocks.receive_master_id')
-            ->join('locations', 'locations.id', '=', 'receive_masters.location_id')
-            ->join('buyers', 'buyers.id', '=', 'receive_details.buyer_id')
-            ->join('units', 'units.id', '=', 'receive_details.unit_id')
-            ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
-            ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
-            ->select('receive_masters.id AS receive_master_id', 'receive_masters.receive_date',
-                'locations.short_name AS location_short_name', 'stocks.receive_detail_id',
-                'buyers.name AS buyer_name', 'buyer_styles.style_no',
-                'garments_types.name AS garments_type', 'units.short_unit',
-                'stocks.received_total_quantity', 'stocks.grade_a', 'stocks.grade_b',
-                'stocks.grade_c', 'stocks.grade_d',
-                'stocks.issued_grade_a', 'stocks.issued_grade_b', 'stocks.issued_grade_c', 'stocks.issued_grade_d',
-                'stocks.issued_total_quantity', 'stocks.status AS stock_status', 'stocks.location_id')
-            ->where('stocks.status', '!=', 'D')
-            ->whereIn('stocks.location_id', $locations)
-            ->where('stocks.receive_master_id', '=', $master_id)
-            ->where('stocks.receive_detail_id', '=', $detail_id)
-            ->orderBy('stocks.receive_date', 'ASC')
-            ->get();*/
     }
 
     public static function getInActiveStockList(){

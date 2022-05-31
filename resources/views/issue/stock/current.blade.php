@@ -170,153 +170,11 @@
     </div>
 @endsection
 @section('page-modals')
-   {{-- issue modal--}}
-    @if(!empty($departments))
-    @foreach($departments AS $media)
-        <div class="modal fade text-left" id="QCInsertI{{$media->receive_master_id."-".$media->receive_detail_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-gradient-radial-cyan white">
-                    <h4 class="modal-title text-bold-700" id="myModalLabel16">Issue Insert Form</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form class="form" id="QCInsertFormI{{$media->receive_master_id."-".$media->receive_detail_id}}" method="post" action="#">
-                    <div class="modal-body">
-                        @csrf
-                        <input type="hidden" id="MasterIDI" class="form-control" name="receive_master_id" value="{{old('receive_master_id', $media->receive_master_id)}}">
-                        <input type="hidden" id="DetailsIDI" class="form-control" name="receive_detail_id" value="{{old('receive_detail_id', $media->receive_detail_id)}}">
-                        <input type="hidden" id="IssueTypeIDI" class="form-control" name="issue_type" value="v">
-                        <input type="hidden" id=LocationIDI" class="form-control" name="location_id" value="{{old('location_id', $media->location_id)}}">
-                        <div class="form-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4 class="card-title">Invoice Detail Info</h4>
-                                    <table style="float: left" class="table table-borderless table-info table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">RC Date</th>
-                                                <th class="text-center">Buyer</th>
-                                                <th class="text-center">Style No</th>
-                                                <th class="text-center">Garments Type</th>
-                                                <th class="text-center">Unit</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center">
-                                                    {{\Carbon\Carbon::parse($media->receive_date)->format('d-m-Y')}}
-                                                </td>
-                                                <td class="text-left">
-                                                    {{$media->buyer_name}}
-                                                </td>
-                                                <td class="text-left">
-                                                    {{$media->style_no}}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{$media->garments_type}}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{$media->short_unit}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
-                                    <div class="form-group">
-                                        <label for="QCDateI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Issue Date</label>
-                                        <input type="date" id="QCDateI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="form-control" name="issue_date" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 no-padding">
-                                    <div class="form-group">
-                                        <label for="IssuedFromI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Issued From</label>
-                                        <select id="IssuedFromI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="select2 form-control" name="location" required>
-                                            <option value="" >- - - Select - - -</option>
-                                            @if(!empty($locations))
-                                                @foreach($locations AS $item)
-                                                    @if($locations->count() > 1)
-                                                        <option value="{{$item->id}}" @if($item->id == $media->location_id) selected = "selected" @endif>{{$item->name}}</option>
-                                                    @else
-                                                        <option value="{{$item->id}}" @if($item->id == $media->location_id) selected = "selected" @endif>{{$item->name}}</option>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 no-padding">
-                                    <div class="form-group">
-                                        <label for="IssuedToI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Issued To</label>
-                                        <select id="IssuedToI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="select2 form-control" name="issued_to" required>
-                                            <option value="" >- - - Select - - -</option>
-                                            @if(!empty($vendors))
-                                                @foreach($vendors AS $item)
-                                                    @if($vendors->count() > 1)
-                                                        <option value="{{$item->id}}" >{{$item->name}}</option>
-                                                    @else
-                                                        <option value="{{$item->id}}" selected = "selected">{{$item->name}}</option>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 no-padding" style="padding-right: 10px !important;">
-                                    <div class="form-group">
-                                        <label for="ChallanNoI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Challan No</label>
-                                        <input type="text" maxlength="150" id="ChallanNoI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="form-control" name="reference_no" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
-                                    <div class="form-group">
-                                        <label for="GradeAI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Grade A - [Stock: {{$media->grade_a - $media->issued_grade_a}}]</label>
-                                        <input type="number" id="GradeAI{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0"  max="{{$media->grade_a - $media->issued_grade_a}}" value="0" class="form-control" name="grade_a" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 no-padding">
-                                    <div class="form-group">
-                                        <label for="GradeBI{{$media->receive_master_id."-".$media->receive_detail_id}}B" class="text-bold-700">Grade B - [Stock: {{$media->grade_b - $media->issued_grade_b}}]</label>
-                                        <input type="number" id="GradeBI{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0"  max="{{$media->grade_b - $media->issued_grade_b}}" value="0" class="form-control" name="grade_b" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 no-padding">
-                                    <div class="form-group">
-                                        <label for="GradeCI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Grade C - [Stock: {{$media->grade_c - $media->issued_grade_c}}]</label>
-                                        <input type="number" id="GradeCI{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" max="{{$media->grade_c - $media->issued_grade_c}}" value="0" class="form-control" name="grade_c" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 no-padding" style="padding-right: 10px !important;">
-                                    <div class="form-group">
-                                        <label for="GradeDI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="text-bold-700">Grade D - [Stock: {{$media->grade_d - $media->issued_grade_d}}]</label>
-                                        <input type="number" id="GradeDI{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_d - $media->issued_grade_d}}" value="0" name="grade_d" required>
-                                        <input type="hidden" id="GradeTT{{$media->receive_master_id."-".$media->receive_detail_id}}" min="0" class="form-control" max="{{$media->grade_t - $media->issued_grade_t}}" value="0" name="grade_t" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        <div {{--class="form-actions right"--}}>
-                            <button type="submit" id="submit_button_new_buyerI{{$media->receive_master_id."-".$media->receive_detail_id}}" class="btn btn-outline-primary">
-                                <i class="fa fa-check"></i> Save Issue
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>
-    @endforeach
-    @endif
-    {{-- end issue modal--}}
+
    {{-- transfer modal--}}
    @if(!empty($departments))
        @foreach($departments AS $media)
-           <div class="modal fade text-left" id="QCInsertT{{$media->receive_master_id."-".$media->receive_detail_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+          {{-- <div class="modal fade text-left" id="QCInsertT{{$media->receive_master_id."-".$media->receive_detail_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
                <div class="modal-dialog modal-xl" role="document">
                    <div class="modal-content">
                        <div class="modal-header bg-gradient-radial-cyan white">
@@ -450,7 +308,7 @@
                            </div>
                            <div class="modal-footer">
                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                               <div {{--class="form-actions right"--}}>
+                               <div --}}{{--class="form-actions right"--}}{{-->
                                    <button type="submit" id="submit_button_new_buyerT{{$media->receive_master_id."-".$media->receive_detail_id}}" class="btn btn-outline-primary">
                                        <i class="fa fa-check"></i> Save Transfer
                                    </button>
@@ -459,10 +317,299 @@
                        </form>
                    </div>
                </div>
-           </div>
+           </div>--}}
        @endforeach
    @endif
    {{-- end transfer modal--}}
+
+   {{-- Issue Modal --}}
+   <div class="modal fade text-left" id="QCInsertI" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+       <div class="modal-dialog modal-xl" role="document">
+           <div class="modal-content">
+               <div class="modal-header bg-gradient-radial-cyan white">
+                   <h4 class="modal-title text-bold-700" id="myModalLabel16">Issue Insert Form</h4>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <form class="form" id="QCInsertFormI" method="post" action="#">
+                   <div class="modal-body">
+                       @csrf
+                       <input type="hidden" id="MasterIDI" class="form-control" name="receive_master_id" >
+                       <input type="hidden" id="DetailsIDI" class="form-control" name="receive_detail_id" >
+                       <input type="hidden" id="IssueTypeIDI" class="form-control" name="issue_type" value="v">
+                       <input type="hidden" id=LocationIDI" class="form-control" name="location_id" >
+                       <div class="form-body">
+                           <div class="row">
+                               <div class="col-md-12">
+                                   <h4 class="card-title">Invoice Detail Info</h4>
+                                   <table style="float: left" class="table table-borderless table-info table-striped">
+                                       <thead>
+                                       <tr>
+                                           <th class="text-center">RC Date</th>
+                                           <th class="text-center">Buyer</th>
+                                           <th class="text-center">Style No</th>
+                                           <th class="text-center">Garments Type</th>
+                                           <th class="text-center">Unit</th>
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                           <tr>
+                                               <td class="text-center" id="ModalTableRCDate">
+
+                                               </td>
+                                               <td class="text-center" id="ModalTableBuyer">
+
+                                               </td>
+                                               <td class="text-center" id="ModalTableGarmentsType">
+
+                                               </td>
+                                               <td class="text-center" id="ModalTableStyleNo">
+
+                                               </td>
+                                               <td class="text-center" id="ModalTableShortUnit">
+
+                                               </td>
+                                           </tr>
+
+                                       </tbody>
+                                   </table>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="QCDateI" class="text-bold-700">Issue Date</label>
+                                       <input type="date" id="QCDateI" class="form-control" name="issue_date" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="IssuedFromI" class="text-bold-700">Issued From</label>
+                                       <select id="IssuedFromI" class="select2 form-control" name="location" required>
+                                           <option value="" >- - - Select - - -</option>
+                                           @if(!empty($locations))
+                                               @foreach($locations AS $item)
+                                                   @if($locations->count() > 1)
+                                                       <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                   @else
+                                                       <option value="{{$item->id}}" selected = "selected">{{$item->name}}</option>
+                                                   @endif
+                                               @endforeach
+                                           @endif
+                                       </select>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="IssuedToI" class="text-bold-700">Issued To</label>
+                                       <select id="IssuedToI" class="select2 form-control" name="issued_to" required>
+                                           <option value="" >- - - Select - - -</option>
+                                           @if(!empty($vendors))
+                                               @foreach($vendors AS $item)
+                                                   @if($vendors->count() > 1)
+                                                       <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                   @else
+                                                       <option value="{{$item->id}}" selected = "selected">{{$item->name}}</option>
+                                                   @endif
+                                               @endforeach
+                                           @endif
+                                       </select>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-right: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="ChallanNoI" class="text-bold-700">Challan No</label>
+                                       <input type="text" maxlength="150" id="ChallanNoI" class="form-control" name="reference_no" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="GradeAI" class="text-bold-700" id="GradeAILabel">Grade A - [Stock: ]</label>
+                                       <input type="number" id="GradeAI" min="0"  max="" value="0" class="form-control" name="grade_a" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="GradeBI" class="text-bold-700" id="GradeBILabel">Grade B - [Stock: ]</label>
+                                       <input type="number" id="GradeBI" min="0"  max="" value="0" class="form-control" name="grade_b" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="GradeCI" class="text-bold-700" id="GradeCILabel">Grade C - [Stock: ]</label>
+                                       <input type="number" id="GradeCI" min="0" max="" value="0" class="form-control" name="grade_c" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-right: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="GradeDI" class="text-bold-700" id="GradeDILabel">Grade D - [Stock: ]</label>
+                                       <input type="number" id="GradeDI" min="0" class="form-control" max="" value="0" name="grade_d" required>
+                                       <input type="hidden" id="GradeTT" min="0" class="form-control" max="" value="0" name="grade_t">
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                       <div {{--class="form-actions right"--}}>
+                           <button type="submit" id="submit_button_new_buyerI" class="btn btn-outline-primary">
+                               <i class="fa fa-check"></i> Save Issue
+                           </button>
+                       </div>
+                   </div>
+               </form>
+           </div>
+       </div>
+   </div>
+   {{-- Issue Modal Endt --}}
+
+   {{-- Transfer Modal --}}
+   <div class="modal fade text-left" id="QCInsertT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+       <div class="modal-dialog modal-xl" role="document">
+           <div class="modal-content">
+               <div class="modal-header bg-gradient-radial-cyan white">
+                   <h4 class="modal-title text-bold-700" id="myModalLabel16">Transfer Insert Form</h4>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <form class="form" id="QCInsertFormT" method="post" action="#">
+                   <div class="modal-body">
+                       @csrf
+                       <input type="hidden" id="MasterIDT" class="form-control" name="receive_master_id" >
+                       <input type="hidden" id="DetailsIDT" class="form-control" name="receive_detail_id" >
+                       <input type="hidden" id="IssueTypeIDT" class="form-control" name="issue_type" value="t">
+                       <input type="hidden" id=LocationIDT" class="form-control" name="location_id" >
+                       <div class="form-body">
+                           <div class="row">
+                               <div class="col-md-12">
+                                   <h4 class="card-title">Invoice Detail Info</h4>
+                                   <table style="float: left" class="table table-borderless table-info table-striped">
+                                       <thead>
+                                       <tr>
+                                           <th class="text-center">RC Date</th>
+                                           <th class="text-center">Buyer</th>
+                                           <th class="text-center">Style No</th>
+                                           <th class="text-center">Garments Type</th>
+                                           <th class="text-center">Unit</th>
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                       <tr>
+                                           <td class="text-center" id="ModalTableRCDateT">
+
+                                           </td>
+                                           <td class="text-center" id="ModalTableBuyerT">
+
+                                           </td>
+                                           <td class="text-center" id="ModalTableGarmentsTypeT">
+
+                                           </td>
+                                           <td class="text-center" id="ModalTableStyleNoT">
+
+                                           </td>
+                                           <td class="text-center" id="ModalTableShortUnitT">
+
+                                           </td>
+                                       </tr>
+
+                                       </tbody>
+                                   </table>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="QCDateT" class="text-bold-700">Issue Date</label>
+                                       <input type="date" id="QCDateT" class="form-control" name="issue_date" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="IssuedFromT" class="text-bold-700">Issued From</label>
+                                       <select id="IssuedFromT" class="select2 form-control" name="location" required>
+                                           <option value="" >- - - Select - - -</option>
+                                           @if(!empty($locations))
+                                               @foreach($locations AS $item)
+                                                   @if($locations->count() > 1)
+                                                       <option value="{{$item->id}}">{{$item->name}}</option>
+                                                   @else
+                                                       <option value="{{$item->id}}" selected = "selected">{{$item->name}}</option>
+                                                   @endif
+                                               @endforeach
+                                           @endif
+                                       </select>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="IssuedToT" class="text-bold-700">Transferred To</label>
+                                       <select id="IssuedToT" class="select2 form-control" name="issued_to" required>
+                                           <option value="" >- - - Select - - -</option>
+                                           @if(!empty($issue_locations))
+                                               @foreach($issue_locations AS $item)
+                                                   @if($item->id != $media->location_id)
+                                                       @if($issue_locations->count() > 1)
+                                                           <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                       @else
+                                                           <option value="{{$item->id}}" selected = "selected">{{$item->name}}</option>
+                                                       @endif
+                                                   @endif
+                                               @endforeach
+                                           @endif
+                                       </select>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-right: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="ChallanNoT" class="text-bold-700">Challan No</label>
+                                       <input type="text" maxlength="150" id="ChallanNoT" class="form-control" name="reference_no" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="GradeAT" class="text-bold-700" id="GradeATLabel"></label>
+                                       <input type="number" id="GradeAT" min="0"  max="" value="0" class="form-control" name="grade_a" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="GradeBT" class="text-bold-700" id="GradeBTLabel"></label>
+                                       <input type="number" id="GradeBT" min="0"  max="" value="0" class="form-control" name="grade_b" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="GradeCT" class="text-bold-700" id="GradeCTLabel"></label>
+                                       <input type="number" id="GradeCT" min="0" max="" value="0" class="form-control" name="grade_c" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-right: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="GradeDT" class="text-bold-700" id="GradeDTLabel"></label>
+                                       <input type="number" id="GradeDT" min="0" class="form-control" max="" value="0" name="grade_d" required>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="GradeTT" class="text-bold-700" id="GradeTTLabel"></label>
+                                       <input type="number" id="GradeTT" min="0" class="form-control" max="" value="0" name="grade_t" required>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                       <div {{--class="form-actions right"--}}>
+                           <button type="submit" id="submit_button_new_buyerT" class="btn btn-outline-primary">
+                               <i class="fa fa-check"></i> Save Transfer
+                           </button>
+                       </div>
+                   </div>
+               </form>
+           </div>
+       </div>
+   </div>
+   {{-- Transfer Modal End --}}
 @endsection
 
 @section('pageScripts')
@@ -655,11 +802,11 @@
                                     " &nbsp;" +
                                     @endif
                                         @if(Auth::user()->hasTaskPermission('issue_insert', Auth::user()->id))
-                                        "<a title= 'Issue Entry' class= 'btn btn-warning btn-sm btn-round fa fa-edit QCInsertI' data-toggle='modal' onclick='openQCInsertModalI();' data-id = "+ api_item.receive_master_id + "-" + api_item.receive_detail_id + "></a>" +
+                                        "<a title= 'Issue Entry' class= 'btn btn-warning btn-sm btn-round fa fa-edit QCInsertI' data-toggle='modal' onclick='openQCInsertIModal();'  data-id = "+ api_item.receive_master_id +" data-detail-id = "+ api_item.receive_detail_id +"></a>" +
                                     " &nbsp;" +
                                     @endif
                                         @if(Auth::user()->hasTaskPermission('transfer_insert', Auth::user()->id))
-                                        "<a title= 'Transfer Entry' class= 'btn btn-info btn-sm btn-round fa fa-edit QCInsertT' data-toggle='modal' onclick='openQCInsertModalT();'  data-id = "+ api_item.receive_master_id +" data-detail-id = "+ api_item.receive_detail_id +"></a>" +
+                                        "<a title= 'Transfer Entry' class= 'btn btn-info btn-sm btn-round fa fa-edit QCInsertT' data-toggle='modal' onclick='openQCInsertTModal();'   data-id = "+ api_item.receive_master_id +" data-detail-id = "+ api_item.receive_detail_id +"></a>" +
                                     " &nbsp;" +
                                     @endif
                                         @if(Auth::user()->hasTaskPermission('stock_manager', Auth::user()->id))
@@ -862,84 +1009,47 @@
             makeTableSearchAble();
         }
 
-        @if(!empty($departments))
-        @foreach($departments AS $media)
-            $(function(){
-                $.ajaxSetup({
-                    headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
-                });
-                $('#QCInsertFormI{{$media->receive_master_id."-".$media->receive_detail_id}}').submit(function(e){
-                    e.preventDefault();
-                    /* for ( instance in CKEDITOR.instances ) {
-                         CKEDITOR.instances[instance].updateElement();
-                     }*/
-                    var data = $(this).serialize();
-                    // var id = $('#HiddenFactoryID').val();
-                    var url = '{{ route('issue.detail.save') }}';
-                    //console.log(data);
-                    //return;
-                    $.ajax({
-                        url: url,
-                        method:'POST',
-                        data:data,
-                        success:function(data){
-                            //console.log(data);
-                            // return;
-                            if(data === '2')
-                            {
-                                swalUpdateSuccessfulWithRefresh();
-                            }
-                            else if(data === '1')
-                            {
-                                swalInsertSuccessfulWithRefresh();
-                            }
-                            else if(data === '0'){
-                                swalDataNotSaved();
-                            }
-                            else{
-                                swalDataNotSaved();
-                            }
-                        },
-                        error:function(error){
-                            swalError(error);
-                        }
-                    })
-
-                })
-            });
-        @endforeach
-        @endif
-
-        @if(!empty($departments))
-        @foreach($departments AS $media)
         $(function(){
             $.ajaxSetup({
                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
             });
-            $('#QCInsertFormT{{$media->receive_master_id."-".$media->receive_detail_id}}').submit(function(e){
+            $('#QCInsertFormI').submit(function(e){
                 e.preventDefault();
                 /* for ( instance in CKEDITOR.instances ) {
                      CKEDITOR.instances[instance].updateElement();
                  }*/
                 var data = $(this).serialize();
-                // var id = $('#HiddenFactoryID').val();
                 var url = '{{ route('issue.detail.save') }}';
-                //console.log(data);
-                //return;
                 $.ajax({
                     url: url,
                     method:'POST',
                     data:data,
                     success:function(data){
-                        //console.log(data);
-                        // return;
                         if(data === '2')
                         {
-                            swalUpdateSuccessfulWithRefresh();
+                            swal({
+                                title: "Data Updated Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    $("#QCInsertI").modal('hide');
+                                }
+                            });
                         }
                         else if(data === '1')
                         {
-                            swalInsertSuccessfulWithRefresh();
+                            swal({
+                                title: "Data Inserted Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    $("#QCInsertI").modal('hide');
+                                }
+                            });
                         }
                         else if(data === '0'){
                             swalDataNotSaved();
@@ -955,8 +1065,66 @@
 
             })
         });
-        @endforeach
-        @endif
+
+        $(function(){
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+            });
+            $('#QCInsertFormT').submit(function(e){
+                e.preventDefault();
+                /* for ( instance in CKEDITOR.instances ) {
+                     CKEDITOR.instances[instance].updateElement();
+                 }*/
+                var data = $(this).serialize();
+                // var id = $('#HiddenFactoryID').val();
+                var url = '{{ route('issue.detail.save') }}';
+                //console.log(data);
+                //return;
+                $.ajax({
+                    url: url,
+                    method:'POST',
+                    data:data,
+                    success:function(data){
+                        if(data === '2')
+                        {
+                            swal({
+                                title: "Data Updated Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    $("#QCInsertT").modal('hide');
+                                }
+                            });
+                        }
+                        else if(data === '1')
+                        {
+                            swal({
+                                title: "Data Inserted Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    $("#QCInsertT").modal('hide');
+                                }
+                            });
+                        }
+                        else if(data === '0'){
+                            swalDataNotSaved();
+                        }
+                        else{
+                            swalDataNotSaved();
+                        }
+                    },
+                    error:function(error){
+                        swalError(error);
+                    }
+                })
+
+            })
+        });
 
         $('#social-media-table').on('click',".ActivateWorkExp", function(){
             var button = $(this);
@@ -970,8 +1138,6 @@
                 buttons: ["Cancel", "Yes!"],
             }).then(function(value) {
                 if (value) {
-                    //window.location.href = url;
-                    //console.log(id);
                     $.ajax({
                         method:'DELETE',
                         url: url,
@@ -1044,7 +1210,261 @@
             });
         });
 
+        function openQCInsertIModal() {
+            $('#QCInsertI').modal({backdrop: 'static', keyboard: false});
+        }
 
+        function openQCInsertTModal() {
+            $('#QCInsertT').modal({backdrop: 'static', keyboard: false});
+        }
+
+        $('#social-media-table').on('click',".QCInsertI", function(){
+            var button = $(this);
+            var id = button.attr("data-id");
+            var detail_id = button.attr("data-detail-id");
+            var url = '{{ route('issue.stock.current.issue-value') }}';
+            $.ajax({
+                url: url,
+                method:'POST',
+                data:{id: id, detail_id: detail_id, _token: '{{csrf_token()}}'},
+                success:function(data){
+                    if(data === '0' ){
+                        swal({
+                            title: "Invalid Request!",
+                            icon: "error",
+                            button: "Ok!",
+                        }).then(function (value) {
+                            if(value){
+
+                            }
+                        });
+                    }
+                    else{
+                        $('#QCInsertI').find('input[name=receive_master_id]').val(data.receive_master_id);
+                        $('#QCInsertI').find('input[name=receive_detail_id]').val(data.receive_detail_id);
+                        $('#QCInsertI').find('input[name=location_id]').val(data.location_id);
+                        $('#QCInsertI').find('select[name=location]').val(data.location_id).change();
+                        $('#QCInsertI').find('select[name=issued_to]').val('').change();
+                        $('#QCInsertI').find('input[name=issue_date]').val('').change();
+                        $('#QCInsertI').find('input[name=reference_no]').val('');
+                        $('#QCInsertI').find('input[name=grade_a]').val('');
+                        $('#QCInsertI').find('input[name=grade_b]').val('');
+                        $('#QCInsertI').find('input[name=grade_c]').val('');
+                        $('#QCInsertI').find('input[name=grade_d]').val('');
+
+                        if(data.receive_date === null){
+                            document.getElementById("ModalTableRCDate").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableRCDate").innerHTML  = returnBDStringFormatDate(data.receive_date);
+                        }
+
+                        if(data.buyer_name === null){
+                            document.getElementById("ModalTableBuyer").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableBuyer").innerHTML  = data.buyer_name;
+                        }
+
+                        if(data.style_no === null){
+                            document.getElementById("ModalTableStyleNo").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableStyleNo").innerHTML  = data.style_no;
+                        }
+
+                        if(data.garments_type === null){
+                            document.getElementById("ModalTableGarmentsType").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableGarmentsType").innerHTML  = data.garments_type;
+                        }
+
+                        if(data.short_unit === null){
+                            document.getElementById("ModalTableShortUnit").innerHTML  = '';
+                        }else{
+                            document.getElementById("ModalTableShortUnit").innerHTML  = data.short_unit;
+                        }
+
+                        if(data.current_grade_a === null){
+                            document.getElementById("GradeAILabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeAILabel").innerHTML  ='Grade A - [Stock: ' + data.current_grade_a + ' ]';
+                            $('#GradeAI').attr({
+                                "max" : data.current_grade_a,
+                                "min" : 0
+                            });
+
+                        }
+                        if(data.current_grade_b === null){
+                            document.getElementById("GradeBILabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeBILabel").innerHTML  ='Grade B - [Stock: ' + data.current_grade_b + ' ]';
+                            $('#GradeBI').attr({
+                                "max" : data.current_grade_b,
+                                "min" : 0
+                            });
+
+                        }
+
+                        if(data.current_grade_c === null){
+                            document.getElementById("GradeCILabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeCILabel").innerHTML  ='Grade C - [Stock: ' + data.current_grade_c + ' ]';
+                            $('#GradeCI').attr({
+                                "max" : data.current_grade_c,
+                                "min" : 0
+                            });
+
+                        }
+
+                        if(data.current_grade_d === null){
+                            document.getElementById("GradeDILabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeDILabel").innerHTML  ='Grade D - [Stock: ' + data.current_grade_d + ' ]';
+                            $('#GradeDI').attr({
+                                "max" : data.current_grade_d,
+                                "min" : 0
+                            });
+
+                        }
+                    }
+                },
+                error:function(error){
+                    swalError(error);
+                }
+            })
+        });
+
+        $('#social-media-table').on('click',".QCInsertT", function(){
+            var button = $(this);
+            var id = button.attr("data-id");
+            var detail_id = button.attr("data-detail-id");
+            var url = '{{ route('issue.stock.current.issue-value') }}';
+            $.ajax({
+                url: url,
+                method:'POST',
+                data:{id: id, detail_id: detail_id, _token: '{{csrf_token()}}'},
+                success:function(data){
+                    if(data === '0' ){
+                        swal({
+                            title: "Invalid Request!",
+                            icon: "error",
+                            button: "Ok!",
+                        }).then(function (value) {
+                            if(value){
+
+                            }
+                        });
+                    }
+                    else{
+                        $('#QCInsertT').find('input[name=receive_master_id]').val(data.receive_master_id);
+                        $('#QCInsertT').find('input[name=receive_detail_id]').val(data.receive_detail_id);
+                        $('#QCInsertT').find('input[name=location_id]').val(data.location_id);
+                        $('#QCInsertT').find('select[name=location]').val(data.location_id).change();
+                        $('#QCInsertT').find('select[name=issued_to]').val('').change();
+                        $('#QCInsertT').find('input[name=issue_date]').val('').change();
+                        $('#QCInsertT').find('input[name=reference_no]').val('');
+                        $('#QCInsertT').find('input[name=grade_a]').val('');
+                        $('#QCInsertT').find('input[name=grade_b]').val('');
+                        $('#QCInsertT').find('input[name=grade_c]').val('');
+                        $('#QCInsertT').find('input[name=grade_d]').val('');
+                        $('#QCInsertT').find('input[name=grade_t]').val('');
+
+                        if(data.receive_date === null){
+                            document.getElementById("ModalTableRCDateT").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableRCDateT").innerHTML  = returnBDStringFormatDate(data.receive_date);
+                        }
+
+                        if(data.buyer_name === null){
+                            document.getElementById("ModalTableBuyerT").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableBuyerT").innerHTML  = data.buyer_name;
+                        }
+
+                        if(data.style_no === null){
+                            document.getElementById("ModalTableStyleNoT").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableStyleNoT").innerHTML  = data.style_no;
+                        }
+
+                        if(data.garments_type === null){
+                            document.getElementById("ModalTableGarmentsTypeT").innerHTML  = '';
+                        }
+                        else{
+                            document.getElementById("ModalTableGarmentsTypeT").innerHTML  = data.garments_type;
+                        }
+
+                        if(data.short_unit === null){
+                            document.getElementById("ModalTableShortUnitT").innerHTML  = '';
+                        }else{
+                            document.getElementById("ModalTableShortUnitT").innerHTML  = data.short_unit;
+                        }
+
+                        if(data.current_grade_a === null){
+                            document.getElementById("GradeATLabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeATLabel").innerHTML  ='Grade A - [Stock: ' + data.current_grade_a + ' ]';
+                            $('#GradeAT').attr({
+                                "max" : data.current_grade_a,
+                                "min" : 0
+                            });
+
+                        }
+                        if(data.current_grade_b === null){
+                            document.getElementById("GradeBTLabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeBTLabel").innerHTML  ='Grade B - [Stock: ' + data.current_grade_b + ' ]';
+                            $('#GradeBT').attr({
+                                "max" : data.current_grade_b,
+                                "min" : 0
+                            });
+
+                        }
+
+                        if(data.current_grade_c === null){
+                            document.getElementById("GradeCTLabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeCTLabel").innerHTML  ='Grade C - [Stock: ' + data.current_grade_c + ' ]';
+                            $('#GradeCT').attr({
+                                "max" : data.current_grade_c,
+                                "min" : 0
+                            });
+
+                        }
+
+                        if(data.current_grade_d === null){
+                            document.getElementById("GradeDTLabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeDTLabel").innerHTML  ='Grade D - [Stock: ' + data.current_grade_d + ' ]';
+                            $('#GradeDT').attr({
+                                "max" : data.current_grade_d,
+                                "min" : 0
+                            });
+
+                        }
+
+                        if(data.current_grade_d === null){
+                            document.getElementById("GradeTTLabel").innerHTML  = '';
+                        }else{
+                            document.getElementById("GradeTTLabel").innerHTML  ='Grade T - [Stock: ' + data.current_grade_t + ' ]';
+                            $('#GradeTT').attr({
+                                "max" : data.current_grade_t,
+                                "min" : 0
+                            });
+
+                        }
+                    }
+                },
+                error:function(error){
+                    swalError(error);
+                }
+            })
+        });
 
     </script>
 @endsection

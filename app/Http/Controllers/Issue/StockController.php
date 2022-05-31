@@ -46,6 +46,11 @@ class StockController extends Controller
         return view('issue.stock.old');
     }
 
+    public function issueValue(Request $request){
+       // return $request->all();
+        return Stock::issueValue($request);
+    }
+
 
     public function deleteStock(Request $request){
         return Stock::returnDelete($request->master_id, $request->detail_id);

@@ -297,6 +297,8 @@ Route::group(['as' => 'issue.','prefix' => 'issue','namespace' => 'Issue','middl
     Route::get('stock/current/print-view/{master_id}/{detail_id}', 'StockController@stockPrintView')->name('stock.current.print-view');
     Route::get('stock/in-active', 'StockController@inActiveStock')->name('stock.in-active');
 
+    Route::post('stock/current/issue-value', 'StockController@issueValue')->name('stock.current.issue-value');
+
     Route::delete('stock/current/activate', 'StockController@activateStock')->name('stock.current.activate');
     Route::delete('stock/current/de-activate', 'StockController@deActivateStock')->name('stock.current.de-activate');
 
