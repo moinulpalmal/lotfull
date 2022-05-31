@@ -37,6 +37,37 @@ class Stock extends Model
             ->get();
     }
 
+    public static function getCurrentActiveStockListAPI($user_id){
+        $locations = Location::getUserLocationIdArray($user_id);
+        return DB::table('view_current_stock')
+            ->select('*')
+            ->where('stock_status', '=', 'A')
+            ->whereIn('location_id', $locations)
+            ->orderBy('age', 'DESC')
+            ->get();
+    }
+
+    public static function getCurrentInActiveStockListAPI($user_id){
+        $locations = Location::getUserLocationIdArray($user_id);
+        return DB::table('view_current_stock')
+            ->select('*')
+            ->where('stock_status', '=', 'I')
+            ->whereIn('location_id', $locations)
+            ->orderBy('age', 'DESC')
+            ->get();
+    }
+
+    public static function getOldStockListAPI($user_id, $count){
+        $locations = Location::getUserLocationIdArray($user_id);
+        return DB::table('view_current_stock')
+            ->select('*')
+            ->where('stock_status', '=', 'C')
+            ->whereIn('location_id', $locations)
+            ->orderBy('age', 'DESC')
+            ->get()
+            ->take($count);
+    }
+
     public static function stockDetail($master_id, $detail_id){
         $locations = Location::getUserLocationIdArray(Auth::id());
 

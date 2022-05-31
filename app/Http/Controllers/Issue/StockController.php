@@ -35,30 +35,27 @@ class StockController extends Controller
             compact('stocks', 'stock_images', 'master_id', 'detail_id'));
     }
     public function inActiveStock(){
-        $departments = Stock::getInActiveStockList();
+       // $departments = Stock::getInActiveStockList();
         // return $departments;
-        return view('issue.stock.in-active', compact('departments'));
+        return view('issue.stock.in-active');
     }
 
     public function oldStock(){
-        $departments = Stock::getClosedStockList(5000);
+       // $departments = Stock::getClosedStockList(5000);
         // return $departments;
-        return view('issue.stock.old', compact('departments'));
+        return view('issue.stock.old');
     }
 
 
     public function deleteStock(Request $request){
-        return Stock::returnDelete(Stock::returnMasterIdFromComplexStr($request->id),
-            Stock::returnDetailIdFromComplexStr($request->id));
+        return Stock::returnDelete($request->master_id, $request->detail_id);
     }
 
     public function activateStock(Request $request){
-        return Stock::returnActivate(Stock::returnMasterIdFromComplexStr($request->id),
-            Stock::returnDetailIdFromComplexStr($request->id));
+        return Stock::returnActivate($request->master_id, $request->detail_id);
     }
 
     public function deActivateStock(Request $request){
-        return Stock::returnDeActivate(Stock::returnMasterIdFromComplexStr($request->id),
-            Stock::returnDetailIdFromComplexStr($request->id));
+        return Stock::returnDeActivate($request->master_id, $request->detail_id);
     }
 }
