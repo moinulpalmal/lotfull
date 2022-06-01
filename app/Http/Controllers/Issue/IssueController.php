@@ -29,9 +29,8 @@ class IssueController extends Controller
         return view('issue.issued');
     }
 
-    public function transferred(){
-        $departments = IssueDetail::getActiveTransferredList();
-        return view('issue.transferred', compact('departments'));
+    public function transferred(){        
+        return view('issue.transferred');
     }
 
     public function deleteIssue(Request $request){
