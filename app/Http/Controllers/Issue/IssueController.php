@@ -29,7 +29,7 @@ class IssueController extends Controller
         return view('issue.issued');
     }
 
-    public function transferred(){        
+    public function transferred(){
         return view('issue.transferred');
     }
 

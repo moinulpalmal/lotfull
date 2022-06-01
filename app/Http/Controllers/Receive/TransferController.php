@@ -11,8 +11,7 @@ use Illuminate\Http\Request;
 class TransferController extends Controller
 {
     public function transferInserted(){
-        $departments = IssueDetail::getActiveTransferredForAcceptList();
-        return view('receive.transfer.transfer-inserted', compact('departments'));
+        return view('receive.transfer.transfer-inserted');
     }
 
     public function transferAccepted(){

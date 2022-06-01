@@ -252,6 +252,44 @@ class IssueDetail extends Model
             ->get();
     }
 
+    public static function getActiveTransferredForAcceptListAPI($user_id){
+        $locations = Location::getUserLocationIdArray($user_id);
+
+        return DB::table('issue_details')
+            ->join('stocks', function ($join) {
+                $join->on('stocks.receive_detail_id', '=', 'issue_details.receive_detail_id');
+                $join->on('stocks.receive_master_id', '=', 'issue_details.receive_master_id');
+            })
+            ->join('receive_details', function ($join) {
+                $join->on('receive_details.counter', '=', 'stocks.receive_detail_id');
+                $join->on('receive_details.receive_master_id', '=', 'stocks.receive_master_id');
+            })
+            ->join('receive_masters', 'receive_masters.id', '=', 'stocks.receive_master_id')
+            ->join('locations', 'locations.id', '=', 'issue_details.location_id')
+            ->join('buyers', 'buyers.id', '=', 'receive_details.buyer_id')
+            ->join('units', 'units.id', '=', 'receive_details.unit_id')
+            ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
+            ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
+            ->join('view_issue_details_to', 'view_issue_details_to.id', '=', 'issue_details.id')
+            ->join('issued_tos', 'issued_tos.id', '=', 'view_issue_details_to.issued_to')
+            ->select('receive_masters.id AS receive_master_id', 'receive_details.counter',
+                'locations.short_name AS location_short_name', 'issued_tos.issued_to_name',
+                'buyers.name AS buyer_name', 'buyer_styles.style_no',
+                'garments_types.name AS garments_type', 'units.short_unit',
+                'issue_details.reference_no',  'issue_details.issue_date', 'issue_details.issue_type',
+                'issue_details.issued_to', 'issue_details.remarks',
+                'issue_details.grade_a', 'issue_details.grade_b', 'issue_details.id',
+                'issue_details.grade_c', 'issue_details.grade_d','issue_details.grade_t', 'issue_details.is_issue_accepted',
+                'issue_details.issued_total_quantity', 'issue_details.status AS issue_status',
+                'issue_details.location_id', 'view_issue_details_to.issued_to', 'view_issue_details_to.age')
+            ->where('issue_details.status', '!=', 'D')
+            ->where('issue_details.issue_type', '=', 't')
+            ->where('issue_details.is_issue_accepted', '=', false)
+            ->whereIn('issue_details.issued_to', $locations)
+            ->orderBy('issue_details.issue_date', 'DESC')
+            ->get();
+    }
+
     public static function getActiveTransferredAcceptedList(){
         $locations = Location::getUserLocationIdArray(Auth::id());
 
@@ -286,6 +324,45 @@ class IssueDetail extends Model
             ->orderBy('issue_details.issue_date', 'DESC')
             ->get();
     }
+
+public static function getActiveTransferredAcceptedListAPI($user_id, $count){
+    $locations = Location::getUserLocationIdArray($user_id);
+
+    return DB::table('issue_details')
+        ->join('stocks', function ($join) {
+            $join->on('stocks.receive_detail_id', '=', 'issue_details.receive_detail_id');
+            $join->on('stocks.receive_master_id', '=', 'issue_details.receive_master_id');
+        })
+        ->join('receive_details', function ($join) {
+            $join->on('receive_details.counter', '=', 'stocks.receive_detail_id');
+            $join->on('receive_details.receive_master_id', '=', 'stocks.receive_master_id');
+        })
+        ->join('receive_masters', 'receive_masters.id', '=', 'stocks.receive_master_id')
+        ->join('locations', 'locations.id', '=', 'issue_details.location_id')
+        ->join('buyers', 'buyers.id', '=', 'receive_details.buyer_id')
+        ->join('units', 'units.id', '=', 'receive_details.unit_id')
+        ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
+        ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
+        ->join('view_issue_details_to', 'view_issue_details_to.id', '=', 'issue_details.id')
+        ->join('issued_tos', 'issued_tos.id', '=', 'view_issue_details_to.issued_to')
+        ->select('receive_masters.id AS receive_master_id', 'receive_details.counter',
+            'locations.short_name AS location_short_name', 'issued_tos.issued_to_name',
+            'buyers.name AS buyer_name', 'buyer_styles.style_no',
+            'garments_types.name AS garments_type', 'units.short_unit',
+            'issue_details.reference_no',  'issue_details.issue_date', 'issue_details.issue_type',
+            'issue_details.issued_to', 'issue_details.remarks',
+            'issue_details.grade_a', 'issue_details.grade_b', 'issue_details.id',
+            'issue_details.grade_c', 'issue_details.grade_d','issue_details.grade_t', 'issue_details.is_issue_accepted',
+            'issue_details.issued_total_quantity', 'issue_details.status AS issue_status',
+            'issue_details.location_id', 'view_issue_details_to.issued_to', 'view_issue_details_to.age')
+        ->where('issue_details.status', '!=', 'D')
+        ->where('issue_details.issue_type', '=', 't')
+        ->where('issue_details.is_issue_accepted', '=', true)
+        ->whereIn('issue_details.issued_to', $locations)
+        ->orderBy('issue_details.issue_date', 'DESC')
+        ->get()
+        ->take($count);
+}
 
     /*public static function getActiveTransferredAcceptedList(){
         $locations = Location::getUserLocationIdArray(Auth::id());

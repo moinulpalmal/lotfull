@@ -29,6 +29,9 @@ Route::get('receive/list/master/inserted/{user_id}', 'Receive\API\MasterControll
 Route::get('receive/list/detail/inserted/{user_id}', 'Receive\API\DetailController@listInserted');
 Route::get('receive/list/detail/qc-inserted/{user_id}', 'Receive\API\DetailController@listQCInserted');
 Route::get('receive/list/detail/qc-finished/{user_id}', 'Receive\API\DetailController@listQCFinished');
+Route::get('receive/list/transfer/inserted/{user_id}', 'Receive\API\TransferController@transferInserted');
+Route::get('receive/list/transfer/approved/{count}/{user_id}', 'Receive\API\TransferController@transferAccepted');
+
 
 Route::get('issue/stock/current-active/{user_id}', 'Issue\API\StockController@currentStock');
 Route::get('issue/stock/current-in-active/{user_id}', 'Issue\API\StockController@inActiveStock');
