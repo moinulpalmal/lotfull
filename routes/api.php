@@ -33,3 +33,6 @@ Route::get('receive/list/detail/qc-finished/{user_id}', 'Receive\API\DetailContr
 Route::get('issue/stock/current-active/{user_id}', 'Issue\API\StockController@currentStock');
 Route::get('issue/stock/current-in-active/{user_id}', 'Issue\API\StockController@inActiveStock');
 Route::get('issue/stock/old/{count}/{user_id}', 'Issue\API\StockController@oldStock');
+
+Route::get('issue/detail/issued/{count}/{user_id}', 'Issue\API\IssueController@issued');
+Route::get('issue/detail/transferred/{count}/{user_id}', 'Issue\API\IssueController@transferred');

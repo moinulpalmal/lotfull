@@ -26,8 +26,7 @@ class IssueController extends Controller
     }
 
     public function issued(){
-        $departments = IssueDetail::getActiveIssuedList();
-        return view('issue.issued', compact('departments'));
+        return view('issue.issued');
     }
 
     public function transferred(){

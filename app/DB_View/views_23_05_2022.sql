@@ -61,4 +61,11 @@ AND stock_thresholds.max_day >= DATEDIFF(CURDATE(), receive_masters.receive_date
 ORDER BY stocks.receive_date, receive_masters.id, receive_details.counter
 /* view_rm_update_access */
 
+/* view_issue_details_from */
+CREATE VIEW view_issue_details_to AS
+SELECT issue_details.id, IF(issue_details.issue_type = 'v', CONCAT("v","-",issue_details.issued_to), CONCAT("l","-",issue_details.issued_to)) AS issued_to,
+DATEDIFF(CURDATE(), issue_details.issue_date) AS age
+FROM issue_details
+/* view_issue_details_from */
+
 
