@@ -33,6 +33,22 @@ class ReceiveMaster extends Model
         return 0;
     }
 
+    public static function returnMasterForUpdate($id){
+        $model = ReceiveMaster::find($id);
+        if($model != null){
+            $data = array(
+                'receive_from' => $model->receive_from,
+                'location' => $model->location_id,
+                'reference_no' => $model->reference_no,
+                'receive_date' => $model->receive_date,
+                'remarks' => $model->remarks,
+                'id' => $model->id
+            );
+            return $data;
+        }
+        return '0';
+    }
+
     public static function returnUpdate($request){
         //return $request->all();
         $receiveMaster = ReceiveMaster::find($request->id);
@@ -89,6 +105,18 @@ class ReceiveMaster extends Model
             ->whereIn('location_id', $locations)
             ->orderBy('receive_date', 'ASC')
             ->get();
+    }
+
+    public static function  getAllNReceiveMasterListInsertedApi($user_id, $count){
+        $locations = Location::getUserLocationIdArray($user_id);
+
+        return DB::table('view_receive_masters')
+            ->select('view_receive_masters.*')
+            ->where('view_receive_masters.status', '=', 'I')
+            ->whereIn('view_receive_masters.location_id', $locations)
+            ->orderBy('view_receive_masters.age', 'ASC')
+            ->get()
+            ->take($count);
     }
 
     public static function checkUpdateAccess($id){

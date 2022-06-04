@@ -245,6 +245,7 @@ Auth::routes();
 Route::group(['as' => 'receive.','prefix' => 'receive','namespace' => 'Receive','middleware' => ['auth','receive']] , function(){
     Route::get('new', 'InsertController@new')->name('new');
     Route::post('save', 'InsertController@save')->name('save');
+    Route::post('master/edit', 'MasterController@editMaster')->name('master.edit');
     Route::post('master/update', 'MasterController@updateMaster')->name('master.update');
     Route::delete('master/delete', 'MasterController@deleteMaster')->name('master.delete');
 
@@ -275,6 +276,7 @@ Route::group(['as' => 'receive.','prefix' => 'receive','namespace' => 'Receive',
     Route::delete('list/detail/approve-qc-single', 'DetailController@approveSingleQCInserted')->name('list.detail.approve-qc-single');
     Route::delete('list/detail/approve-all-qc-inserted', 'DetailController@approveAllQCInserted')->name('list.detail.approve-all-qc-inserted');
     Route::post('list/detail/insert-qc', 'DetailController@insertQC')->name('list.detail.insert-qc');
+    Route::post('list/detail/edit-qc', 'DetailController@editQC')->name('list.detail.edit-qc');
 
     Route::delete('approve', 'InsertController@approve')->name('approve');
     Route::delete('delete', 'InsertController@delete')->name('delete');
@@ -294,6 +296,8 @@ Route::group(['as' => 'issue.','prefix' => 'issue','namespace' => 'Issue','middl
     Route::get('stock/current', 'StockController@currentStock')->name('stock.current');
     Route::get('stock/current/print-view/{master_id}/{detail_id}', 'StockController@stockPrintView')->name('stock.current.print-view');
     Route::get('stock/in-active', 'StockController@inActiveStock')->name('stock.in-active');
+
+    Route::post('stock/current/issue-value', 'StockController@issueValue')->name('stock.current.issue-value');
 
     Route::delete('stock/current/activate', 'StockController@activateStock')->name('stock.current.activate');
     Route::delete('stock/current/de-activate', 'StockController@deActivateStock')->name('stock.current.de-activate');

@@ -33,6 +33,8 @@ class ReceiveDetail extends Model
         return '0';
     }
 
+
+
     public static function insertSingleForTransfer($masterId, $request){
         $buyer_id = ReceiveDetail::returnBuyerId($request->receive_master_id, $request->receive_detail_id);
         //return $request;
@@ -66,6 +68,8 @@ class ReceiveDetail extends Model
         }
         return '0';
     }
+
+
 
     public static function returnBuyerId($receive_master_id, $receive_detail_id){
         $data = DB::table('receive_details')
@@ -252,6 +256,82 @@ class ReceiveDetail extends Model
             ->get();
     }
 
+    public static function editQC($request){
+
+        $model = DB::table('receive_details')
+            ->join('view_receive_masters', 'view_receive_masters.id', '=', 'receive_details.receive_master_id')
+            ->join('units', 'units.id', '=', 'receive_details.unit_id')
+            ->join('buyers', 'buyers.id', '=', 'receive_details.buyer_id')
+            ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
+            ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
+            ->select('view_receive_masters.id', 'view_receive_masters.receive_date',
+                'view_receive_masters.receive_type', 'view_receive_masters.reference_no',
+                'view_receive_masters.receive_from_name', 'view_receive_masters.receive_from_short_name',
+                'buyers.name AS buyer_name', 'buyer_styles.style_no',
+                'garments_types.name AS garments_type', 'units.short_unit',
+                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
+                'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
+                'receive_details.status AS receive_detail_status', 'receive_details.remarks')
+            ->where('receive_master_id', $request->id)
+            ->where('counter', $request->detail_id)
+            ->get();
+
+        if($model->count() > 0){
+            $data = array(
+                'id' => $model[0]->id,
+                'counter' => $model[0]->counter,
+                'receive_date' => $model[0]->receive_date,
+                'receive_type' => $model[0]->receive_type,
+                'reference_no' => $model[0]->reference_no,
+                'receive_from_name' => $model[0]->receive_from_name,
+                'receive_from_short_name' => $model[0]->receive_from_short_name,
+                'buyer_name' => $model[0]->buyer_name,
+                'style_no' => $model[0]->style_no,
+                'garments_type' => $model[0]->garments_type,
+                'short_unit' => $model[0]->short_unit,
+                'received_total_quantity' => $model[0]->received_total_quantity,
+                'qc_date' => $model[0]->qc_date,
+                'grade_a' => $model[0]->grade_a,
+                'grade_b' => $model[0]->grade_b,
+                'grade_c' => $model[0]->grade_c,
+                'grade_d' => $model[0]->grade_d,
+                'grade_t' => $model[0]->grade_t,
+            );
+            return $data;
+        }
+
+        return '0';
+    }
+
+    public static function getInsertedListAPI($user_id){
+        $locations = Location::getUserLocationIdArray($user_id);
+
+        return DB::table('receive_details')
+            ->join('buyers', 'buyers.id', '=', 'receive_details.buyer_id')
+            ->join('units', 'units.id', '=', 'receive_details.unit_id')
+            ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
+            ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
+            ->leftJoin('view_receive_masters', 'view_receive_masters.id', '=', 'receive_details.receive_master_id')
+            ->select('view_receive_masters.id AS receive_master_id', 'view_receive_masters.receive_type',
+                'view_receive_masters.receive_date', 'view_receive_masters.reference_no',
+                'view_receive_masters.receive_from_name', 'view_receive_masters.receive_from_short_name',
+                'view_receive_masters.stock_location', 'view_receive_masters.color_code',
+                'view_receive_masters.age','view_receive_masters.stock_threshold_status',
+                'view_receive_masters.status AS receive_master_status',
+                'buyers.name AS buyer_name', 'buyer_styles.style_no',
+                'garments_types.name AS garments_type', 'units.short_unit',
+                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
+                'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
+                'receive_details.status AS receive_detail_status', 'receive_details.remarks')
+            ->where('receive_details.status', '=', 'I')
+            ->where('view_receive_masters.status', '!=', 'D')
+            ->whereIn('view_receive_masters.location_id', $locations)
+            ->orderBy('view_receive_masters.age', 'DESC')
+            ->get();
+    }
+
     public static function getQCInsertedList(){
         $locations = Location::getUserLocationIdArray(Auth::id());
         return DB::table('receive_details')
@@ -277,9 +357,35 @@ class ReceiveDetail extends Model
             ->get();
     }
 
+    public static function getQCInsertedListAPI($user_id){
+        $locations = Location::getUserLocationIdArray($user_id);
+        return DB::table('receive_details')
+            ->join('buyers', 'buyers.id', '=', 'receive_details.buyer_id')
+            ->join('units', 'units.id', '=', 'receive_details.unit_id')
+            ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
+            ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
+            ->leftJoin('view_receive_masters', 'view_receive_masters.id', '=', 'receive_details.receive_master_id')
+            ->select('view_receive_masters.id AS receive_master_id', 'view_receive_masters.receive_type',
+                'view_receive_masters.receive_date', 'view_receive_masters.reference_no',
+                'view_receive_masters.receive_from_name', 'view_receive_masters.receive_from_short_name',
+                'view_receive_masters.stock_location', 'view_receive_masters.color_code',
+                'view_receive_masters.age','view_receive_masters.stock_threshold_status',
+                'view_receive_masters.status AS receive_master_status',
+                'buyers.name AS buyer_name', 'buyer_styles.style_no',
+                'garments_types.name AS garments_type', 'units.short_unit',
+                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
+                'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
+                'receive_details.status AS receive_detail_status', 'receive_details.remarks')
+            ->where('receive_details.status', '=', 'QCI')
+            ->where('view_receive_masters.status', '!=', 'D')
+            ->whereIn('view_receive_masters.location_id', $locations)
+            ->orderBy('view_receive_masters.age', 'DESC')
+            ->get();
+    }
+
     public static function getQCFinishedList(){
         $locations = Location::getUserLocationIdArray(Auth::id());
-
         return DB::table('receive_details')
             ->join('receive_masters', 'receive_masters.id', '=', 'receive_details.receive_master_id')
             ->join('locations', 'locations.id', '=', 'receive_masters.location_id')
@@ -300,6 +406,33 @@ class ReceiveDetail extends Model
             ->whereIn('receive_masters.location_id', $locations)
             ->orderBy('receive_masters.id', 'DESC')
             ->orderBy('receive_details.counter', 'ASC')
+            ->get();
+    }
+
+    public static function getQCFinishedListAPI($user_id){
+        $locations = Location::getUserLocationIdArray($user_id);
+        return DB::table('receive_details')
+            ->join('buyers', 'buyers.id', '=', 'receive_details.buyer_id')
+            ->join('units', 'units.id', '=', 'receive_details.unit_id')
+            ->join('buyer_styles', 'buyer_styles.id', '=', 'receive_details.buyer_style_id')
+            ->join('garments_types', 'garments_types.id', '=', 'receive_details.garments_type_id')
+            ->leftJoin('view_receive_masters', 'view_receive_masters.id', '=', 'receive_details.receive_master_id')
+            ->select('view_receive_masters.id AS receive_master_id', 'view_receive_masters.receive_type',
+                'view_receive_masters.receive_date', 'view_receive_masters.reference_no',
+                'view_receive_masters.receive_from_name', 'view_receive_masters.receive_from_short_name',
+                'view_receive_masters.stock_location', 'view_receive_masters.color_code',
+                'view_receive_masters.age','view_receive_masters.stock_threshold_status',
+                'view_receive_masters.status AS receive_master_status',
+                'buyers.name AS buyer_name', 'buyer_styles.style_no',
+                'garments_types.name AS garments_type', 'units.short_unit',
+                'receive_details.received_total_quantity', 'receive_details.grade_a', 'receive_details.grade_b',
+                'receive_details.grade_c', 'receive_details.grade_d', 'receive_details.grade_t', 'receive_details.qc_date',
+                'receive_details.qc_c_quantity', 'receive_details.qc_nc_quantity', 'receive_details.counter',
+                'receive_details.status AS receive_detail_status', 'receive_details.remarks')
+            ->where('receive_details.status', '=', 'QCF')
+            ->where('view_receive_masters.status', '!=', 'D')
+            ->whereIn('view_receive_masters.location_id', $locations)
+            ->orderBy('view_receive_masters.age', 'DESC')
             ->get();
     }
 }

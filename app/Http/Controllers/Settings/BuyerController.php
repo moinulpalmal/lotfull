@@ -11,12 +11,10 @@ use Maatwebsite\Excel\Facades\Excel;
 class BuyerController extends Controller
 {
     public function index(){
-       // $this->oldData();
-        $departments = Buyer::allNotDeleteBuyers();
-        return view('settings.buyer', compact('departments'));
+        return view('settings.buyer');
     }
 
-    private function oldData(){
+   /* private function oldData(){
 // for old data
         //return $req->all();
         $collection = Excel::toArray(new BuyerImports(), 'upload/Buyer.xlsx');
@@ -40,9 +38,9 @@ class BuyerController extends Controller
         };
 
         // $this->mapOldData();
-    }
+    }*/
 
-    private function isExist($value){
+   /* private function isExist($value){
         $data = DB::table('buyers')
             ->select('id')
             ->where('name', (string)$value)
@@ -52,7 +50,7 @@ class BuyerController extends Controller
             return true;
         }
         return false;
-    }
+    }*/
 
     public function save(Request $request){
         //return $request->all();

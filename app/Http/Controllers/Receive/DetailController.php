@@ -11,20 +11,15 @@ use Illuminate\Http\Request;
 class DetailController extends Controller
 {
     public function listInserted(){
-        $departments = ReceiveDetail::getInsertedList();
-        //return $departments;
-        return view('receive.detail.list-inserted', compact('departments'));
+        return view('receive.detail.list-inserted');
     }
+
     public function listQCFinished(){
-        $departments = ReceiveDetail::getQCFinishedList();
-        //return $departments;
-        return view('receive.detail.list-qc-finished', compact('departments'));
+        return view('receive.detail.list-qc-finished');
     }
 
     public function listQCInserted(){
-        $departments = ReceiveDetail::getQCInsertedList();
-        //return $departments;
-        return view('receive.detail.list-qc-inserted', compact('departments'));
+               return view('receive.detail.list-qc-inserted');
     }
 
     public function deleteDetail(Request $request){
@@ -42,6 +37,11 @@ class DetailController extends Controller
 
         return ReceiveDetail::returnInsertQC($request);
 
+    }
+
+    public function editQC(Request $request){
+       // return json_encode($request->all());
+        return ReceiveDetail::editQC($request);
     }
 
     public function approveSingleQCInserted(Request $request){

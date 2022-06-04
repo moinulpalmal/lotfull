@@ -12,12 +12,10 @@ use Maatwebsite\Excel\Facades\Excel;
 class VendorController extends Controller
 {
     public function index(){
-       // $this->oldData();
-        $departments = Vendor::allNotDeleteVendors();
-        return view('settings.vendor', compact('departments'));
+        return view('settings.vendor');
     }
 
-    private function oldData(){
+   /* private function oldData(){
 // for old data
         //return $req->all();
         $collection = Excel::toArray(new BuyerImports(), 'upload/Vendor.xlsx');
@@ -53,7 +51,7 @@ class VendorController extends Controller
             return true;
         }
         return false;
-    }
+    }*/
 
     public function save(Request $request){
         //return $request->all();

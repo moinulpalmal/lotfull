@@ -26,13 +26,11 @@ class IssueController extends Controller
     }
 
     public function issued(){
-        $departments = IssueDetail::getActiveIssuedList();
-        return view('issue.issued', compact('departments'));
+        return view('issue.issued');
     }
 
     public function transferred(){
-        $departments = IssueDetail::getActiveTransferredList();
-        return view('issue.transferred', compact('departments'));
+        return view('issue.transferred');
     }
 
     public function deleteIssue(Request $request){

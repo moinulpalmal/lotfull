@@ -31,7 +31,7 @@
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
                                         <li><a data-action="collapse" title="minimize"><i class="feather icon-minus"></i></a></li>
-                                        {{--<li><a data-action="reload"><i class="feather icon-rotate-cw"></i></a></li>--}}
+                                        <li><a data-action="reload" onclick="loadDataTable()" id="DataTableButton"><i class="feather icon-rotate-cw"></i></a></li>
                                         <li><a data-action="expand" title="maximize"><i class="feather icon-maximize"></i></a></li>
                                         {{--<li><a data-action="close"><i class="feather icon-x"></i></a></li>--}}
                                     </ul>
@@ -42,8 +42,8 @@
                                     <table id="social-media-table" class="table table-striped table-bordered table-condensed social-media table-info">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Receive Date</th>
                                                 <th class="text-center">Age</th>
+                                                <th class="text-center">Receive Date</th>
                                                 <th class="text-center">Challan No</th>
                                                 <th class="text-center">Receive From</th>
                                                 <th class="text-center">Receive Type</th>
@@ -52,60 +52,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @if(!empty($departments))
-                                            @foreach($departments as $media)
-                                                <tr>
-                                                    <td class="text-center">
-                                                        {{\Carbon\Carbon::parse($media->receive_date)->format('d-M-Y')}}
-                                                    </td>
-                                                    <td class="text-center" style="background-color: {{\App\Model\StockThreshold::returnColorCode(\App\Helpers\Helper::ageInDays($media->receive_date))}}">
-                                                        {{\App\Helpers\Helper::ageInDays($media->receive_date)}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {{$media->reference_no}}
-                                                    </td>
-                                                    <td class="text-left">
-                                                        @if($media->receive_type == 'r')
-                                                            {{\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->factory_name." "."-"." ".\App\Helpers\Helper::IDwiseData('factories', 'id', $media->receive_from)->unit_name}}
-                                                        @else
-                                                            {{\App\Helpers\Helper::IDwiseData('locations', 'id', $media->receive_from)->name}}
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-left">
-                                                        @if($media->receive_type == 'r')
-                                                            New Receive
-                                                        @else
-                                                            Transfer Receive
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-left">
-                                                        {{\App\Helpers\Helper::IDwiseData('locations', 'id', $media->location_id)->name}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if(\App\Model\ReceiveMaster::checkUpdateAccess($media->id) == true)
-                                                            @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
-                                                                @if((\App\Helpers\Helper::ageInDays($media->receive_date)) < 46)
-                                                                    <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
-                                                                @else
-                                                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
-                                                                        <a class="btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp" data-id="{{$media->id}}" title="Delete"></a>
-                                                                    @endif
-                                                                @endif
-                                                            @endif
-                                                            @if(Auth::user()->hasTaskPermission('receive_update', Auth::user()->id))
-                                                                <a class="btn btn-warning btn-sm btn-round fa fa-edit" onclick=" $('#UpdateMaster{{$media->id}}').modal({backdrop: 'static', keyboard: false});" data-toggle="modal" {{-- data-target="#NewFactory"--}} title="Update Master"></a>
-                                                                @endif
-                                                                    {{-- @if($media->status == 'A')
-                                                                <a class="btn btn-warning btn-sm btn-round fa fa-times DeActivateWorkExp" data-id="{{$media->id}}" title="De-Activate Factory"></a>
-                                                                @elseif($media->status == 'I')
-                                                                <a class="btn btn-cyan btn-sm btn-round fa fa-check ActivateWorkExp" data-id="{{$media->id}}" title="Activate Factory"></a>
-                                                                @else
-                                                            @endif--}}
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -129,92 +76,84 @@
     </div>
 @endsection
 @section('page-modals')
-    @if(!empty($departments))
-        @foreach($departments as $media)
-            <div class="modal fade text-left" id="UpdateMaster{{$media->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-gradient-radial-cyan white">
-                            <h4 class="modal-title text-bold-700" id="myModalLabel16">Update Receive Master</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form class="form" id="UpdateMasterForm{{$media->id}}" method="post" action="#">
-                            <div class="modal-body">
-                                @csrf
-                                <input type="hidden" id="MasterIDT" class="form-control" name="id" value="{{old('id', $media->id)}}">
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
-                                            <div class="form-group">
-                                                <label for="Factory{{$media->id}}" class="text-bold-700">Receive From</label>
-                                                <select id="Factory{{$media->id}}" class="select2 form-control" name="receive_from" required>
-                                                    <option value="" >- - - Select - - -</option>
-                                                    @if(!empty($factories))
-                                                        @foreach($factories AS $item)
-                                                            @if($factories->count() > 1)
-                                                                <option value="{{$item->id}}" @if($item->id == $media->receive_from) selected = "selected" @endif>{{$item->name}}</option>
-                                                            @else
-                                                                <option value="{{$item->id}}" @if($item->id == $media->receive_from) selected = "selected" @endif>{{$item->name}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 no-padding">
-                                            <div class="form-group">
-                                                <label for="Locations{{$media->id}}" class="text-bold-700">Location</label>
-                                                <select id="Locations{{$media->id}}" class="select2 form-control" name="location" required>
-                                                    <option value="" >- - - Select - - -</option>
-                                                    @if(!empty($locations))
-                                                        @foreach($locations AS $item)
-                                                            @if($locations->count() > 1)
-                                                                <option value="{{$item->id}}" @if($item->id == $media->location_id) selected = "selected" @endif>{{$item->name}}</option>
-                                                            @else
-                                                                <option value="{{$item->id}}" @if($item->id == $media->location_id) selected = "selected" @endif>{{$item->name}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 no-padding">
-                                            <div class="form-group">
-                                                <label for="ReceiveDate{{$media->id}}" class="text-bold-700">Receive Date</label>
-                                                <input type="date" id="ReceiveDate" class="form-control" name="receive_date" required value="{{old('receive_date', $media->receive_date)}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 no-padding" style="padding-right: 10px !important;">
-                                            <div class="form-group">
-                                                <label for="ChallanNo{{$media->id}}" class="text-bold-700">Challan No</label>
-                                                <input type="text" id="ChallanNo" class="form-control" name="reference_no" required value="{{old('reference_no', $media->reference_no)}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 no-padding" style="padding-left: 10px !important; padding-right: 10px !important;">
-                                            <div class="form-group">
-                                                <label for="Remarks{{$media->id}}" class="text-bold-700">Remarks</label>
-                                                <input type="text" id="Remarks" maxlength="250" class="form-control" name="remarks" value="{{old('remarks', $media->remarks)}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                <div {{--class="form-actions right"--}}>
-                                    <button type="submit" id="submit_button_new_buyerT{{$media->id}}" class="btn btn-outline-primary">
-                                        <i class="fa fa-check"></i> Update Receive Master
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <div class="modal fade text-left" id="UpdateMasterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+       <div class="modal-dialog modal-xl" role="document">
+           <div class="modal-content">
+               <div class="modal-header bg-gradient-radial-cyan white">
+                   <h4 class="modal-title text-bold-700" id="myModalLabel16">Update Receive Master</h4>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" {{--onclick="clearForm('UpdateMasterForm')"--}}>
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <form class="form" id="UpdateMasterForm" method="post" action="#">
+                   <div class="modal-body">
+                       @csrf
+                       <input type="hidden" id="MasterIDT" class="form-control" name="id" >
+                       <div class="form-body">
+                           <div class="row">
+                               <div class="col-md-3 no-padding" style="padding-left: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="Factory" class="text-bold-700">Receive From</label>
+                                       <select id="Factory" class="select2 form-control" name="receive_from" required>
+                                           <option value="" >- - - Select - - -</option>
+                                           @if(!empty($factories))
+                                               @foreach($factories AS $item)
+                                                   @if($factories->count() > 1)
+                                                       <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                   @else
+                                                       <option value="{{$item->id}}" selected = "selected">{{$item->name}}</option>
+                                                   @endif
+                                               @endforeach
+                                           @endif
+                                       </select>
+                                   </div>
+                               </div>
+                               <div class="col-md-3 no-padding">
+                                   <div class="form-group">
+                                       <label for="Locations" class="text-bold-700">Location</label>
+                                       <select id="Locations" class="select2 form-control" name="location" required>
+                                           <option value="" >- - - Select - - -</option>
+                                           @if(!empty($locations))
+                                               @foreach($locations AS $item)
+                                                   @if($locations->count() > 1)
+                                                       <option value="{{$item->id}}">{{$item->name}}</option>
+                                                   @else
+                                                       <option value="{{$item->id}}" selected = "selected">{{$item->name}}</option>
+                                                   @endif
+                                               @endforeach
+                                           @endif
+                                       </select>
+                                   </div>
+                               </div>
+                               <div class="col-md-2 no-padding">
+                                   <div class="form-group">
+                                       <label for="ReceiveDate" class="text-bold-700">Receive Date</label>
+                                       <input type="date" id="ReceiveDate" class="form-control" name="receive_date" required >
+                                   </div>
+                               </div>
+                               <div class="col-md-4 no-padding" style="padding-right: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="ChallanNo" class="text-bold-700">Challan No</label>
+                                       <input type="text" id="ChallanNo" class="form-control" name="reference_no" required >
+                                   </div>
+                               </div>
+                               <div class="col-md-12 no-padding" style="padding-left: 10px !important; padding-right: 10px !important;">
+                                   <div class="form-group">
+                                       <label for="Remarks" class="text-bold-700">Remarks</label>
+                                       <input type="text" id="Remarks" maxlength="250" class="form-control" name="remarks" >
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" {{--onclick="clearForm('UpdateMasterForm')"--}} class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                       <button type="submit" id="update_master_button" class="btn btn-outline-primary"><i class="fa fa-check"></i> Update Receive Master</button>
+                   </div>
+                </form>
             </div>
-        @endforeach
-    @endif
+       </div>
+   </div>
 @endsection
 
 @section('pageScripts')
@@ -288,22 +227,6 @@
                 'pageLength'
             ]
         });
-        $('.social-media tfoot th').each( function () {
-            var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-        } );
-
-        dataTable.columns().every( function () {
-            var that = this;
-
-            $( 'input', this.footer() ).on( 'keyup change', function () {
-                if ( that.search() !== this.value ) {
-                    that
-                        .search( this.value )
-                        .draw();
-                }
-            } );
-        } );
 
         $(document).ready(function () {
             sessionStorage.clear();
@@ -311,15 +234,236 @@
                 dropdownAutoWidth: true,
                 width: '100%'
             });
+            loadDataTable();
+            //makeTableSearchAble();
         });
 
-        @if(!empty($departments))
-        @foreach($departments AS $media)
-            $(function(){
+        function hitTableRefresh() {
+            document.getElementById("DataTableButton").click();
+        }
+
+        function makeTableSearchAble(){
+            $('.social-media tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
+
+            dataTable.columns().every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        }
+
+        function returnStringFormatDate(_date) {
+            let targetDate = Date.parse(_date);
+            let currentDate = new Date(targetDate);
+            return currentDate.toDateString();
+            //return targetDate.('en')
+        }
+
+        function returnBDStringFormatDate(_date) {
+            let targetDate = Date.parse(_date);
+            let currentDate = new Date(targetDate);
+            let date = currentDate.getDate();
+            if(date < 10){
+                date = '0' + date;
+            }
+            let month = currentDate.getMonth() + 1;
+            if(month < 10){
+                month = '0'+month;
+            }
+            let year = currentDate.getFullYear();
+            return date + '/' + month + '/' + year;
+        }
+
+        function loadDataTable() {
+            dataTable.destroy();
+            var free_table = '<tr><td class="text-center" colspan="7">--- Please Wait... Loading Data  ----</td></tr>';
+
+            $('.social-media').find('tbody').append(free_table);
+
+            dataTable = $('.social-media').DataTable({
+                ajax: {
+                    url: "/lotfull/public/api/receive/list/master/inserted/{{ Auth::user()->id}}",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.age === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left text-bold' style='color: "+ api_item.color_code +"; font-weight: bold '>"+ api_item.age +"</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.receive_date === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ returnBDStringFormatDate(api_item.receive_date) +"</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.reference_no === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ api_item.reference_no +"</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.receive_from_name === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ api_item.receive_from_name + " - " + api_item.receive_from_short_name + "</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.receive_type === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                if(api_item.receive_type === 'r'){
+                                    return "<p class = 'text-left'>New Receive</p>";
+                                }
+                                else{
+                                    return "<p class = 'text-left'>Transfer Receive</p>";
+                                }
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item){
+                            if(api_item.stock_location === null){
+                                return "<p class = 'text-left'></p>";
+                            }else{
+                                return "<p class = 'text-left'>"+ api_item.stock_location + "</p>";
+                            }
+                        }
+                    },
+                    {
+                        render: function(data, type, api_item) {
+                            if(parseInt(api_item.update_access) === 1){
+                                if(parseInt(api_item.age)  < 46){
+                                    return "<p class='text-center'>" +
+                                        @if(Auth::user()->hasTaskPermission('receive_delete', Auth::user()->id))
+                                            "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.id +"></a>" +
+                                            " &nbsp;" +
+                                        @endif
+                                            @if(Auth::user()->hasTaskPermission('receive_update', Auth::user()->id))
+                                            "<a title= 'Update Master' class= 'btn btn-warning btn-sm btn-round fa fa-edit UpdateMaster' data-toggle='modal' onclick='openUpdateMasterModal();'  data-id = "+ api_item.id +"></a>" +
+                                            " &nbsp;" +
+                                            @endif
+                                            "</p>";
+                                }
+                                else{
+
+                                    return "<p class='text-center'>" +
+                                    @if(Auth::user()->hasPermission('administrator', Auth::user()->id))
+                                        "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.id +"></a>" +
+                                    " &nbsp;" +
+                                    @endif
+                                        @if(Auth::user()->hasTaskPermission('receive_update', Auth::user()->id))
+                                        "<a title= 'Update Master' class= 'btn btn-warning btn-sm btn-round fa fa-edit UpdateMaster' onclick='openUpdateMasterModal();' data-toggle='modal'  data-id = "+ api_item.id +"></a>" +
+                                        " &nbsp;" +
+                                        @endif
+                                        "</p>";
+                                }
+
+                            }
+                            else{
+                                return "<p class='text-center'></p>";
+                            }
+                        }
+                     }
+                ],
+                dom: 'Bfrtip',
+                pagingType: 'full_numbers',
+                className: 'my-1',
+                lengthMenu: [
+                    [ 10, 25, 50, 100, -1 ],
+                    [ '10 rows', '25 rows', '50 rows', '100 rows', 'Show all' ]
+                ],
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        fieldSeparator: '\t',
+                        extension: '.tsv',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'portrait',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        },
+                        customize: function(win)
+                        {
+                            var css = '@page { size: landscape; }',
+                                head = win.document.head || win.document.getElementsByTagName('head')[0],
+                                style = win.document.createElement('style');
+
+                            style.type = 'text/css';
+                            style.media = 'print';
+
+                            if (style.styleSheet)
+                            {
+                                style.styleSheet.cssText = css;
+                            }
+                            else
+                            {
+                                style.appendChild(win.document.createTextNode(css));
+                            }
+
+                            head.appendChild(style);
+                        }
+                    },
+                    'colvis',
+                    'pageLength'
+                ]
+            });
+            makeTableSearchAble();
+        }
+
+        $(function(){
             $.ajaxSetup({
                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
             });
-            $('#UpdateMasterForm{{$media->id}}').submit(function(e){
+            $('#UpdateMasterForm').submit(function(e){
                 e.preventDefault();
                 /* for ( instance in CKEDITOR.instances ) {
                      CKEDITOR.instances[instance].updateElement();
@@ -328,21 +472,40 @@
                 // var id = $('#HiddenFactoryID').val();
                 var url = '{{ route('receive.master.update') }}';
                 //console.log(data);
-               // return;
+                // return;
                 $.ajax({
                     url: url,
                     method:'POST',
                     data:data,
                     success:function(data){
-                        //console.log(data);
-                        //return;
                         if(data === '2')
                         {
-                            swalUpdateSuccessfulWithRefresh();
+                            swal({
+                                title: "Data Updated Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    $("#UpdateMasterModal").modal('hide');
+                                    //clearFormWithoutDelay('WorkExperienceForm');
+                                    //changeButtonText(' Save', 'submit_button', 3);
+                                }
+                            });
                         }
                         else if(data === '1')
                         {
-                            swalInsertSuccessfulWithRefresh();
+                            swal({
+                                title: "Data Inserted Successfully!",
+                                icon: "success",
+                                button: "Ok!",
+                            }).then(function (value) {
+                                if(value){
+                                    hitTableRefresh();
+                                    //clearFormWithoutDelay('WorkExperienceForm');
+                                    //changeButtonText(' Save', 'submit_button', 3);
+                                }
+                            });
                         }
                         else if(data === '0'){
                             swalDataNotSaved();
@@ -358,8 +521,6 @@
 
             })
         });
-        @endforeach
-        @endif
 
         $('#social-media-table').on('click',".DeleteWorkExp", function(){
             var button = $(this);
@@ -380,8 +541,15 @@
                         data:{id: id, _token: '{{csrf_token()}}'},
                         success:function(data){
                             if(data === '1'){
-                                //console.log(data);
-                                swalSuccessFullWithRefresh();
+                                swal({
+                                    title: "Operation Successful!",
+                                    icon: "success",
+                                    button: "Ok!",
+                                }).then(function (value) {
+                                    if(value){
+                                        hitTableRefresh();
+                                    }
+                                });
                             }
                             else if(data === '0'){
                                 swalUnSuccessFull();
@@ -414,12 +582,17 @@
                         data:{id: id, _token: '{{csrf_token()}}'},
                         success:function(data){
                             if(data === '1'){
-                                swalSuccessFullWithRefresh();
+                                swal({
+                                    title: "Operation Successful!",
+                                    icon: "success",
+                                    button: "Ok!",
+                                }).then(function (value) {
+                                    if(value){
+                                        hitTableRefresh();
+                                    }
+                                });
                             }
                             else if(data === '0'){
-                                swalUnSuccessFull();
-                            }
-                            else{
                                 swalUnSuccessFull();
                             }
                         },
@@ -451,13 +624,17 @@
                         data:{id: id, _token: '{{csrf_token()}}'},
                         success:function(data){
                             if(data === '1'){
-                                //console.log(data);
-                                swalSuccessFullWithRefresh();
+                                swal({
+                                    title: "Operation Successful!",
+                                    icon: "success",
+                                    button: "Ok!",
+                                }).then(function (value) {
+                                    if(value){
+                                        hitTableRefresh();
+                                    }
+                                });
                             }
                             else if(data === '0'){
-                                swalUnSuccessFull();
-                            }
-                            else{
                                 swalUnSuccessFull();
                             }
                         },
@@ -469,6 +646,37 @@
                 }
             });
         });
+
+        $('#social-media-table').on('click',".UpdateMaster", function(){
+            var button = $(this);
+            var id = button.attr("data-id");
+            var url = '{{ route('receive.master.edit') }}';
+            $.ajax({
+                url: url,
+                method:'POST',
+                data:{id: id, _token: '{{csrf_token()}}'},
+                success:function(data){
+                    $('select[name=receive_from]').val(data.receive_from).change();
+                    $('select[name=location]').val(data.location).change();
+                    $('input[name=receive_date]').val(data.receive_date);
+                    $('input[name=reference_no]').val(data.reference_no);
+                    $('input[name=remarks]').val(data.remarks);
+                    $('input[name=id]').val(data.id);
+                    //moveToTop();
+                    //changeButtonText(' Update', 'submit_button', 3);
+                },
+                error:function(error){
+                    //moveToTop();
+                    swalError(error);
+                    //clearForm('UpdateMasterForm');
+                   // changeButtonText(' Save', 'submit_button', 3);
+                }
+            })
+        });
+
+        function openUpdateMasterModal() {
+            $('#UpdateMasterModal').modal({backdrop: 'static', keyboard: false});
+        }
 
     </script>
 @endsection
