@@ -399,7 +399,7 @@
                     {
                         render: function(data, type, api_item) {
                             if(parseInt(api_item.is_issue_accepted) === 0){
-                                if(parseInt(api_item.age) < 16){
+                                if(parseInt(api_item.age) < 91){
                                     return "<p class='text-center'>" +
                                     @if(Auth::user()->hasTaskPermission('issue_delete', Auth::user()->id))
                                         "<a title= 'Delete' class= 'btn btn-danger btn-sm btn-round fa fa-trash DeleteWorkExp' data-id = "+ api_item.id +"></a>" +
